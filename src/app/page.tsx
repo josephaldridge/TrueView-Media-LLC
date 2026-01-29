@@ -93,7 +93,7 @@ export default function Home() {
               <span className="text-brand-600">drive calls</span>.
             </h1>
             <p className="text-xl text-slate-600 mb-8 max-w-2xl">
-              We build fast, professional websites for local service businesses—contractors, HVAC, plumbers, electricians, and more. No fluff. Just clean, effective sites that make your business look legit.
+              We build fast, professional websites for small businesses—contractors, HVAC, plumbers, barbers, shops and more.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact" className="btn-primary text-lg px-8 py-4">
