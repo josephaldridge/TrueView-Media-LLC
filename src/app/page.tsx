@@ -2,7 +2,6 @@ import Link from 'next/link';
 import {
   Section,
   SectionHeader,
-  ServiceCard,
   ProcessCard,
   FAQ,
   homepageFAQs,
@@ -12,38 +11,12 @@ import {
   Phone,
   ArrowRight,
   CheckCircle,
-  Globe,
-  RefreshCw,
   Search,
   Zap,
   Smartphone,
   Shield,
   FileCheck,
 } from 'lucide-react';
-
-const services = [
-  {
-    title: 'Website Build',
-    description:
-      'A complete, professional website built from scratch. Perfect for businesses that need a strong online presence.',
-    icon: Globe,
-    href: '/services#website-build',
-  },
-  {
-    title: 'Website Refresh',
-    description:
-      "Redesign or migrate your existing site for a modern look and better performance. Keep what works, fix what doesn't.",
-    icon: RefreshCw,
-    href: '/services#website-refresh',
-  },
-  {
-    title: 'Local SEO Setup',
-    description:
-      'On-page SEO fundamentals to help local customers find you. Proper titles, meta descriptions, and structured data.',
-    icon: Search,
-    href: '/services#local-seo',
-  },
-];
 
 const processSteps = [
   {
@@ -123,25 +96,6 @@ export default function Home() {
               <span className="font-medium text-slate-700">{point.text}</span>
             </div>
           ))}
-        </div>
-      </Section>
-
-      {/* Services Overview */}
-      <Section background="gray" id="services">
-        <SectionHeader
-          title="What we do"
-          subtitle="Focused services for local businesses that need professional results without the agency overhead."
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {services.map((service) => (
-            <ServiceCard key={service.title} {...service} />
-          ))}
-        </div>
-        <div className="mt-8 text-center">
-          <Link href="/services" className="btn-secondary">
-            View all services
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Link>
         </div>
       </Section>
 
