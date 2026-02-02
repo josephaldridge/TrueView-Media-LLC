@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
 const navigation = {
@@ -20,36 +21,38 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-900 text-slate-300" role="contentinfo">
+    <footer className="bg-black text-gray-400 border-t border-white/5" role="contentinfo">
       <div className="container-custom section-padding">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div className="lg:col-span-1">
-            <Link
-              href="/"
-              className="inline-flex items-center space-x-2 text-white font-semibold text-lg mb-4"
-            >
-              <span className="text-brand-400">TrueView</span>
-              <span>Media</span>
+            <Link href="/" className="inline-block mb-6">
+              <Image
+                src="/logo.png"
+                alt="TrueView Media"
+                width={220}
+                height={73}
+                className="h-20 w-auto"
+              />
             </Link>
-            <p className="text-sm leading-relaxed mb-6">
+            <p className="text-sm leading-relaxed mb-6 text-gray-400">
               Professional websites for local service businesses. Fast, reliable, and built to earn trust.
             </p>
-            <div className="flex items-center gap-2 text-sm text-slate-400">
-              <MapPin className="w-4 h-4 flex-shrink-0" />
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <MapPin className="w-4 h-4 flex-shrink-0 text-rose-gold" />
               <span>Based in Texas — serving clients nationwide.</span>
             </div>
           </div>
 
           {/* Navigation */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Navigation</h3>
+            <h3 className="text-white font-light tracking-wider uppercase text-sm mb-6">Navigation</h3>
             <ul className="space-y-3">
               {navigation.main.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-sm hover:text-white transition-colors"
+                    className="text-sm hover:text-rose-gold transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -60,13 +63,13 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Services</h3>
+            <h3 className="text-white font-light tracking-wider uppercase text-sm mb-6">Services</h3>
             <ul className="space-y-3">
               {navigation.services.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-sm hover:text-white transition-colors"
+                    className="text-sm hover:text-rose-gold transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -77,23 +80,23 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Contact</h3>
+            <h3 className="text-white font-light tracking-wider uppercase text-sm mb-6">Contact</h3>
             <ul className="space-y-4">
               <li>
                 <a
                   href="tel:972-339-0754"
-                  className="flex items-center gap-3 text-sm hover:text-white transition-colors"
+                  className="flex items-center gap-3 text-sm hover:text-rose-gold transition-colors"
                 >
-                  <Phone className="w-4 h-4 flex-shrink-0 text-brand-400" />
+                  <Phone className="w-4 h-4 flex-shrink-0 text-rose-gold" />
                   <span>972-339-0754</span>
                 </a>
               </li>
               <li>
                 <a
                   href="mailto:contact@trueviewmediallc.com"
-                  className="flex items-center gap-3 text-sm hover:text-white transition-colors"
+                  className="flex items-center gap-3 text-sm hover:text-rose-gold transition-colors"
                 >
-                  <Mail className="w-4 h-4 flex-shrink-0 text-brand-400" />
+                  <Mail className="w-4 h-4 flex-shrink-0 text-rose-gold" />
                   <span>contact@trueviewmediallc.com</span>
                 </a>
               </li>
@@ -107,12 +110,12 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 pt-8 border-t border-slate-800">
+        <div className="mt-12 pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-gray-500">
               © {currentYear} TrueView Media LLC. All rights reserved.
             </p>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-gray-600">
               Domain and hosting are owned by the client.
             </p>
           </div>

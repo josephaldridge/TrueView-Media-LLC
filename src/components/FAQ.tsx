@@ -24,19 +24,19 @@ export default function FAQ({ items }: FAQProps) {
       {items.map((item, index) => (
         <div
           key={index}
-          className="border border-slate-200 rounded-lg overflow-hidden"
+          className="border border-white/10 rounded-lg overflow-hidden bg-dark-500/30"
         >
           <button
-            className="w-full flex items-center justify-between px-6 py-4 text-left bg-white hover:bg-slate-50 transition-colors"
+            className="w-full flex items-center justify-between px-6 py-4 text-left bg-transparent hover:bg-white/5 transition-colors"
             onClick={() => toggleItem(index)}
             aria-expanded={openIndex === index}
             aria-controls={`faq-answer-${index}`}
           >
-            <span className="font-medium text-slate-900 pr-4">
+            <span className="font-light tracking-wide text-white pr-4">
               {item.question}
             </span>
             <ChevronDown
-              className={`w-5 h-5 text-slate-500 flex-shrink-0 transition-transform duration-200 ${
+              className={`w-5 h-5 text-rose-gold flex-shrink-0 transition-transform duration-200 ${
                 openIndex === index ? 'rotate-180' : ''
               }`}
             />
@@ -47,7 +47,7 @@ export default function FAQ({ items }: FAQProps) {
               openIndex === index ? 'max-h-96' : 'max-h-0'
             }`}
           >
-            <div className="px-6 pb-4 text-slate-600 leading-relaxed">
+            <div className="px-6 pb-4 text-gray-400 leading-relaxed">
               {item.answer}
             </div>
           </div>

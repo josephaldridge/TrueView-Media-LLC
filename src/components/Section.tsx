@@ -14,10 +14,10 @@ export default function Section({
   background = 'white',
 }: SectionProps) {
   const backgrounds = {
-    white: 'bg-white',
-    gray: 'bg-slate-50',
-    dark: 'bg-slate-900 text-white',
-    brand: 'bg-brand-600 text-white',
+    white: 'bg-dark-600',
+    gray: 'bg-dark-500',
+    dark: 'bg-dark-700 text-white',
+    brand: 'bg-gradient-to-r from-rose-dark via-rose-gold to-rose-dark text-white',
   };
 
   return (
@@ -45,13 +45,9 @@ export function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <div className={`mb-12 ${centered ? 'text-center max-w-3xl mx-auto' : ''}`}>
-      <h2 className={light ? 'text-white' : 'text-slate-900'}>{title}</h2>
+      <h2 className="text-white font-light tracking-wide">{title}</h2>
       {subtitle && (
-        <p
-          className={`mt-4 text-lg ${
-            light ? 'text-white/80' : 'text-slate-600'
-          }`}
-        >
+        <p className="mt-4 text-lg text-gray-400">
           {subtitle}
         </p>
       )}

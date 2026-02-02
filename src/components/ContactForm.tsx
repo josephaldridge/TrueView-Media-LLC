@@ -99,13 +99,13 @@ export default function ContactForm() {
   if (status === 'success') {
     return (
       <div className="card-elevated text-center py-12">
-        <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-green-100 text-green-600 rounded-full">
+        <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-rose-gold/20 text-rose-gold rounded-full">
           <CheckCircle className="w-8 h-8" />
         </div>
-        <h3 className="text-xl font-semibold text-slate-900 mb-2">
+        <h3 className="text-xl font-light tracking-wide text-white mb-2">
           Thank you for reaching out!
         </h3>
-        <p className="text-slate-600 mb-6">
+        <p className="text-gray-400 mb-6">
           We&apos;ve received your message and will get back to you within 1 business day.
         </p>
         <button
@@ -121,9 +121,9 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {status === 'error' && (
-        <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-          <p className="text-sm text-red-700">{errorMessage}</p>
+        <div className="flex items-start gap-3 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
+          <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-red-300">{errorMessage}</p>
         </div>
       )}
 

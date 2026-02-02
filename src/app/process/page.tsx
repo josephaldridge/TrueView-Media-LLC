@@ -105,11 +105,12 @@ export default function ProcessPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-b from-slate-50 to-white pt-12 pb-16 md:pt-16 md:pb-20">
+      <section className="bg-gradient-to-b from-dark-400 to-dark-600 pt-12 pb-16 md:pt-16 md:pb-20">
         <div className="container-custom">
           <div className="max-w-3xl">
-            <h1 className="text-slate-900 mb-6">Our Process</h1>
-            <p className="text-xl text-slate-600">
+            <div className="w-16 h-px bg-gradient-to-r from-rose-gold to-transparent mb-8" />
+            <h1 className="text-white font-display font-light tracking-wide mb-6">Our Process</h1>
+            <p className="text-xl text-gray-400">
               A straightforward approach designed to get your site live quickly, without surprises, and with you in control throughout.
             </p>
           </div>
@@ -122,24 +123,24 @@ export default function ProcessPage() {
           {processSteps.map((step, index) => (
             <div key={step.step} className="relative">
               {index < processSteps.length - 1 && (
-                <div className="absolute left-5 top-12 bottom-0 w-0.5 bg-slate-200 hidden md:block" />
+                <div className="absolute left-5 top-12 bottom-0 w-0.5 bg-white/10 hidden md:block" />
               )}
               <div className="flex gap-6">
-                <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-brand-600 text-white text-sm font-semibold rounded-full relative z-10">
+                <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-rose-gold text-white text-sm font-medium rounded-full relative z-10">
                   {step.step}
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-slate-900 mb-3">
+                  <h2 className="text-xl font-light tracking-wide text-white mb-3">
                     {step.title}
                   </h2>
-                  <p className="text-slate-600 mb-4">{step.description}</p>
+                  <p className="text-gray-400 mb-4">{step.description}</p>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {step.details.map((detail) => (
                       <li
                         key={detail}
-                        className="flex items-center gap-2 text-sm text-slate-600"
+                        className="flex items-center gap-2 text-sm text-gray-400"
                       >
-                        <CheckCircle className="w-4 h-4 text-brand-600 flex-shrink-0" />
+                        <CheckCircle className="w-4 h-4 text-rose-gold flex-shrink-0" />
                         {detail}
                       </li>
                     ))}
@@ -161,53 +162,53 @@ export default function ProcessPage() {
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 flex items-center justify-center bg-brand-50 text-brand-600 rounded-lg flex-shrink-0">
+              <div className="w-10 h-10 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg flex-shrink-0">
                 <MessageSquare className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-slate-900 mb-1">
+                <h3 className="font-light tracking-wide text-white mb-1">
                   Clear Communication
                 </h3>
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-gray-400">
                   Regular updates, quick responses, and no jargon. We keep you informed without overwhelming you.
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 flex items-center justify-center bg-brand-50 text-brand-600 rounded-lg flex-shrink-0">
+              <div className="w-10 h-10 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg flex-shrink-0">
                 <Calendar className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-slate-900 mb-1">
+                <h3 className="font-light tracking-wide text-white mb-1">
                   On-Time Delivery
                 </h3>
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-gray-400">
                   We hit our deadlines. If something affects the timeline, we tell you immediately and adjust.
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 flex items-center justify-center bg-brand-50 text-brand-600 rounded-lg flex-shrink-0">
+              <div className="w-10 h-10 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg flex-shrink-0">
                 <FileText className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-slate-900 mb-1">
+                <h3 className="font-light tracking-wide text-white mb-1">
                   No Surprises
                 </h3>
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-gray-400">
                   Fixed pricing for defined scope. Any changes are discussed and agreed upon before work begins.
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 flex items-center justify-center bg-brand-50 text-brand-600 rounded-lg flex-shrink-0">
+              <div className="w-10 h-10 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg flex-shrink-0">
                 <CheckCircle className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-slate-900 mb-1">
+                <h3 className="font-light tracking-wide text-white mb-1">
                   Quality Work
                 </h3>
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-gray-400">
                   Modern, fast, accessible websites built with care. We don&apos;t cut corners or use outdated methods.
                 </p>
               </div>
@@ -223,40 +224,40 @@ export default function ProcessPage() {
             title="What we need from you"
             subtitle="Your involvement makes the project successful."
           />
-          <div className="bg-white rounded-xl p-6 border border-slate-200">
+          <div className="bg-dark-500/50 backdrop-blur-sm rounded-xl p-6 border border-white/10">
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-rose-gold flex-shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-medium text-slate-900">Content & Assets</span>
-                  <p className="text-sm text-slate-600 mt-1">
+                  <span className="font-medium text-white">Content & Assets</span>
+                  <p className="text-sm text-gray-400 mt-1">
                     Text for pages, photos, logos, and any other materials. We can help with structure, but you know your business best.
                   </p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-rose-gold flex-shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-medium text-slate-900">Timely Feedback</span>
-                  <p className="text-sm text-slate-600 mt-1">
+                  <span className="font-medium text-white">Timely Feedback</span>
+                  <p className="text-sm text-gray-400 mt-1">
                     Quick responses keep the project moving. Delays in feedback affect the launch date.
                   </p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-rose-gold flex-shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-medium text-slate-900">Account Access</span>
-                  <p className="text-sm text-slate-600 mt-1">
+                  <span className="font-medium text-white">Account Access</span>
+                  <p className="text-sm text-gray-400 mt-1">
                     Domain registrar, hosting, and any other accounts we need to access for setup.
                   </p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-rose-gold flex-shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-medium text-slate-900">Decision Making</span>
-                  <p className="text-sm text-slate-600 mt-1">
+                  <span className="font-medium text-white">Decision Making</span>
+                  <p className="text-sm text-gray-400 mt-1">
                     One person who can make decisions. Design by committee slows everything down.
                   </p>
                 </div>

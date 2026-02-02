@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
 
 @layer base {
   html {
@@ -10,15 +10,15 @@
   }
 
   body {
-    @apply antialiased text-slate-700 bg-white;
+    @apply antialiased text-gray-300 bg-dark-600;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply text-slate-900 font-semibold tracking-tight;
+    @apply text-white font-light tracking-wide;
   }
 
   h1 {
-    @apply text-4xl md:text-5xl lg:text-6xl;
+    @apply text-4xl md:text-5xl lg:text-6xl font-display;
   }
 
   h2 {
@@ -44,39 +44,51 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-brand-600 rounded-lg hover:bg-brand-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-rose-gold border border-rose-gold rounded-lg hover:bg-rose-dark transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-rose-gold/50 focus:ring-offset-2 focus:ring-offset-dark-700;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium text-brand-600 bg-brand-50 rounded-lg hover:bg-brand-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium text-rose-gold bg-rose-gold/10 rounded-lg hover:bg-rose-gold/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-rose-gold/50 focus:ring-offset-2 focus:ring-offset-dark-700;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-transparent border border-white/30 rounded-lg hover:border-rose-gold hover:text-rose-gold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-rose-gold/50 focus:ring-offset-2 focus:ring-offset-dark-700;
   }
 
   .card {
-    @apply bg-white rounded-xl border border-slate-200 p-6 md:p-8 hover:border-slate-300 transition-colors duration-200;
+    @apply bg-dark-400/50 backdrop-blur-sm rounded-xl border border-white/10 p-6 md:p-8 hover:border-rose-gold/30 transition-all duration-300;
   }
 
   .card-elevated {
-    @apply bg-white rounded-xl shadow-lg shadow-slate-200/50 p-6 md:p-8 border border-slate-100;
+    @apply bg-dark-300/80 backdrop-blur-sm rounded-xl shadow-lg shadow-black/20 p-6 md:p-8 border border-white/10;
   }
 
   .input-field {
-    @apply block w-full px-4 py-3 text-slate-900 bg-white border border-slate-300 rounded-lg placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-shadow duration-200;
+    @apply block w-full px-4 py-3 text-white bg-dark-400/50 border border-white/20 rounded-lg placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-rose-gold/50 focus:border-rose-gold transition-all duration-300;
   }
 
   .label {
-    @apply block text-sm font-medium text-slate-700 mb-2;
+    @apply block text-sm font-medium text-gray-300 mb-2;
   }
 
   .link {
-    @apply text-brand-600 hover:text-brand-700 transition-colors duration-200;
+    @apply text-rose-gold hover:text-rose-light transition-colors duration-200;
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-rose-light via-rose-gold to-rose-dark bg-clip-text text-transparent;
+  }
+
+  .text-rose-gold {
+    color: #b87c5c;
+  }
+
+  .bg-rose-gold {
+    background-color: #b87c5c;
+  }
+
+  .border-rose-gold {
+    border-color: #b87c5c;
   }
 }
 
@@ -87,21 +99,21 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-slate-100;
+  @apply bg-dark-600;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 rounded-full hover:bg-slate-400;
+  @apply bg-dark-200 rounded-full hover:bg-rose-gold/50;
 }
 
 /* Focus visible styles for better accessibility */
 :focus-visible {
-  @apply outline-none ring-2 ring-brand-500 ring-offset-2;
+  @apply outline-none ring-2 ring-rose-gold/50 ring-offset-2 ring-offset-dark-700;
 }
 
 /* Smooth transitions for interactive elements */
 a, button, input, textarea, select {
-  @apply transition-colors duration-200;
+  @apply transition-all duration-200;
 }
 
 /* Remove default button styles */
@@ -112,4 +124,14 @@ button {
 /* Form element consistency */
 input, textarea, select {
   @apply appearance-none;
+}
+
+/* Rose gold glow effect */
+.glow-rose {
+  box-shadow: 0 0 30px rgba(184, 124, 92, 0.3);
+}
+
+/* Elegant divider */
+.divider-rose {
+  @apply h-px bg-gradient-to-r from-transparent via-rose-gold/50 to-transparent;
 }

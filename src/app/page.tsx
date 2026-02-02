@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Section,
   SectionHeader,
@@ -57,15 +58,33 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-slate-50 to-white pt-12 pb-20 md:pt-20 md:pb-32">
-        <div className="container-custom">
+      <section className="relative bg-gradient-to-b from-dark-400 to-dark-600 pt-16 pb-24 md:pt-24 md:pb-36 overflow-hidden">
+        {/* Subtle decorative elements */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-rose-gold/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-rose-gold/3 rounded-full blur-3xl" />
+        
+        {/* Decorative Script T */}
+        <div className="absolute right-0 md:right-10 lg:right-20 top-[60%] -translate-y-1/2 w-[375px] h-[500px] md:w-[500px] md:h-[625px] lg:w-[625px] lg:h-[750px] opacity-50 pointer-events-none hidden md:block mix-blend-screen">
+          <Image
+            src="/t-mark.png"
+            alt=""
+            fill
+            className="object-contain"
+            aria-hidden="true"
+          />
+        </div>
+        
+        <div className="container-custom relative z-10">
           <div className="max-w-4xl">
-            <h1 className="text-slate-900 mb-6">
+            {/* Elegant accent line */}
+            <div className="w-16 h-px bg-gradient-to-r from-rose-gold to-transparent mb-8" />
+            
+            <h1 className="text-white font-display font-light tracking-wide mb-6">
               Websites built to{' '}
-              <span className="text-brand-600">earn trust</span> and{' '}
-              <span className="text-brand-600">drive calls</span>.
+              <span className="text-rose-gold">earn trust</span> and{' '}
+              <span className="text-rose-gold">drive calls</span>.
             </h1>
-            <p className="text-xl text-slate-600 mb-8 max-w-2xl">
+            <p className="text-xl text-gray-400 mb-10 max-w-2xl leading-relaxed">
               We build fast, professional websites for small businesses—contractors, HVAC, plumbers, barbers, Mom & Pop shops, and more. No fluff. Just clean, effective sites that represent your business online.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -86,14 +105,14 @@ export default function Home() {
       </section>
 
       {/* Trust Points */}
-      <Section background="white" className="py-12 border-b border-slate-100">
+      <Section background="white" className="py-12 border-b border-white/5">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {trustPoints.map((point) => (
             <div key={point.text} className="flex items-center gap-3">
-              <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-brand-50 text-brand-600 rounded-lg">
+              <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg">
                 <point.icon className="w-5 h-5" />
               </div>
-              <span className="font-medium text-slate-700">{point.text}</span>
+              <span className="font-light tracking-wide text-gray-300">{point.text}</span>
             </div>
           ))}
         </div>
@@ -116,7 +135,7 @@ export default function Home() {
       <Section background="white">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-slate-900 mb-6">
+            <h2 className="text-white font-light tracking-wide mb-6">
               Why small businesses choose us
             </h2>
             <div className="space-y-4">
@@ -129,34 +148,34 @@ export default function Home() {
                 'Clean handoff with documentation',
               ].map((point) => (
                 <div key={point} className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-slate-700">{point}</span>
+                  <CheckCircle className="w-5 h-5 text-rose-gold flex-shrink-0 mt-0.5" />
+                  <span className="text-gray-300">{point}</span>
                 </div>
               ))}
             </div>
           </div>
-          <div className="bg-slate-50 rounded-xl p-8 border border-slate-200">
+          <div className="bg-dark-500/50 backdrop-blur-sm rounded-xl p-8 border border-white/10">
             <div className="flex items-center gap-3 mb-4">
-              <Shield className="w-8 h-8 text-brand-600" />
-              <h3 className="text-xl font-semibold text-slate-900">
+              <Shield className="w-8 h-8 text-rose-gold" />
+              <h3 className="text-xl font-light tracking-wide text-white">
                 Expectations set upfront
               </h3>
             </div>
-            <ul className="space-y-3 text-slate-600">
+            <ul className="space-y-3 text-gray-400">
               <li className="flex items-start gap-2">
-                <span className="text-brand-600 font-bold">•</span>
+                <span className="text-rose-gold font-bold">•</span>
                 <span>Domain and hosting are registered in your name</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-brand-600 font-bold">•</span>
+                <span className="text-rose-gold font-bold">•</span>
                 <span>Post-launch edits are not included—we hand off a finished site</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-brand-600 font-bold">•</span>
+                <span className="text-rose-gold font-bold">•</span>
                 <span>We deliver a finished product, not an ongoing relationship (unless you want one)</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-brand-600 font-bold">•</span>
+                <span className="text-rose-gold font-bold">•</span>
                 <span>No proprietary platforms—you can hire any developer in the future</span>
               </li>
             </ul>

@@ -35,13 +35,13 @@ export function ServiceCard({
 }: ServiceCardProps) {
   const content = (
     <>
-      <div className="w-12 h-12 flex items-center justify-center bg-brand-50 text-brand-600 rounded-lg mb-4">
+      <div className="w-12 h-12 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg mb-4">
         <Icon className="w-6 h-6" />
       </div>
-      <h3 className="text-lg font-semibold text-slate-900 mb-2">{title}</h3>
-      <p className="text-slate-600 text-sm leading-relaxed">{description}</p>
+      <h3 className="text-lg font-light tracking-wide text-white mb-2">{title}</h3>
+      <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
       {href && (
-        <div className="mt-4 flex items-center text-brand-600 text-sm font-medium">
+        <div className="mt-4 flex items-center text-rose-gold text-sm font-medium">
           Learn more
           <ArrowRight className="w-4 h-4 ml-1" />
         </div>
@@ -51,7 +51,7 @@ export function ServiceCard({
 
   if (href) {
     return (
-      <Link href={href} className="card group hover:border-brand-200 block">
+      <Link href={href} className="card group hover:border-rose-gold/30 block">
         {content}
       </Link>
     );
@@ -78,37 +78,37 @@ export function PortfolioCard({
   href,
 }: PortfolioCardProps) {
   return (
-    <Link href={href} className="card group hover:border-brand-200 block h-full">
+    <Link href={href} className="card group hover:border-rose-gold/30 block h-full">
       <div className="flex items-center gap-2 mb-3">
-        <span className="px-2.5 py-1 text-xs font-medium bg-brand-50 text-brand-700 rounded-full">
+        <span className="px-2.5 py-1 text-xs font-medium bg-rose-gold/10 text-rose-gold rounded-full">
           {industry}
         </span>
       </div>
-      <h3 className="text-lg font-semibold text-slate-900 mb-3 group-hover:text-brand-600 transition-colors">
+      <h3 className="text-lg font-light tracking-wide text-white mb-3 group-hover:text-rose-gold transition-colors">
         {title}
       </h3>
       <div className="space-y-3 text-sm">
         <div>
-          <p className="font-medium text-slate-700">Challenge:</p>
-          <p className="text-slate-600">{problem}</p>
+          <p className="font-medium text-gray-300">Challenge:</p>
+          <p className="text-gray-400">{problem}</p>
         </div>
         <div>
-          <p className="font-medium text-slate-700">Solution:</p>
-          <p className="text-slate-600">{solution}</p>
+          <p className="font-medium text-gray-300">Solution:</p>
+          <p className="text-gray-400">{solution}</p>
         </div>
         <div>
-          <p className="font-medium text-slate-700">Results:</p>
-          <ul className="text-slate-600 space-y-1">
+          <p className="font-medium text-gray-300">Results:</p>
+          <ul className="text-gray-400 space-y-1">
             {results.map((result, index) => (
               <li key={index} className="flex items-start gap-2">
-                <span className="text-brand-600 mt-0.5">•</span>
+                <span className="text-rose-gold mt-0.5">•</span>
                 {result}
               </li>
             ))}
           </ul>
         </div>
       </div>
-      <div className="mt-4 pt-4 border-t border-slate-100 flex items-center text-brand-600 text-sm font-medium">
+      <div className="mt-4 pt-4 border-t border-white/10 flex items-center text-rose-gold text-sm font-medium">
         View case study
         <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
       </div>
@@ -126,12 +126,12 @@ export function ProcessCard({ step, title, description }: ProcessCardProps) {
   return (
     <div className="relative">
       <div className="flex items-start gap-4">
-        <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-brand-600 text-white text-sm font-semibold rounded-full">
+        <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-rose-gold text-white text-sm font-medium rounded-full">
           {step}
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-slate-900 mb-2">{title}</h3>
-          <p className="text-slate-600 text-sm leading-relaxed">{description}</p>
+          <h3 className="text-lg font-light tracking-wide text-white mb-2">{title}</h3>
+          <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
         </div>
       </div>
     </div>
