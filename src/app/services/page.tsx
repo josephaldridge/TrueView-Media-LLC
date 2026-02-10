@@ -7,11 +7,11 @@ import { CheckCircle } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    'Professional website design for small businesses. Flat fee of $1,299. No hidden fees, no surprises.',
+    'Professional website design for small businesses and entrepreneurs. Flat fee of $1,299. No hidden fees, no surprises.',
   openGraph: {
     title: 'Services | TrueView Media LLC',
     description:
-      'Professional website design for small businesses. Flat fee of $1,299.',
+      'Professional website design for small businesses and entrepreneurs. Flat fee of $1,299.',
   },
 };
 
@@ -38,7 +38,7 @@ export default function ServicesPage() {
             <div className="w-16 h-px bg-gradient-to-r from-rose-gold to-transparent mb-8" />
             <h1 className="text-white font-display font-light tracking-wide mb-6">Services</h1>
             <p className="text-xl text-gray-400">
-              Professional websites for small businesses. One flat fee, no surprises.
+              Professional websites for small businesses and entrepreneurs. One flat fee, no surprises.
             </p>
           </div>
         </div>
@@ -50,7 +50,7 @@ export default function ServicesPage() {
           <div className="text-center mb-12">
             <h2 className="text-white font-light tracking-wide mb-4">Simple, flat-fee pricing</h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Most professionally built websites cost $2,500–$5,000 or more. We believe small businesses should have access to a fast, professional website without paying agency prices.
+              Most professionally built websites cost $2,500–$5,000 or more. We believe small businesses and entrepreneurs should have access to a fast, professional website without paying agency prices.
             </p>
           </div>
           
@@ -106,7 +106,7 @@ export default function ServicesPage() {
       {/* CTA */}
       <CTABand
         title="Ready to get started?"
-        subtitle="Get a professional website that earns trust and drives calls."
+        subtitle="Get a professional website that earns trust and drives results."
       />
     </>
   );

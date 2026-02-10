@@ -61,7 +61,7 @@ export const homepageFAQs: FAQItem[] = [
   {
     question: 'How much does a website cost?',
     answer:
-      "Most professionally built websites cost $2,500–$5,000 or more. We believe small businesses should have access to a fast, professional website without paying agency prices. That's why we offer a flat build fee of $1,299. Ask about our military discount.",
+      "Most professionally built websites cost $2,500–$5,000 or more. We believe small businesses and entrepreneurs should have access to a fast, professional website without paying agency prices. That's why we offer a flat build fee of $1,299. Ask about our military discount.",
   },
   {
     question: 'How long does a website take to build?',

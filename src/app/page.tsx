@@ -85,7 +85,7 @@ export default function Home() {
               <span className="text-rose-gold">drive calls</span>.
             </h1>
             <p className="text-xl text-gray-400 mb-10 max-w-2xl leading-relaxed">
-              We build fast, professional websites for small businesses—contractors, HVAC, plumbers, barbers, Mom & Pop shops, and more. No fluff. Just clean, effective sites that represent your business online.
+              We build fast, professional websites for small business owners and entrepreneurs nationwide. No fluff. Just clean, effective sites that represent your business and help you grow.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact" className="btn-primary text-lg px-8 py-4">

@@ -36,7 +36,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-sm leading-relaxed mb-6 text-gray-400">
-              Professional websites for local service businesses. Fast, reliable, and built to earn trust.
+              Professional websites for small businesses and entrepreneurs. Fast, reliable, and built to earn trust.
             </p>
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <MapPin className="w-4 h-4 flex-shrink-0 text-rose-gold" />

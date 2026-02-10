@@ -42,16 +42,16 @@ const timelineOptions = [
 
 const industryOptions = [
   { value: '', label: 'Select your industry' },
-  { value: 'hvac', label: 'HVAC' },
-  { value: 'plumbing', label: 'Plumbing' },
-  { value: 'electrical', label: 'Electrical' },
-  { value: 'roofing', label: 'Roofing' },
-  { value: 'general-contractor', label: 'General Contractor' },
-  { value: 'landscaping', label: 'Landscaping' },
-  { value: 'cleaning', label: 'Cleaning Services' },
-  { value: 'accounting', label: 'Accounting / Financial' },
-  { value: 'legal', label: 'Legal Services' },
-  { value: 'medical', label: 'Medical / Healthcare' },
+  { value: 'professional-services', label: 'Professional Services' },
+  { value: 'consulting', label: 'Consulting' },
+  { value: 'ecommerce', label: 'E-commerce / Retail' },
+  { value: 'health-wellness', label: 'Health & Wellness' },
+  { value: 'creative', label: 'Creative / Design' },
+  { value: 'technology', label: 'Technology / SaaS' },
+  { value: 'real-estate', label: 'Real Estate' },
+  { value: 'food-hospitality', label: 'Food & Hospitality' },
+  { value: 'home-services', label: 'Home Services' },
+  { value: 'coaching', label: 'Coaching / Training' },
   { value: 'other', label: 'Other' },
 ];
 

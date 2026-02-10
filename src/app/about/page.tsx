@@ -14,11 +14,11 @@ import {
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'TrueView Media LLC is a small web design studio focused on building professional websites for local service businesses. Personal attention, execution-focused.',
+    'TrueView Media LLC is a veteran-owned web design studio focused on building professional websites for small businesses and entrepreneurs nationwide.',
   openGraph: {
     title: 'About | TrueView Media LLC',
     description:
-      'A small web design studio focused on building professional websites for local service businesses.',
+      'A veteran-owned web design studio focused on building professional websites for small businesses and entrepreneurs.',
   },
 };
 
@@ -59,7 +59,7 @@ export default function AboutPage() {
             <div className="w-16 h-px bg-gradient-to-r from-rose-gold to-transparent mb-8" />
             <h1 className="text-white font-display font-light tracking-wide mb-6">About TrueView Media</h1>
             <p className="text-xl text-gray-400">
-              A veteran-owned studio with a clear focus: building professional websites for local service businesses that need to earn trust and drive customer action.
+              A veteran-owned studio with a clear focus: building professional websites for small business owners and entrepreneurs who need to earn trust and drive results.
             </p>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function AboutPage() {
               We started TrueView Media to fix that problem. Not with flashy gimmicks or overpriced agency retainers, but with straightforward web design that works: fast-loading sites, clear messaging, and professional presentation that helps customers take action.
             </p>
             <p className="text-gray-400 text-lg leading-relaxed mb-6">
-              We work with a wide range of small businesses—contractors, HVAC technicians, barbershops, salons, service providers, and local professionals of all kinds—anyone who wants a website that looks credible, works properly, and does its job.
+              We work with a wide range of small businesses and entrepreneurs—from service providers and consultants to e-commerce startups and creative professionals. Anyone who wants a website that looks credible, works properly, and helps grow their business.
             </p>
             <p className="text-gray-400 text-lg leading-relaxed">
               We are a veteran-owned, small operation by design. That means personal attention, direct communication, and real accountability. When you work with us, you{"'"}re not handed off to a junior team member—you work directly with the people who design and build your site.
@@ -136,7 +136,7 @@ export default function AboutPage() {
             <li className="flex items-start gap-3">
               <span className="text-gray-600 font-bold">✕</span>
               <span className="text-gray-400">
-                <strong className="text-white">Not an enterprise solution.</strong> We work best with small and medium local businesses. Large corporations with complex requirements aren&apos;t our specialty.
+                <strong className="text-white">Not an enterprise solution.</strong> We work best with small businesses and entrepreneurs. Large corporations with complex requirements aren&apos;t our specialty.
               </span>
             </li>
             <li className="flex items-start gap-3">
@@ -162,7 +162,7 @@ export default function AboutPage() {
               'Websites should load fast and work on every device.',
               "Good design serves a purpose—it's not just decoration.",
               "Communication should be direct and honest, even when it's uncomfortable.",
-              'Small businesses deserve professional treatment, not second-rate templates.',
+              'Small businesses and entrepreneurs deserve professional treatment, not second-rate templates.',
             ].map((belief) => (
               <div key={belief} className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-rose-gold flex-shrink-0 mt-0.5" />
@@ -180,7 +180,7 @@ export default function AboutPage() {
             Based in Texas, serving clients nationwide
           </h2>
           <p className="text-gray-400 mb-8">
-            While we are based in Texas, we work with local service businesses across the country. Location does not limit our ability to deliver—modern tools make collaboration easy regardless of where you are based.
+            While we are based in Texas, we work with small businesses and entrepreneurs across the country. Location does not limit our ability to deliver—modern tools make collaboration easy regardless of where you are.
           </p>
           <Link href="/contact" className="btn-primary">
             Get in touch

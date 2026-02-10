@@ -231,7 +231,7 @@ export default function ExitIntentPopup() {
                     onChange={handleChange}
                     rows={2}
                     className="input-field resize-none"
-                    placeholder="e.g., HVAC services in Dallas"
+                    placeholder="e.g., growing my online presence"
                   />
                 </div>
 

@@ -6,20 +6,20 @@ import './globals.css';
 export const metadata: Metadata = {
   metadataBase: new URL('https://trueviewmediallc.com'),
   title: {
-    default: 'TrueView Media LLC | Professional Websites for Local Service Businesses',
+    default: 'TrueView Media LLC | Professional Websites for Small Businesses & Entrepreneurs',
     template: '%s | TrueView Media LLC',
   },
   description:
-    'Professional websites built to earn trust and drive calls. Fast, mobile-first websites for contractors, HVAC, plumbers, electricians, and local service businesses.',
+    'Professional websites built to earn trust and drive results. Fast, mobile-first websites for small business owners and entrepreneurs nationwide.',
   keywords: [
     'web design',
-    'local business website',
-    'contractor website',
-    'HVAC website',
-    'plumber website',
-    'electrician website',
-    'small business web design',
-    'Texas web design',
+    'small business website',
+    'entrepreneur website',
+    'startup website',
+    'business web design',
+    'professional website',
+    'affordable web design',
+    'website for small business',
   ],
   authors: [{ name: 'TrueView Media LLC' }],
   creator: 'TrueView Media LLC',
@@ -28,15 +28,15 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://trueviewmediallc.com',
     siteName: 'TrueView Media LLC',
-    title: 'TrueView Media LLC | Professional Websites for Local Service Businesses',
+    title: 'TrueView Media LLC | Professional Websites for Small Businesses & Entrepreneurs',
     description:
-      'Professional websites built to earn trust and drive calls. Fast, mobile-first websites for contractors, HVAC, plumbers, electricians, and local service businesses.',
+      'Professional websites built to earn trust and drive results. Fast, mobile-first websites for small business owners and entrepreneurs nationwide.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'TrueView Media LLC | Professional Websites for Local Service Businesses',
+    title: 'TrueView Media LLC | Professional Websites for Small Businesses & Entrepreneurs',
     description:
-      'Professional websites built to earn trust and drive calls. Fast, mobile-first websites for local service businesses.',
+      'Professional websites built to earn trust and drive results. Fast, mobile-first websites for small business owners and entrepreneurs.',
   },
   robots: {
     index: true,
