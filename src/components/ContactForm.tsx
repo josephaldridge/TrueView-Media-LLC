@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import { Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, Loader2, Phone, Clock, ArrowRight } from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -99,21 +99,34 @@ export default function ContactForm() {
   if (status === 'success') {
     return (
       <div className="card-elevated text-center py-12">
-        <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-rose-gold/20 text-rose-gold rounded-full">
-          <CheckCircle className="w-8 h-8" />
+        <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center bg-green-500/20 text-green-400 rounded-full">
+          <CheckCircle className="w-10 h-10" />
         </div>
-        <h3 className="text-xl font-light tracking-wide text-white mb-2">
-          Thank you for reaching out!
+        <h3 className="text-2xl font-light tracking-wide text-white mb-3">
+          Got it! We&apos;re on it.
         </h3>
-        <p className="text-gray-400 mb-6">
-          We&apos;ve received your message and will get back to you within 1 business day.
+        <p className="text-gray-300 mb-2 text-lg">
+          Your request is now at the top of our list.
         </p>
-        <button
-          onClick={() => setStatus('idle')}
-          className="btn-secondary"
+        <div className="bg-dark-600/50 rounded-lg p-4 mb-6 max-w-md mx-auto">
+          <div className="flex items-center justify-center gap-2 text-rose-gold mb-2">
+            <Clock className="w-5 h-5" />
+            <span className="font-medium">What happens next:</span>
+          </div>
+          <p className="text-gray-400 text-sm">
+            You&apos;ll hear from us within <strong className="text-white">15 minutes</strong> during business hours (Mon-Fri, 9am-6pm CT). If it&apos;s after hours, expect a call first thing in the morning.
+          </p>
+        </div>
+        <p className="text-gray-500 text-sm mb-6">
+          Can&apos;t wait? Call us directly:
+        </p>
+        <a
+          href="tel:972-339-0754"
+          className="inline-flex items-center justify-center px-6 py-3 bg-rose-gold text-white rounded-lg hover:bg-rose-dark transition-colors"
         >
-          Send another message
-        </button>
+          <Phone className="w-4 h-4 mr-2" />
+          972-339-0754
+        </a>
       </div>
     );
   }
@@ -158,7 +171,7 @@ export default function ContactForm() {
             onChange={handleChange}
             required
             className="input-field"
-            placeholder="Smith Plumbing Co."
+            placeholder="Your Business Name"
           />
         </div>
 
@@ -175,7 +188,7 @@ export default function ContactForm() {
             onChange={handleChange}
             required
             className="input-field"
-            placeholder="john@smithplumbing.com"
+            placeholder="john@yourbusiness.com"
           />
         </div>
 
@@ -277,23 +290,29 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <button
-        type="submit"
-        disabled={status === 'loading'}
-        className="btn-primary w-full md:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {status === 'loading' ? (
-          <>
-            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-            Sending...
-          </>
-        ) : (
-          <>
-            <Send className="w-5 h-5 mr-2" />
-            Send Message
-          </>
-        )}
-      </button>
+      <div className="flex flex-col md:flex-row md:items-center gap-4">
+        <button
+          type="submit"
+          disabled={status === 'loading'}
+          className="btn-primary w-full md:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {status === 'loading' ? (
+            <>
+              <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+              Sending...
+            </>
+          ) : (
+            <>
+              Get My Free Preview
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </>
+          )}
+        </button>
+        <p className="text-sm text-gray-500 flex items-center gap-2">
+          <Clock className="w-4 h-4 text-rose-gold" />
+          We respond within 15 minutes
+        </p>
+      </div>
     </form>
   );
 }

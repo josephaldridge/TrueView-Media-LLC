@@ -24,7 +24,11 @@ export default function ContactPage() {
             <div className="w-16 h-px bg-gradient-to-r from-rose-gold to-transparent mb-8" />
             <h1 className="text-white font-display font-light tracking-wide mb-6">Get in Touch</h1>
             <p className="text-xl text-gray-400">
-              Ready to talk about your project? Fill out the form below or reach out directly. We respond to all inquiries within one business day.
+              Ready to talk about your project? Fill out the form below or reach out directly.
+            </p>
+            <p className="text-rose-gold mt-2 flex items-center gap-2">
+              <Clock className="w-5 h-5" />
+              We respond within 15 minutes during business hours.
             </p>
           </div>
         </div>
@@ -73,12 +77,13 @@ export default function ContactPage() {
 
               {/* Response Time */}
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg flex-shrink-0">
+                <div className="w-10 h-10 flex items-center justify-center bg-green-500/20 text-green-400 rounded-lg flex-shrink-0">
                   <Clock className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="font-medium text-white mb-1">Response Time</p>
-                  <p className="text-gray-400">Within 1 business day</p>
+                  <p className="text-green-400 font-medium">Within 15 minutes</p>
+                  <p className="text-gray-500 text-sm">During business hours (Mon-Fri, 9am-6pm CT)</p>
                 </div>
               </div>
 

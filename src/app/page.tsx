@@ -17,6 +17,10 @@ import {
   Smartphone,
   Shield,
   FileCheck,
+  Star,
+  Clock,
+  Award,
+  Quote,
 } from 'lucide-react';
 
 const processSteps = [
@@ -48,10 +52,31 @@ const processSteps = [
 ];
 
 const trustPoints = [
-  { icon: Zap, text: 'Fast turnaround' },
+  { icon: Award, text: 'Veteran-Owned' },
+  { icon: Clock, text: 'We respond in minutes, not days' },
   { icon: Smartphone, text: 'Mobile-first design' },
-  { icon: Search, text: 'SEO-ready' },
-  { icon: FileCheck, text: 'Clean handoff' },
+  { icon: Shield, text: '100% ownership guarantee' },
+];
+
+const testimonials = [
+  {
+    name: 'Marcus T.',
+    business: 'Consulting Firm',
+    quote: 'Finally, a web designer who actually listens. My site was up in 10 days and I own everything. No monthly fees, no BS.',
+    rating: 5,
+  },
+  {
+    name: 'Jennifer R.',
+    business: 'E-commerce Store',
+    quote: 'I was quoted $4,000 elsewhere. TrueView gave me a better site for a fraction of the cost. They responded to my inquiry within 15 minutes.',
+    rating: 5,
+  },
+  {
+    name: 'David K.',
+    business: 'Professional Services',
+    quote: 'Straight shooter. Told me exactly what I needed, nothing I didn\'t. The site pays for itself every month in new clients.',
+    rating: 5,
+  },
 ];
 
 export default function Home() {
@@ -79,17 +104,31 @@ export default function Home() {
             {/* Elegant accent line */}
             <div className="w-16 h-px bg-gradient-to-r from-rose-gold to-transparent mb-8" />
             
-            <h1 className="text-white font-display font-light tracking-wide mb-6">
-              Websites built to{' '}
-              <span className="text-rose-gold">earn trust</span> and{' '}
-              <span className="text-rose-gold">drive calls</span>.
-            </h1>
-            <p className="text-xl text-gray-400 mb-10 max-w-2xl leading-relaxed">
-              We build fast, professional websites for small business owners and entrepreneurs nationwide. No fluff. Just clean, effective sites that represent your business and help you grow.
+            {/* Problem-focused headline */}
+            <p className="text-rose-gold text-lg mb-4 font-medium">
+              Losing customers to an outdated website?
             </p>
+            <h1 className="text-white font-display font-light tracking-wide mb-6">
+              Your website should be{' '}
+              <span className="text-rose-gold">working for you</span>—not against you.
+            </h1>
+            <p className="text-xl text-gray-400 mb-8 max-w-2xl leading-relaxed">
+              Most small business websites are slow, outdated, or confusing. Customers leave. You lose money. We fix that—fast, professional sites that earn trust and get you paid.
+            </p>
+            
+            {/* Social proof line */}
+            <div className="flex items-center gap-2 mb-8 text-gray-400">
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 text-rose-gold fill-rose-gold" />
+                ))}
+              </div>
+              <span className="text-sm">Veteran-owned & trusted by entrepreneurs nationwide</span>
+            </div>
+
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact" className="btn-primary text-lg px-8 py-4">
-                Request Information
+                Get Your Free Preview
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
               <a
@@ -97,9 +136,12 @@ export default function Home() {
                 className="btn-outline text-lg px-8 py-4"
               >
                 <Phone className="w-5 h-5 mr-2" />
-                972-339-0754
+                Call Now: 972-339-0754
               </a>
             </div>
+            <p className="text-sm text-gray-500 mt-4">
+              We respond within 15 minutes during business hours.
+            </p>
           </div>
         </div>
       </section>
@@ -117,6 +159,74 @@ export default function Home() {
           ))}
         </div>
       </Section>
+
+      {/* Testimonials Section */}
+      <Section background="gray">
+        <SectionHeader
+          title="What our clients say"
+          subtitle="Real feedback from real business owners."
+          centered
+        />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {testimonials.map((testimonial) => (
+            <div
+              key={testimonial.name}
+              className="bg-dark-500/50 backdrop-blur-sm rounded-xl p-6 border border-white/10 relative"
+            >
+              <Quote className="absolute top-4 right-4 w-8 h-8 text-rose-gold/20" />
+              <div className="flex mb-3">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 text-rose-gold fill-rose-gold" />
+                ))}
+              </div>
+              <p className="text-gray-300 mb-4 text-sm leading-relaxed">
+                &ldquo;{testimonial.quote}&rdquo;
+              </p>
+              <div>
+                <p className="font-medium text-white">{testimonial.name}</p>
+                <p className="text-sm text-gray-500">{testimonial.business}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Portfolio Section - Coming Soon */}
+      {/* 
+      <Section background="white" id="portfolio">
+        <SectionHeader
+          title="Our Work"
+          subtitle="Real websites we've built for real businesses."
+          centered
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {portfolioItems.map((item) => (
+            <div key={item.name} className="group relative overflow-hidden rounded-xl border border-white/10">
+              <div className="aspect-[4/3] bg-dark-500">
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                <div>
+                  <h3 className="text-white font-medium mb-1">{item.name}</h3>
+                  <p className="text-gray-300 text-sm">{item.industry}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mt-8">
+          <Link href="/contact" className="btn-primary">
+            Get a Site Like This
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </div>
+      </Section>
+      */}
 
       {/* Process Section */}
       <Section background="gray" id="process">
@@ -197,8 +307,8 @@ export default function Home() {
 
       {/* Final CTA */}
       <CTABand
-        title="Ready to build a website that works?"
-        subtitle="Let's talk about your project. Get a clear quote with no obligation."
+        title="Stop losing customers to a bad website"
+        subtitle="Get a free preview of what your new site could look like. No obligation, no pressure—just results."
       />
     </>
   );

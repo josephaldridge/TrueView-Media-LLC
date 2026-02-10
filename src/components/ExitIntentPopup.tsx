@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, FormEvent } from 'react';
-import { X, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { X, Send, CheckCircle, AlertCircle, Loader2, Phone, Clock, ArrowRight } from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -132,22 +132,32 @@ export default function ExitIntentPopup() {
 
         <div className="p-6 md:p-8">
           {status === 'success' ? (
-            <div className="text-center py-8">
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-rose-gold/20 text-rose-gold rounded-full">
+            <div className="text-center py-6">
+              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-green-500/20 text-green-400 rounded-full">
                 <CheckCircle className="w-8 h-8" />
               </div>
               <h3 className="text-xl font-light tracking-wide text-white mb-2">
-                We&apos;ll be in touch!
+                Got it! We&apos;re on it.
               </h3>
-              <p className="text-gray-400 mb-6">
-                Expect to hear from us within 1 business day with your free preview details.
+              <div className="bg-dark-700/50 rounded-lg p-4 mb-4">
+                <div className="flex items-center justify-center gap-2 text-rose-gold mb-2">
+                  <Clock className="w-4 h-4" />
+                  <span className="font-medium text-sm">What happens next:</span>
+                </div>
+                <p className="text-gray-400 text-sm">
+                  You&apos;ll hear from us within <strong className="text-white">15 minutes</strong> during business hours.
+                </p>
+              </div>
+              <p className="text-gray-500 text-sm mb-4">
+                Can&apos;t wait?
               </p>
-              <button
-                onClick={handleClose}
-                className="btn-primary"
+              <a
+                href="tel:972-339-0754"
+                className="inline-flex items-center justify-center px-5 py-2.5 bg-rose-gold text-white rounded-lg hover:bg-rose-dark transition-colors text-sm"
               >
-                Close
-              </button>
+                <Phone className="w-4 h-4 mr-2" />
+                Call: 972-339-0754
+              </a>
             </div>
           ) : (
             <>
@@ -247,14 +257,15 @@ export default function ExitIntentPopup() {
                     </>
                   ) : (
                     <>
-                      <Send className="w-5 h-5 mr-2" />
-                      Request Free Preview
+                      Get My Free Preview
+                      <ArrowRight className="w-5 h-5 ml-2" />
                     </>
                   )}
                 </button>
 
-                <p className="text-xs text-gray-500 text-center">
-                  No spam. We&apos;ll only contact you about your preview.
+                <p className="text-xs text-gray-500 text-center flex items-center justify-center gap-1">
+                  <Clock className="w-3 h-3 text-rose-gold" />
+                  We respond within 15 minutes
                 </p>
               </form>
             </>

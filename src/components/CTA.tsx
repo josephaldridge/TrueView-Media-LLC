@@ -34,7 +34,7 @@ export default function CTABand({
             href="/contact"
             className="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium bg-rose-gold text-white rounded-lg hover:bg-rose-dark transition-all duration-300"
           >
-            Request Information
+            Get Your Free Preview
             <ArrowRight className="w-4 h-4 ml-2" />
           </Link>
           {showPhone && (
@@ -43,12 +43,15 @@ export default function CTABand({
               className="inline-flex items-center justify-center px-6 py-3.5 text-base font-medium text-white border border-white/20 rounded-lg hover:border-rose-gold hover:text-rose-gold transition-all duration-300"
             >
               <Phone className="w-4 h-4 mr-2" />
-              972-339-0754
+              Call Now: 972-339-0754
             </a>
           )}
         </div>
+        <p className="mt-4 text-gray-500 text-sm">
+          We respond within 15 minutes during business hours.
+        </p>
         {showEmail && (
-          <p className="mt-6 text-gray-500 text-sm">
+          <p className="mt-2 text-gray-500 text-sm">
             Or email us at{' '}
             <a
               href="mailto:contact@trueviewmediallc.com"
