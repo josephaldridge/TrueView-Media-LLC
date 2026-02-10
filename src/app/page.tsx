@@ -12,15 +12,11 @@ import {
   Phone,
   ArrowRight,
   CheckCircle,
-  Search,
-  Zap,
   Smartphone,
   Shield,
-  FileCheck,
   Star,
   Clock,
   Award,
-  Quote,
 } from 'lucide-react';
 
 const processSteps = [
@@ -58,26 +54,6 @@ const trustPoints = [
   { icon: Shield, text: '100% ownership guarantee' },
 ];
 
-const testimonials = [
-  {
-    name: 'Marcus T.',
-    business: 'Consulting Firm',
-    quote: 'Finally, a web designer who actually listens. My site was up in 10 days and I own everything. No monthly fees, no BS.',
-    rating: 5,
-  },
-  {
-    name: 'Jennifer R.',
-    business: 'E-commerce Store',
-    quote: 'I was quoted $4,000 elsewhere. TrueView gave me a better site for a fraction of the cost. They responded to my inquiry within 15 minutes.',
-    rating: 5,
-  },
-  {
-    name: 'David K.',
-    business: 'Professional Services',
-    quote: 'Straight shooter. Told me exactly what I needed, nothing I didn\'t. The site pays for itself every month in new clients.',
-    rating: 5,
-  },
-];
 
 export default function Home() {
   return (
@@ -160,36 +136,7 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Testimonials Section */}
-      <Section background="gray">
-        <SectionHeader
-          title="What our clients say"
-          subtitle="Real feedback from real business owners."
-          centered
-        />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.name}
-              className="bg-dark-500/50 backdrop-blur-sm rounded-xl p-6 border border-white/10 relative"
-            >
-              <Quote className="absolute top-4 right-4 w-8 h-8 text-rose-gold/20" />
-              <div className="flex mb-3">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 text-rose-gold fill-rose-gold" />
-                ))}
-              </div>
-              <p className="text-gray-300 mb-4 text-sm leading-relaxed">
-                &ldquo;{testimonial.quote}&rdquo;
-              </p>
-              <div>
-                <p className="font-medium text-white">{testimonial.name}</p>
-                <p className="text-sm text-gray-500">{testimonial.business}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+      {/* Testimonials Section - Add real reviews here when available */}
 
       {/* Portfolio Section - Coming Soon */}
       {/* 
