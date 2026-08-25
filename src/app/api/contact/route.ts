@@ -82,6 +82,7 @@ export async function POST(request: NextRequest) {
     // Service validation
     const validServices = [
       'website-build-basic',
+      'post-launch-edits',
       'larger-project',
     ];
     if (!validServices.includes(sanitizedData.budget)) {

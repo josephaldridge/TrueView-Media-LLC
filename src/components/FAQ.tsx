@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import Reveal from './Reveal';
 
 interface FAQItem {
   question: string;
@@ -22,8 +23,9 @@ export default function FAQ({ items }: FAQProps) {
   return (
     <div className="space-y-4">
       {items.map((item, index) => (
-        <div
+        <Reveal
           key={index}
+          delay={index * 70}
           className="border border-white/10 rounded-lg overflow-hidden bg-dark-500/30"
         >
           <button
@@ -51,7 +53,7 @@ export default function FAQ({ items }: FAQProps) {
               {item.answer}
             </div>
           </div>
-        </div>
+        </Reveal>
       ))}
     </div>
   );
@@ -61,7 +63,7 @@ export const homepageFAQs: FAQItem[] = [
   {
     question: 'How much does a website cost?',
     answer:
-      "Most professionally built websites cost $2,500–$5,000 or more. We believe small businesses and entrepreneurs should have access to a fast, professional website without paying agency prices. That's why we offer a flat build fee of $1,299. Ask about our military discount.",
+      "Most professionally built websites cost $2,500–$5,000 or more. We believe small businesses and entrepreneurs should have access to a fast, professional website without paying agency prices. That's why we offer a one-time flat build fee of $299. Ask about our military discount.",
   },
   {
     question: 'How long does a website take to build?',
@@ -76,11 +78,11 @@ export const homepageFAQs: FAQItem[] = [
   {
     question: 'Can I make changes after the site launches?',
     answer:
-      'We provide a clean handoff with documentation so you or another developer can make changes after launch. Post-launch edits are not included in the project price, but the site is yours to update however you like.',
+      'Absolutely. Post-launch edits are $49 per request—and that is per request, not per edit. Send us four changes in one message and it is still $49. You also get a clean handoff with documentation, so you or any developer you choose can make updates directly whenever you prefer.',
   },
   {
-    question: 'Do you offer payment plans?',
+    question: 'How does payment work?',
     answer:
-      'We require 50% deposit to start and 50% upon completion before launch. For larger projects, we can discuss milestone-based payments.',
+      'One single payment of $299 upfront to start your project—that covers the entire build through launch. After that, the only thing you would ever pay for is an edit request at $49, and only if you ask for one. For larger custom projects, payment terms are discussed before any work begins.',
   },
 ];

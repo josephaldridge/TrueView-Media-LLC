@@ -121,7 +121,7 @@ export default function ExitIntentPopup() {
         {/* Close button */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors z-10"
+          className="btn-icon-glass absolute top-4 right-4 p-2 text-gray-400 hover:text-white rounded-full z-10"
           aria-label="Close popup"
         >
           <X className="w-5 h-5" />
@@ -153,7 +153,7 @@ export default function ExitIntentPopup() {
               </p>
               <a
                 href="tel:972-339-0754"
-                className="inline-flex items-center justify-center px-5 py-2.5 bg-rose-gold text-white rounded-lg hover:bg-rose-dark transition-colors text-sm"
+                className="btn-primary px-5 py-2.5 text-sm"
               >
                 <Phone className="w-4 h-4 mr-2" />
                 Call: 972-339-0754

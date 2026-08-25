@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import Reveal from './Reveal';
 
 interface SectionProps {
   children: ReactNode;
@@ -45,11 +46,13 @@ export function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <div className={`mb-12 ${centered ? 'text-center max-w-3xl mx-auto' : ''}`}>
-      <h2 className="text-white font-light tracking-wide">{title}</h2>
+      <Reveal as="h2" className="text-white font-light tracking-wide">
+        {title}
+      </Reveal>
       {subtitle && (
-        <p className="mt-4 text-lg text-gray-400">
+        <Reveal as="p" delay={120} className="mt-4 text-lg text-gray-400">
           {subtitle}
-        </p>
+        </Reveal>
       )}
     </div>
   );

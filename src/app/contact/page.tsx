@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Section } from '@/components';
+import { Section, Reveal } from '@/components';
 import ContactForm from '@/components/ContactForm';
 import { Phone, Mail, Clock, MapPin } from 'lucide-react';
 
@@ -21,15 +21,24 @@ export default function ContactPage() {
       <section className="bg-gradient-to-b from-dark-400 to-dark-600 pt-12 pb-16 md:pt-16 md:pb-20">
         <div className="container-custom">
           <div className="max-w-3xl">
-            <div className="w-16 h-px bg-gradient-to-r from-rose-gold to-transparent mb-8" />
-            <h1 className="text-white font-display font-light tracking-wide mb-6">Get in Touch</h1>
-            <p className="text-xl text-gray-400">
+            <Reveal
+              direction="right"
+              className="w-16 h-px bg-gradient-to-r from-rose-gold to-transparent mb-8"
+            />
+            <Reveal
+              as="h1"
+              delay={80}
+              className="text-white font-display font-light tracking-wide mb-6"
+            >
+              Get in Touch
+            </Reveal>
+            <Reveal as="p" delay={180} className="text-xl text-gray-400">
               Ready to talk about your project? Fill out the form below or reach out directly.
-            </p>
-            <p className="text-rose-gold mt-2 flex items-center gap-2">
+            </Reveal>
+            <Reveal as="p" delay={260} className="text-rose-gold mt-2 flex items-center gap-2">
               <Clock className="w-5 h-5" />
               We respond within 15 minutes during business hours.
-            </p>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -39,12 +48,12 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Contact Info */}
           <div className="lg:col-span-1">
-            <h2 className="text-xl font-light tracking-wide text-white mb-6">
+            <Reveal as="h2" className="text-xl font-light tracking-wide text-white mb-6">
               Contact Information
-            </h2>
+            </Reveal>
             <div className="space-y-6">
               {/* Phone */}
-              <div className="flex items-start gap-4">
+              <Reveal delay={0} direction="right" className="flex items-start gap-4">
                 <div className="w-10 h-10 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg flex-shrink-0">
                   <Phone className="w-5 h-5" />
                 </div>
@@ -57,10 +66,10 @@ export default function ContactPage() {
                     972-339-0754
                   </a>
                 </div>
-              </div>
+              </Reveal>
 
               {/* Email */}
-              <div className="flex items-start gap-4">
+              <Reveal delay={90} direction="right" className="flex items-start gap-4">
                 <div className="w-10 h-10 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg flex-shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
@@ -73,10 +82,10 @@ export default function ContactPage() {
                     contact@trueviewmediallc.com
                   </a>
                 </div>
-              </div>
+              </Reveal>
 
               {/* Response Time */}
-              <div className="flex items-start gap-4">
+              <Reveal delay={180} direction="right" className="flex items-start gap-4">
                 <div className="w-10 h-10 flex items-center justify-center bg-green-500/20 text-green-400 rounded-lg flex-shrink-0">
                   <Clock className="w-5 h-5" />
                 </div>
@@ -85,10 +94,10 @@ export default function ContactPage() {
                   <p className="text-green-400 font-medium">Within 15 minutes</p>
                   <p className="text-gray-500 text-sm">During business hours (Mon-Fri, 9am-6pm CT)</p>
                 </div>
-              </div>
+              </Reveal>
 
               {/* Location */}
-              <div className="flex items-start gap-4">
+              <Reveal delay={270} direction="right" className="flex items-start gap-4">
                 <div className="w-10 h-10 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg flex-shrink-0">
                   <MapPin className="w-5 h-5" />
                 </div>
@@ -100,11 +109,14 @@ export default function ContactPage() {
                     Serving clients nationwide
                   </p>
                 </div>
-              </div>
+              </Reveal>
             </div>
 
             {/* Prefer to Call */}
-            <div className="mt-8 p-6 bg-dark-500/50 rounded-xl border border-white/10">
+            <Reveal
+              direction="scale"
+              className="mt-8 p-6 bg-dark-500/50 rounded-xl border border-white/10"
+            >
               <h3 className="font-light tracking-wide text-white mb-2">
                 Prefer to talk?
               </h3>
@@ -118,12 +130,15 @@ export default function ContactPage() {
                 <Phone className="w-4 h-4 mr-2" />
                 Call 972-339-0754
               </a>
-            </div>
+            </Reveal>
           </div>
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <div className="bg-dark-500/50 backdrop-blur-sm rounded-xl border border-white/10 p-6 md:p-8">
+            <Reveal
+              direction="left"
+              className="bg-dark-500/50 backdrop-blur-sm rounded-xl border border-white/10 p-6 md:p-8"
+            >
               <h2 className="text-xl font-light tracking-wide text-white mb-2">
                 Request a Free Preview
               </h2>
@@ -131,7 +146,7 @@ export default function ContactPage() {
                 No obligation, no pressure. We&apos;ll email you a live link that&apos;s active for 48 hours so you can see for yourself.
               </p>
               <ContactForm />
-            </div>
+            </Reveal>
           </div>
         </div>
       </Section>
@@ -139,45 +154,45 @@ export default function ContactPage() {
       {/* FAQ Teaser */}
       <Section background="gray">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl font-light tracking-wide text-white mb-4">
+          <Reveal as="h2" className="text-2xl font-light tracking-wide text-white mb-4">
             Common questions
-          </h2>
-          <p className="text-gray-400 mb-6">
+          </Reveal>
+          <Reveal as="p" delay={100} className="text-gray-400 mb-6">
             Before reaching out, you might find answers to common questions on our homepage.
-          </p>
+          </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-            <div className="bg-dark-500/50 p-4 rounded-lg border border-white/10">
+            <Reveal delay={0} className="bg-dark-500/50 p-4 rounded-lg border border-white/10">
               <p className="font-medium text-white mb-1">
                 How much does a website cost?
               </p>
               <p className="text-sm text-gray-400">
-                Flat fee of $1,299. Ask about our military discount.
+                One-time flat fee of $299. Ask about our military discount.
               </p>
-            </div>
-            <div className="bg-dark-500/50 p-4 rounded-lg border border-white/10">
+            </Reveal>
+            <Reveal delay={80} className="bg-dark-500/50 p-4 rounded-lg border border-white/10">
               <p className="font-medium text-white mb-1">
                 How long does it take?
               </p>
               <p className="text-sm text-gray-400">
                 Most projects complete in 7–14 days.
               </p>
-            </div>
-            <div className="bg-dark-500/50 p-4 rounded-lg border border-white/10">
+            </Reveal>
+            <Reveal delay={160} className="bg-dark-500/50 p-4 rounded-lg border border-white/10">
               <p className="font-medium text-white mb-1">
                 Do I own my website?
               </p>
               <p className="text-sm text-gray-400">
                 Yes. Domain, hosting, and code are all yours.
               </p>
-            </div>
-            <div className="bg-dark-500/50 p-4 rounded-lg border border-white/10">
+            </Reveal>
+            <Reveal delay={240} className="bg-dark-500/50 p-4 rounded-lg border border-white/10">
               <p className="font-medium text-white mb-1">
                 What happens after launch?
               </p>
               <p className="text-sm text-gray-400">
-                You get full ownership and documentation. The site is yours.
+                You get full ownership and documentation, and edits are $49 per request whenever you need them.
               </p>
-            </div>
+            </Reveal>
           </div>
         </div>
       </Section>

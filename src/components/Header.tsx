@@ -90,7 +90,7 @@ export default function Header() {
             {/* Mobile menu button */}
             <button
               type="button"
-              className="md:hidden inline-flex items-center justify-center p-2 text-gray-300 hover:text-rose-gold hover:bg-white/5 rounded-lg transition-colors"
+              className="btn-icon-glass md:hidden inline-flex items-center justify-center p-2 text-gray-300 hover:text-rose-gold rounded-lg"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"

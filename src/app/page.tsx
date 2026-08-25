@@ -6,6 +6,7 @@ import {
   ProcessCard,
   FAQ,
   homepageFAQs,
+  Reveal,
 } from '@/components';
 import CTABand from '@/components/CTA';
 import {
@@ -78,31 +79,42 @@ export default function Home() {
         <div className="container-custom relative z-10">
           <div className="max-w-4xl">
             {/* Elegant accent line */}
-            <div className="w-16 h-px bg-gradient-to-r from-rose-gold to-transparent mb-8" />
-            
+            <Reveal
+              direction="right"
+              className="w-16 h-px bg-gradient-to-r from-rose-gold to-transparent mb-8"
+            />
+
             {/* Problem-focused headline */}
-            <p className="text-rose-gold text-lg mb-4 font-medium">
+            <Reveal as="p" delay={80} className="text-rose-gold text-lg mb-4 font-medium">
               Losing customers to an outdated website?
-            </p>
-            <h1 className="text-white font-display font-light tracking-wide mb-6">
+            </Reveal>
+            <Reveal
+              as="h1"
+              delay={160}
+              className="text-white font-display font-light tracking-wide mb-6"
+            >
               Your website should be{' '}
               <span className="text-rose-gold">working for you</span>—not against you.
-            </h1>
-            <p className="text-xl text-gray-400 mb-8 max-w-2xl leading-relaxed">
+            </Reveal>
+            <Reveal
+              as="p"
+              delay={260}
+              className="text-xl text-gray-400 mb-8 max-w-2xl leading-relaxed"
+            >
               Most small business websites are slow, outdated, or confusing. Customers leave. You lose money. We fix that—fast, professional sites that earn trust and get you paid.
-            </p>
-            
+            </Reveal>
+
             {/* Social proof line */}
-            <div className="flex items-center gap-2 mb-8 text-gray-400">
+            <Reveal delay={340} className="flex items-center gap-2 mb-8 text-gray-400">
               <div className="flex">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-5 h-5 text-rose-gold fill-rose-gold" />
                 ))}
               </div>
               <span className="text-sm">Veteran-owned & trusted by entrepreneurs nationwide</span>
-            </div>
+            </Reveal>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <Reveal delay={420} className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact" className="btn-primary text-lg px-8 py-4">
                 Get Your Free Preview
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -114,10 +126,10 @@ export default function Home() {
                 <Phone className="w-5 h-5 mr-2" />
                 Call Now: 972-339-0754
               </a>
-            </div>
-            <p className="text-sm text-gray-500 mt-4">
+            </Reveal>
+            <Reveal as="p" delay={500} className="text-sm text-gray-500 mt-4">
               We respond within 15 minutes during business hours.
-            </p>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -125,13 +137,17 @@ export default function Home() {
       {/* Trust Points */}
       <Section background="white" className="py-12 border-b border-white/5">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-          {trustPoints.map((point) => (
-            <div key={point.text} className="flex items-center gap-3">
+          {trustPoints.map((point, i) => (
+            <Reveal
+              key={point.text}
+              delay={i * 90}
+              className="flex items-center gap-3"
+            >
               <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg">
                 <point.icon className="w-5 h-5" />
               </div>
               <span className="font-light tracking-wide text-gray-300">{point.text}</span>
-            </div>
+            </Reveal>
           ))}
         </div>
       </Section>
@@ -182,8 +198,8 @@ export default function Home() {
           subtitle="A straightforward process designed to get your site live quickly without surprises."
         />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {processSteps.map((step) => (
-            <ProcessCard key={step.step} {...step} />
+          {processSteps.map((step, i) => (
+            <ProcessCard key={step.step} index={i} {...step} />
           ))}
         </div>
       </Section>
@@ -192,51 +208,60 @@ export default function Home() {
       <Section background="white">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-white font-light tracking-wide mb-6">
+            <Reveal as="h2" className="text-white font-light tracking-wide mb-6">
               Why small businesses choose us
-            </h2>
+            </Reveal>
             <div className="space-y-4">
               {[
-                'You own your domain and hosting—no vendor lock-in',
-                'Clear pricing with no hidden fees or surprise charges',
+                'You own your domain and hosting outright, start to finish',
+                'Clear, flat pricing you can see before you call',
                 'Fast turnaround without cutting corners',
                 'Mobile-first design that works on every device',
                 'SEO fundamentals built in from the start',
                 'Clean handoff with documentation',
-              ].map((point) => (
-                <div key={point} className="flex items-start gap-3">
+              ].map((point, i) => (
+                <Reveal
+                  key={point}
+                  delay={100 + i * 80}
+                  direction="right"
+                  className="flex items-start gap-3"
+                >
                   <CheckCircle className="w-5 h-5 text-rose-gold flex-shrink-0 mt-0.5" />
                   <span className="text-gray-300">{point}</span>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
-          <div className="bg-dark-500/50 backdrop-blur-sm rounded-xl p-8 border border-white/10">
+          <Reveal
+            direction="left"
+            delay={120}
+            className="bg-dark-500/50 backdrop-blur-sm rounded-xl p-8 border border-white/10"
+          >
             <div className="flex items-center gap-3 mb-4">
               <Shield className="w-8 h-8 text-rose-gold" />
               <h3 className="text-xl font-light tracking-wide text-white">
-                Expectations set upfront
+                What you get, upfront
               </h3>
             </div>
             <ul className="space-y-3 text-gray-400">
               <li className="flex items-start gap-2">
                 <span className="text-rose-gold font-bold">•</span>
-                <span>Domain and hosting are registered in your name</span>
+                <span>Domain and hosting registered in your name, under your control</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-rose-gold font-bold">•</span>
-                <span>Post-launch edits are not included—we hand off a finished site</span>
+                <span>A finished, launch-ready site—yours to keep the day we hand it over</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-rose-gold font-bold">•</span>
-                <span>We deliver a finished product, not an ongoing relationship (unless you want one)</span>
+                <span>Post-launch edits whenever you need them: $49 per request, not per edit</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-rose-gold font-bold">•</span>
-                <span>No proprietary platforms—you can hire any developer in the future</span>
+                <span>Open, standard tech—so you can hire any developer you like down the road</span>
               </li>
             </ul>
-          </div>
+          </Reveal>
         </div>
       </Section>
 

@@ -27,7 +27,8 @@ const initialFormData: FormData = {
 
 const serviceOptions = [
   { value: '', label: 'Select service' },
-  { value: 'website-build-basic', label: 'Website Build - Basic $1,299' },
+  { value: 'website-build-basic', label: 'Website Build - $299 one-time' },
+  { value: 'post-launch-edits', label: 'Post-Launch Edits - $49 per request' },
   { value: 'larger-project', label: 'I have a larger project, let\'s discuss' },
 ];
 
@@ -122,7 +123,7 @@ export default function ContactForm() {
         </p>
         <a
           href="tel:972-339-0754"
-          className="inline-flex items-center justify-center px-6 py-3 bg-rose-gold text-white rounded-lg hover:bg-rose-dark transition-colors"
+          className="btn-primary"
         >
           <Phone className="w-4 h-4 mr-2" />
           972-339-0754

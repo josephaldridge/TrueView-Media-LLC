@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Phone, Mail, ArrowRight } from 'lucide-react';
+import Reveal from './Reveal';
 
 interface CTABandProps {
   title?: string;
@@ -22,17 +23,27 @@ export default function CTABand({
       <div className="absolute inset-0 bg-gradient-to-b from-rose-gold/5 to-transparent" />
       
       <div className="container-custom text-center relative z-10">
-        <div className="w-16 h-px bg-gradient-to-r from-transparent via-rose-gold to-transparent mx-auto mb-8" />
-        <h2 className="text-white text-3xl md:text-4xl font-light tracking-wide mb-4">
+        <Reveal
+          direction="scale"
+          className="w-16 h-px bg-gradient-to-r from-transparent via-rose-gold to-transparent mx-auto mb-8"
+        />
+        <Reveal
+          as="h2"
+          delay={80}
+          className="text-white text-3xl md:text-4xl font-light tracking-wide mb-4"
+        >
           {title}
-        </h2>
-        <p className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
+        </Reveal>
+        <Reveal as="p" delay={160} className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
           {subtitle}
-        </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        </Reveal>
+        <Reveal
+          delay={240}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium bg-rose-gold text-white rounded-lg hover:bg-rose-dark transition-all duration-300"
+            className="btn-primary px-8 py-3.5"
           >
             Get Your Free Preview
             <ArrowRight className="w-4 h-4 ml-2" />
@@ -40,18 +51,18 @@ export default function CTABand({
           {showPhone && (
             <a
               href="tel:972-339-0754"
-              className="inline-flex items-center justify-center px-6 py-3.5 text-base font-medium text-white border border-white/20 rounded-lg hover:border-rose-gold hover:text-rose-gold transition-all duration-300"
+              className="btn-outline px-6 py-3.5"
             >
               <Phone className="w-4 h-4 mr-2" />
               Call Now: 972-339-0754
             </a>
           )}
-        </div>
-        <p className="mt-4 text-gray-500 text-sm">
+        </Reveal>
+        <Reveal as="p" delay={320} className="mt-4 text-gray-500 text-sm">
           We respond within 15 minutes during business hours.
-        </p>
+        </Reveal>
         {showEmail && (
-          <p className="mt-2 text-gray-500 text-sm">
+          <Reveal as="p" delay={380} className="mt-2 text-gray-500 text-sm">
             Or email us at{' '}
             <a
               href="mailto:contact@trueviewmediallc.com"
@@ -59,7 +70,7 @@ export default function CTABand({
             >
               contact@trueviewmediallc.com
             </a>
-          </p>
+          </Reveal>
         )}
       </div>
     </section>

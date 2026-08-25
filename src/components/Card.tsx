@@ -1,22 +1,29 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import { ArrowRight, LucideIcon } from 'lucide-react';
+import Reveal from './Reveal';
 
 interface CardProps {
   children: ReactNode;
   className?: string;
   elevated?: boolean;
+  /** Position in a group, used to stagger the scroll-in animation. */
+  index?: number;
 }
 
 export default function Card({
   children,
   className = '',
   elevated = false,
+  index = 0,
 }: CardProps) {
   return (
-    <div className={`${elevated ? 'card-elevated' : 'card'} ${className}`}>
+    <Reveal
+      delay={index * 90}
+      className={`${elevated ? 'card-elevated' : 'card'} ${className}`}
+    >
       {children}
-    </div>
+    </Reveal>
   );
 }
 
@@ -25,6 +32,8 @@ interface ServiceCardProps {
   description: string;
   icon: LucideIcon;
   href?: string;
+  /** Position in a group, used to stagger the scroll-in animation. */
+  index?: number;
 }
 
 export function ServiceCard({
@@ -32,6 +41,7 @@ export function ServiceCard({
   description,
   icon: Icon,
   href,
+  index = 0,
 }: ServiceCardProps) {
   const content = (
     <>
@@ -51,13 +61,22 @@ export function ServiceCard({
 
   if (href) {
     return (
-      <Link href={href} className="card group hover:border-rose-gold/30 block">
-        {content}
-      </Link>
+      <Reveal delay={index * 90} className="h-full">
+        <Link
+          href={href}
+          className="card group hover:border-rose-gold/30 block h-full"
+        >
+          {content}
+        </Link>
+      </Reveal>
     );
   }
 
-  return <div className="card">{content}</div>;
+  return (
+    <Reveal delay={index * 90} className="card">
+      {content}
+    </Reveal>
+  );
 }
 
 interface PortfolioCardProps {
@@ -67,6 +86,8 @@ interface PortfolioCardProps {
   solution: string;
   results: string[];
   href: string;
+  /** Position in a group, used to stagger the scroll-in animation. */
+  index?: number;
 }
 
 export function PortfolioCard({
@@ -76,8 +97,10 @@ export function PortfolioCard({
   solution,
   results,
   href,
+  index = 0,
 }: PortfolioCardProps) {
   return (
+    <Reveal delay={index * 90} className="h-full">
     <Link href={href} className="card group hover:border-rose-gold/30 block h-full">
       <div className="flex items-center gap-2 mb-3">
         <span className="px-2.5 py-1 text-xs font-medium bg-rose-gold/10 text-rose-gold rounded-full">
@@ -113,6 +136,7 @@ export function PortfolioCard({
         <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
       </div>
     </Link>
+    </Reveal>
   );
 }
 
@@ -120,11 +144,18 @@ interface ProcessCardProps {
   step: number;
   title: string;
   description: string;
+  /** Position in a group, used to stagger the scroll-in animation. */
+  index?: number;
 }
 
-export function ProcessCard({ step, title, description }: ProcessCardProps) {
+export function ProcessCard({
+  step,
+  title,
+  description,
+  index = 0,
+}: ProcessCardProps) {
   return (
-    <div className="relative">
+    <Reveal delay={index * 90} className="relative">
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-rose-gold text-white text-sm font-medium rounded-full">
           {step}
@@ -134,6 +165,6 @@ export function ProcessCard({ step, title, description }: ProcessCardProps) {
           <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
         </div>
       </div>
-    </div>
+    </Reveal>
   );
 }

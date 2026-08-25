@@ -1,17 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Section } from '@/components';
+import { Section, Reveal } from '@/components';
 import CTABand from '@/components/CTA';
 import { CheckCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    'Professional website design for small businesses and entrepreneurs. Flat fee of $1,299. No hidden fees, no surprises.',
+    'Professional website design for small businesses and entrepreneurs. One-time flat fee of $299. No hidden fees, no surprises.',
   openGraph: {
     title: 'Services | TrueView Media LLC',
     description:
-      'Professional website design for small businesses and entrepreneurs. Flat fee of $1,299.',
+      'Professional website design for small businesses and entrepreneurs. One-time flat fee of $299.',
   },
 };
 
@@ -35,11 +35,20 @@ export default function ServicesPage() {
       <section className="bg-gradient-to-b from-dark-400 to-dark-600 pt-12 pb-16 md:pt-16 md:pb-20">
         <div className="container-custom">
           <div className="max-w-3xl">
-            <div className="w-16 h-px bg-gradient-to-r from-rose-gold to-transparent mb-8" />
-            <h1 className="text-white font-display font-light tracking-wide mb-6">Services</h1>
-            <p className="text-xl text-gray-400">
+            <Reveal
+              direction="right"
+              className="w-16 h-px bg-gradient-to-r from-rose-gold to-transparent mb-8"
+            />
+            <Reveal
+              as="h1"
+              delay={80}
+              className="text-white font-display font-light tracking-wide mb-6"
+            >
+              Services
+            </Reveal>
+            <Reveal as="p" delay={180} className="text-xl text-gray-400">
               Professional websites for small businesses and entrepreneurs. One flat fee, no surprises.
-            </p>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -48,20 +57,25 @@ export default function ServicesPage() {
       <Section background="white" id="pricing">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-white font-light tracking-wide mb-4">Simple, flat-fee pricing</h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <Reveal as="h2" className="text-white font-light tracking-wide mb-4">
+              Simple, flat-fee pricing
+            </Reveal>
+            <Reveal as="p" delay={120} className="text-gray-400 text-lg max-w-2xl mx-auto">
               Most professionally built websites cost $2,500–$5,000 or more. We believe small businesses and entrepreneurs should have access to a fast, professional website without paying agency prices.
-            </p>
+            </Reveal>
           </div>
           
-          <div className="bg-dark-500/50 backdrop-blur-sm rounded-xl p-8 md:p-12 border border-white/10">
+          <Reveal
+            direction="scale"
+            className="bg-dark-500/50 backdrop-blur-sm rounded-xl p-8 md:p-12 border border-white/10"
+          >
             <div className="text-center mb-8">
               <p className="text-sm text-rose-gold uppercase tracking-widest mb-2">
-                Flat build fee
+                One-time flat fee
               </p>
-              <p className="text-5xl md:text-6xl font-display font-light text-white mb-4">$1,299</p>
+              <p className="text-5xl md:text-6xl font-display font-light text-white mb-4">$299</p>
               <p className="text-gray-400 text-lg">
-                Everything you need to launch a professional website.
+                Paid once. Everything you need to launch a professional website.
               </p>
             </div>
 
@@ -72,11 +86,17 @@ export default function ServicesPage() {
                 What&apos;s included:
               </h3>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-2xl mx-auto">
-                {includedFeatures.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2">
+                {includedFeatures.map((feature, i) => (
+                  <Reveal
+                    as="li"
+                    key={feature}
+                    delay={i * 60}
+                    direction="right"
+                    className="flex items-start gap-2"
+                  >
                     <CheckCircle className="w-5 h-5 text-rose-gold flex-shrink-0 mt-0.5" />
                     <span className="text-gray-400">{feature}</span>
-                  </li>
+                  </Reveal>
                 ))}
               </ul>
             </div>
@@ -89,9 +109,25 @@ export default function ServicesPage() {
                 Ask about our military discount.
               </p>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="mt-8 text-center">
+          <Reveal delay={80} className="mt-8 bg-dark-500/50 backdrop-blur-sm rounded-xl p-6 md:p-8 border border-white/10">
+            <div className="text-center">
+              <p className="text-sm text-rose-gold uppercase tracking-widest mb-2">
+                Need a change later?
+              </p>
+              <p className="text-3xl md:text-4xl font-display font-light text-white mb-3">
+                $49 per request
+              </p>
+              <p className="text-gray-400 max-w-xl mx-auto">
+                Post-launch edits are billed <strong className="text-white">per request, not per edit</strong>.
+                Send us four changes in one message and it is still $49. Batch them up however
+                you like—we will take care of the whole list.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={120} className="mt-8 text-center">
             <p className="text-gray-400">
               Have a larger project in mind?{' '}
               <Link href="/contact" className="text-rose-gold hover:text-rose-light font-medium transition-colors">
@@ -99,7 +135,7 @@ export default function ServicesPage() {
               </Link>
               .
             </p>
-          </div>
+          </Reveal>
         </div>
       </Section>
 

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Section, SectionHeader, ProcessCard } from '@/components';
+import { Section, SectionHeader, ProcessCard, Reveal } from '@/components';
 import CTABand from '@/components/CTA';
 import {
   CheckCircle,
@@ -36,14 +36,14 @@ const processSteps = [
   },
   {
     step: 2,
-    title: 'Proposal & Deposit',
+    title: 'Proposal & Payment',
     description:
-      'Based on our discovery conversation, we provide a clear proposal with scope, timeline, and pricing. Once approved, a 50% deposit starts the project.',
+      'Based on our discovery conversation, we provide a clear proposal with scope, timeline, and pricing. Once approved, a single upfront payment starts the project.',
     details: [
       'Detailed scope document',
       'Fixed project price',
       'Timeline estimate',
-      'Payment terms',
+      'One single payment upfront',
       'Contract signing',
     ],
   },
@@ -51,7 +51,7 @@ const processSteps = [
     step: 3,
     title: 'Design & Build',
     description:
-      "We design and develop your website. You'll see progress throughout and have opportunities to provide feedback. We don't disappear for weeks—we keep you in the loop.",
+      "We design and develop your website. You'll see progress throughout and have opportunities to provide feedback, with regular check-ins so you always know where things stand.",
     details: [
       'Homepage design first',
       'Regular progress updates',
@@ -108,11 +108,20 @@ export default function ProcessPage() {
       <section className="bg-gradient-to-b from-dark-400 to-dark-600 pt-12 pb-16 md:pt-16 md:pb-20">
         <div className="container-custom">
           <div className="max-w-3xl">
-            <div className="w-16 h-px bg-gradient-to-r from-rose-gold to-transparent mb-8" />
-            <h1 className="text-white font-display font-light tracking-wide mb-6">Our Process</h1>
-            <p className="text-xl text-gray-400">
+            <Reveal
+              direction="right"
+              className="w-16 h-px bg-gradient-to-r from-rose-gold to-transparent mb-8"
+            />
+            <Reveal
+              as="h1"
+              delay={80}
+              className="text-white font-display font-light tracking-wide mb-6"
+            >
+              Our Process
+            </Reveal>
+            <Reveal as="p" delay={180} className="text-xl text-gray-400">
               A straightforward approach designed to get your site live quickly, without surprises, and with you in control throughout.
-            </p>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -121,7 +130,7 @@ export default function ProcessPage() {
       <Section background="white">
         <div className="max-w-4xl mx-auto space-y-12">
           {processSteps.map((step, index) => (
-            <div key={step.step} className="relative">
+            <Reveal key={step.step} className="relative">
               {index < processSteps.length - 1 && (
                 <div className="absolute left-5 top-12 bottom-0 w-0.5 bg-white/10 hidden md:block" />
               )}
@@ -135,19 +144,22 @@ export default function ProcessPage() {
                   </h2>
                   <p className="text-gray-400 mb-4">{step.description}</p>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {step.details.map((detail) => (
-                      <li
+                    {step.details.map((detail, i) => (
+                      <Reveal
+                        as="li"
                         key={detail}
+                        delay={100 + i * 60}
+                        direction="right"
                         className="flex items-center gap-2 text-sm text-gray-400"
                       >
                         <CheckCircle className="w-4 h-4 text-rose-gold flex-shrink-0" />
                         {detail}
-                      </li>
+                      </Reveal>
                     ))}
                   </ul>
                 </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </Section>
@@ -161,7 +173,7 @@ export default function ProcessPage() {
             subtitle="Our commitments to you throughout the project."
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="flex items-start gap-4">
+            <Reveal delay={0} className="flex items-start gap-4">
               <div className="w-10 h-10 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg flex-shrink-0">
                 <MessageSquare className="w-5 h-5" />
               </div>
@@ -173,8 +185,8 @@ export default function ProcessPage() {
                   Regular updates, quick responses, and no jargon. We keep you informed without overwhelming you.
                 </p>
               </div>
-            </div>
-            <div className="flex items-start gap-4">
+            </Reveal>
+            <Reveal delay={90} className="flex items-start gap-4">
               <div className="w-10 h-10 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg flex-shrink-0">
                 <Calendar className="w-5 h-5" />
               </div>
@@ -186,8 +198,8 @@ export default function ProcessPage() {
                   We hit our deadlines. If something affects the timeline, we tell you immediately and adjust.
                 </p>
               </div>
-            </div>
-            <div className="flex items-start gap-4">
+            </Reveal>
+            <Reveal delay={180} className="flex items-start gap-4">
               <div className="w-10 h-10 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg flex-shrink-0">
                 <FileText className="w-5 h-5" />
               </div>
@@ -196,11 +208,11 @@ export default function ProcessPage() {
                   No Surprises
                 </h3>
                 <p className="text-sm text-gray-400">
-                  Fixed pricing for defined scope. Any changes are discussed and agreed upon before work begins.
+                  One flat price, paid once, for a defined scope. Any changes are discussed and agreed upon before work begins, and post-launch edits are a simple $49 per request.
                 </p>
               </div>
-            </div>
-            <div className="flex items-start gap-4">
+            </Reveal>
+            <Reveal delay={270} className="flex items-start gap-4">
               <div className="w-10 h-10 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg flex-shrink-0">
                 <CheckCircle className="w-5 h-5" />
               </div>
@@ -209,10 +221,10 @@ export default function ProcessPage() {
                   Quality Work
                 </h3>
                 <p className="text-sm text-gray-400">
-                  Modern, fast, accessible websites built with care. We don&apos;t cut corners or use outdated methods.
+                  Modern, fast, accessible websites built with care, using current standards and tooling throughout.
                 </p>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </Section>
@@ -224,9 +236,12 @@ export default function ProcessPage() {
             title="What we need from you"
             subtitle="Your involvement makes the project successful."
           />
-          <div className="bg-dark-500/50 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+          <Reveal
+            direction="scale"
+            className="bg-dark-500/50 backdrop-blur-sm rounded-xl p-6 border border-white/10"
+          >
             <ul className="space-y-4">
-              <li className="flex items-start gap-3">
+              <Reveal as="li" delay={100} direction="right" className="flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-rose-gold flex-shrink-0 mt-0.5" />
                 <div>
                   <span className="font-medium text-white">Content & Assets</span>
@@ -234,8 +249,8 @@ export default function ProcessPage() {
                     Text for pages, photos, logos, and any other materials. We can help with structure, but you know your business best.
                   </p>
                 </div>
-              </li>
-              <li className="flex items-start gap-3">
+              </Reveal>
+              <Reveal as="li" delay={190} direction="right" className="flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-rose-gold flex-shrink-0 mt-0.5" />
                 <div>
                   <span className="font-medium text-white">Timely Feedback</span>
@@ -243,8 +258,8 @@ export default function ProcessPage() {
                     Quick responses keep the project moving. Delays in feedback affect the launch date.
                   </p>
                 </div>
-              </li>
-              <li className="flex items-start gap-3">
+              </Reveal>
+              <Reveal as="li" delay={280} direction="right" className="flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-rose-gold flex-shrink-0 mt-0.5" />
                 <div>
                   <span className="font-medium text-white">Account Access</span>
@@ -252,8 +267,8 @@ export default function ProcessPage() {
                     Domain registrar, hosting, and any other accounts we need to access for setup.
                   </p>
                 </div>
-              </li>
-              <li className="flex items-start gap-3">
+              </Reveal>
+              <Reveal as="li" delay={370} direction="right" className="flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-rose-gold flex-shrink-0 mt-0.5" />
                 <div>
                   <span className="font-medium text-white">Decision Making</span>
@@ -261,9 +276,9 @@ export default function ProcessPage() {
                     One person who can make decisions. Design by committee slows everything down.
                   </p>
                 </div>
-              </li>
+              </Reveal>
             </ul>
-          </div>
+          </Reveal>
         </div>
       </Section>
 
