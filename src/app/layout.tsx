@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
-import { Header, Footer, ExitIntentPopup } from '@/components';
+import { Header, Footer, ExitIntentPopup, ScrollChevrons } from '@/components';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -70,6 +70,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <ScrollChevrons />
         <ExitIntentPopup />
         <Analytics />
       </body>

@@ -310,3 +310,101 @@ input, textarea, select {
     transform: none !important;
   }
 }
+
+/* ---- Scroll affordance chevrons ---- */
+.scroll-chevron {
+  position: fixed;
+  left: 50%;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  color: rgba(255, 255, 255, 0.32);
+  background-color: rgba(255, 255, 255, 0.03);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transition: opacity 450ms ease, color 250ms ease,
+    background-color 250ms ease;
+}
+
+.scroll-chevron.is-shown {
+  opacity: 1;
+}
+
+.scroll-chevron-top {
+  top: 7rem;
+}
+
+.scroll-chevron-bottom {
+  bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .scroll-chevron-top {
+    top: 9.5rem;
+  }
+
+  .scroll-chevron-bottom {
+    bottom: 2rem;
+  }
+}
+
+.scroll-chevron-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  /* Nest the pair so they read as one double chevron */
+  margin-block: -0.5rem;
+}
+
+.scroll-chevron-down .scroll-chevron-icon {
+  animation: chevronDriftDown 1.9s ease-in-out infinite;
+}
+
+.scroll-chevron-up .scroll-chevron-icon {
+  animation: chevronDriftUp 1.9s ease-in-out infinite;
+}
+
+/* The trailing chevron lags, so the pair ripples in the scroll direction */
+.scroll-chevron-icon-trailing {
+  animation-delay: 0.19s;
+}
+
+@keyframes chevronDriftDown {
+  0%,
+  100% {
+    transform: translateY(-3px);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateY(3px);
+    opacity: 1;
+  }
+}
+
+@keyframes chevronDriftUp {
+  0%,
+  100% {
+    transform: translateY(3px);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-chevron-icon {
+    animation: none !important;
+    opacity: 0.8;
+  }
+
+  .scroll-chevron {
+    transition: none !important;
+  }
+}
