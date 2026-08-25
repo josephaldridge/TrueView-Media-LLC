@@ -7,11 +7,11 @@ import { CheckCircle } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    'Professional website design for small businesses and entrepreneurs. One-time flat fee of $299. No hidden fees, no surprises.',
+    'Professional website design for small businesses and entrepreneurs. One-time flat fee of $499. No hidden fees, no surprises.',
   openGraph: {
     title: 'Services | TrueView Media LLC',
     description:
-      'Professional website design for small businesses and entrepreneurs. One-time flat fee of $299.',
+      'Professional website design for small businesses and entrepreneurs. One-time flat fee of $499.',
   },
 };
 
@@ -73,7 +73,7 @@ export default function ServicesPage() {
               <p className="text-sm text-rose-gold uppercase tracking-widest mb-2">
                 One-time flat fee
               </p>
-              <p className="text-5xl md:text-6xl font-display font-light text-white mb-4">$299</p>
+              <p className="text-5xl md:text-6xl font-display font-light text-white mb-4">$499</p>
               <p className="text-gray-400 text-lg">
                 Paid once. Everything you need to launch a professional website.
               </p>

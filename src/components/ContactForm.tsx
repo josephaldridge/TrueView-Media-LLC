@@ -27,7 +27,7 @@ const initialFormData: FormData = {
 
 const serviceOptions = [
   { value: '', label: 'Select service' },
-  { value: 'website-build-basic', label: 'Website Build - $299 one-time' },
+  { value: 'website-build-basic', label: 'Website Build - $499 one-time' },
   { value: 'post-launch-edits', label: 'Post-Launch Edits - $49 per request' },
   { value: 'larger-project', label: 'I have a larger project, let\'s discuss' },
 ];

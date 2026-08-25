@@ -63,7 +63,7 @@ export const homepageFAQs: FAQItem[] = [
   {
     question: 'How much does a website cost?',
     answer:
-      "Most professionally built websites cost $2,500–$5,000 or more. We believe small businesses and entrepreneurs should have access to a fast, professional website without paying agency prices. That's why we offer a one-time flat build fee of $299. Ask about our military discount.",
+      "Most professionally built websites cost $2,500–$5,000 or more. We believe small businesses and entrepreneurs should have access to a fast, professional website without paying agency prices. That's why we offer a one-time flat build fee of $499. Ask about our military discount.",
   },
   {
     question: 'How long does a website take to build?',
@@ -83,6 +83,6 @@ export const homepageFAQs: FAQItem[] = [
   {
     question: 'How does payment work?',
     answer:
-      'One single payment of $299 upfront to start your project—that covers the entire build through launch. After that, the only thing you would ever pay for is an edit request at $49, and only if you ask for one. For larger custom projects, payment terms are discussed before any work begins.',
+      'One single payment of $499 upfront to start your project—that covers the entire build through launch. After that, the only thing you would ever pay for is an edit request at $49, and only if you ask for one. For larger custom projects, payment terms are discussed before any work begins.',
   },
 ];

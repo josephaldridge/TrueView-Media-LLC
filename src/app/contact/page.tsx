@@ -166,7 +166,7 @@ export default function ContactPage() {
                 How much does a website cost?
               </p>
               <p className="text-sm text-gray-400">
-                One-time flat fee of $299. Ask about our military discount.
+                One-time flat fee of $499. Ask about our military discount.
               </p>
             </Reveal>
             <Reveal delay={80} className="bg-dark-500/50 p-4 rounded-lg border border-white/10">
