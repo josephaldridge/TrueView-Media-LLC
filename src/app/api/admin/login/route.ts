@@ -8,7 +8,10 @@ import {
   sessionCookieOptions,
   verifyPassword,
 } from '@/lib/admin/auth';
-import { isDatabaseConfigured } from '@/lib/admin/db';
+import {
+  isDatabaseConfigured,
+  unsupportedConnectionScheme,
+} from '@/lib/admin/db';
 import {
   checkLoginRateLimit,
   clientIp,
@@ -45,6 +48,18 @@ export async function POST(request: NextRequest) {
   if (!isDatabaseConfigured()) {
     return NextResponse.json(
       { message: 'Admin storage is not configured on this deployment.' },
+      { status: 503 }
+    );
+  }
+
+  // A non-postgres:// URL cannot work with this driver, so say so plainly
+  // rather than reporting a generic connection failure.
+  const badScheme = unsupportedConnectionScheme();
+  if (badScheme) {
+    return NextResponse.json(
+      {
+        message: `The configured database uses a "${badScheme}://" URL, which this app cannot connect to. It needs a standard postgres:// connection string.`,
+      },
       { status: 503 }
     );
   }

@@ -1,4 +1,55 @@
-import { sql } from '@vercel/postgres';
+import { createPool, type VercelPool } from '@vercel/postgres';
+
+/**
+ * Connection string, taken from whichever variable the storage provider set.
+ * Different Vercel integrations use different names.
+ */
+function connectionString(): string | undefined {
+  return (
+    process.env.POSTGRES_URL ||
+    process.env.POSTGRES_URL_NON_POOLING ||
+    process.env.POSTGRES_PRISMA_URL ||
+    process.env.DATABASE_URL ||
+    undefined
+  );
+}
+
+/**
+ * Prisma Postgres hands out a `prisma+postgres://` Accelerate proxy URL, which
+ * speaks Prisma's HTTP protocol rather than the PostgreSQL wire protocol this
+ * driver needs. Detecting it lets us say so instead of failing obscurely.
+ */
+export function unsupportedConnectionScheme(): string | null {
+  const url = connectionString();
+  if (!url) return null;
+  const scheme = url.split(':')[0].toLowerCase();
+  if (scheme === 'postgres' || scheme === 'postgresql') return null;
+  return scheme;
+}
+
+let pool: VercelPool | null = null;
+
+function getPool(): VercelPool {
+  if (!pool) {
+    const url = connectionString();
+    if (!url) throw new Error('No database connection string is configured.');
+
+    const scheme = unsupportedConnectionScheme();
+    if (scheme) {
+      throw new Error(
+        `This database uses a "${scheme}://" URL, which needs a different client. ` +
+          'A standard postgres:// connection string is required.'
+      );
+    }
+
+    pool = createPool({ connectionString: url });
+  }
+  return pool;
+}
+
+/** Tagged-template proxy so query call sites stay unchanged. */
+const sql: VercelPool['sql'] = (strings, ...values) =>
+  getPool().sql(strings, ...values);
 
 export type LeadStatus =
   | 'new'
@@ -34,9 +85,7 @@ export interface Lead {
 }
 
 export function isDatabaseConfigured(): boolean {
-  return Boolean(
-    process.env.POSTGRES_URL || process.env.POSTGRES_URL_NON_POOLING
-  );
+  return Boolean(connectionString());
 }
 
 let schemaReady: Promise<void> | null = null;

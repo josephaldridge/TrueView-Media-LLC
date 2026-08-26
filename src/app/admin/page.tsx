@@ -12,7 +12,7 @@ function missingEnvVars(): string[] {
   const missing: string[] = [];
   if (!process.env.ADMIN_PASSWORD) missing.push('ADMIN_PASSWORD');
   if (!process.env.ADMIN_SESSION_SECRET) missing.push('ADMIN_SESSION_SECRET');
-  if (!isDatabaseConfigured()) missing.push('POSTGRES_URL');
+  if (!isDatabaseConfigured()) missing.push('POSTGRES_URL (a postgres:// connection string)');
   return missing;
 }
 
