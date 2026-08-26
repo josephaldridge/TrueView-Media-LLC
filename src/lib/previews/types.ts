@@ -97,4 +97,9 @@ export interface PreviewContent {
 
   /** Optional CRM lead id this preview was built for. */
   leadId?: number;
+  /**
+   * Customer number from the CRM, e.g. '0004'. Ties this preview back to the
+   * right company when work, invoices and files are filed under that number.
+   */
+  customerId?: string;
 }

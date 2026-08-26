@@ -4,7 +4,12 @@ import LeadTable from '@/components/admin/LeadTable';
 import SetupNotice from '@/components/admin/SetupNotice';
 import { isAdminConfigured } from '@/lib/admin/auth';
 import { isAuthenticated } from '@/lib/admin/guard';
-import { isDatabaseConfigured, listLeads, type Lead } from '@/lib/admin/db';
+import {
+  customerNumberingError,
+  isDatabaseConfigured,
+  listLeads,
+  type Lead,
+} from '@/lib/admin/db';
 
 export const dynamic = 'force-dynamic';
 
@@ -51,6 +56,13 @@ export default async function AdminDashboard() {
         <p className="text-gray-500 text-sm mb-8">
           Everything you have saved, newest activity first.
         </p>
+
+        {customerNumberingError && (
+          <p className="text-amber-400 text-sm mb-6">
+            Customer numbering could not be applied, so IDs may be blank. Leads
+            are otherwise unaffected. ({customerNumberingError})
+          </p>
+        )}
 
         {loadError ? (
           <p className="text-red-400 text-sm">{loadError}</p>

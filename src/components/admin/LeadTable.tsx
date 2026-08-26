@@ -31,6 +31,7 @@ export default function LeadTable({ initialLeads }: Props) {
   const [error, setError] = useState('');
   const [openNotes, setOpenNotes] = useState<number | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [query, setQuery] = useState('');
 
   const reload = useCallback(async (showSpinner = true) => {
     if (showSpinner) setRefreshing(true);
@@ -55,10 +56,20 @@ export default function LeadTable({ initialLeads }: Props) {
     reload(false);
   }, [reload]);
 
-  const visible = useMemo(
-    () => (filter === 'all' ? leads : leads.filter((l) => l.status === filter)),
-    [leads, filter]
-  );
+  const visible = useMemo(() => {
+    const byStatus =
+      filter === 'all' ? leads : leads.filter((l) => l.status === filter);
+
+    const term = query.trim().toLowerCase();
+    if (!term) return byStatus;
+
+    return byStatus.filter(
+      (l) =>
+        l.business_name.toLowerCase().includes(term) ||
+        (l.customer_id ?? '').includes(term) ||
+        (l.phone ?? '').includes(term)
+    );
+  }, [leads, filter, query]);
 
   const counts = useMemo(() => {
     const base: Record<string, number> = { all: leads.length };
@@ -174,6 +185,14 @@ export default function LeadTable({ initialLeads }: Props) {
         </button>
       </div>
 
+      <input
+        type="search"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search by customer ID, business name or phone"
+        className="input-field mb-6"
+      />
+
       {error && (
         <p className="text-sm text-red-400 mb-4" role="alert">
           {error}
@@ -184,6 +203,7 @@ export default function LeadTable({ initialLeads }: Props) {
         <table className="w-full min-w-[720px] text-sm">
           <thead>
             <tr className="text-left text-gray-500 border-b border-white/10">
+              <th className="py-3 px-4 font-medium w-24">ID</th>
               <th className="py-3 px-4 font-medium">Business</th>
               <th className="py-3 px-4 font-medium">Contact</th>
               <th className="py-3 px-4 font-medium">Status</th>
@@ -196,6 +216,12 @@ export default function LeadTable({ initialLeads }: Props) {
                 key={lead.id}
                 className="border-b border-white/5 hover:bg-white/[0.02]"
               >
+                <td className="py-3 px-4 align-top">
+                  <span className="font-mono text-xs px-2 py-1 rounded bg-white/5 border border-white/10 text-rose-gold">
+                    {lead.customer_id ?? '—'}
+                  </span>
+                </td>
+
                 <td className="py-3 px-4 align-top">
                   <p className="text-white">{lead.business_name}</p>
                   {lead.category && (

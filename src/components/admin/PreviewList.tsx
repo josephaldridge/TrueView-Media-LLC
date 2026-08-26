@@ -8,6 +8,7 @@ interface PreviewSummary {
   businessName: string;
   template: string;
   tagline: string;
+  customerId?: string;
 }
 
 export default function PreviewList({
@@ -47,7 +48,14 @@ export default function PreviewList({
           className="border border-white/10 rounded-lg p-4 flex flex-wrap items-center justify-between gap-4"
         >
           <div className="min-w-0">
-            <p className="text-white">{preview.businessName}</p>
+            <div className="flex items-center gap-2">
+              {preview.customerId && (
+                <span className="font-mono text-xs px-2 py-0.5 rounded bg-white/5 border border-white/10 text-rose-gold">
+                  {preview.customerId}
+                </span>
+              )}
+              <p className="text-white">{preview.businessName}</p>
+            </div>
             <p className="text-gray-500 text-xs mt-0.5">
               {preview.template} · /preview/{preview.slug}
             </p>

@@ -22,6 +22,7 @@ export default async function AdminPreviewsPage() {
     businessName: preview.businessName,
     template: preview.template,
     tagline: preview.tagline,
+    customerId: preview.customerId,
   }));
 
   return (

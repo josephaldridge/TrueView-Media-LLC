@@ -68,6 +68,8 @@ export const LEAD_STATUSES: LeadStatus[] = [
 
 export interface Lead {
   id: number;
+  /** Zero-padded sequential customer number, e.g. '0001'. */
+  customer_id: string | null;
   business_name: string;
   category: string | null;
   phone: string | null;
@@ -86,6 +88,100 @@ export interface Lead {
 
 export function isDatabaseConfigured(): boolean {
   return Boolean(connectionString());
+}
+
+/**
+ * Set when customer numbering could not be applied, so the UI can say so
+ * rather than silently showing blank ids.
+ */
+export let customerNumberingError: string | null = null;
+
+/**
+ * Adds sequential customer numbers and backfills existing leads.
+ *
+ * Deliberately non-fatal: this runs inside schema setup, which login depends
+ * on, so a failure here must degrade to "leads without numbers" rather than
+ * locking the admin out entirely.
+ */
+async function applyCustomerNumbering(): Promise<void> {
+  try {
+      // --- Customer numbers -------------------------------------------------
+      // Every lead carries a sequential, zero-padded customer id ('0001') so
+      // work can be tagged back to the right company. Each step is idempotent,
+      // so this is safe to run on every cold start.
+
+      await sql`CREATE SEQUENCE IF NOT EXISTS leads_customer_id_seq;`;
+
+      await sql`
+        ALTER TABLE leads ADD COLUMN IF NOT EXISTS customer_id TEXT;
+      `;
+
+      // Backfill anything without a number, oldest lead first, continuing on
+      // from the highest number already issued.
+      await sql`
+        WITH base AS (
+          SELECT COALESCE(MAX(customer_id::bigint), 0) AS started_at
+          FROM leads
+          WHERE customer_id ~ '^[0-9]+$'
+        ),
+        numbered AS (
+          SELECT id, ROW_NUMBER() OVER (ORDER BY created_at, id) AS position
+          FROM leads
+          WHERE customer_id IS NULL
+        )
+        UPDATE leads AS l
+        SET customer_id = to_char(base.started_at + numbered.position, 'FM0000')
+        FROM numbered, base
+        WHERE l.id = numbered.id;
+      `;
+
+      // Point the sequence past whatever has been issued. Including the
+      // sequence's own last_value keeps this monotonic: a later cold start can
+      // never drag it backwards over numbers already handed out.
+      //
+      // The third argument is is_called — false means the next value returned
+      // is this one, which is what makes an empty table start at 0001 rather
+      // than 0002.
+      await sql`
+        SELECT setval(
+          'leads_customer_id_seq',
+          GREATEST(
+            (
+              SELECT COALESCE(MAX(customer_id::bigint), 0)
+              FROM leads WHERE customer_id ~ '^[0-9]+$'
+            ),
+            (SELECT last_value FROM leads_customer_id_seq),
+            1
+          ),
+          (
+            (
+              SELECT COALESCE(MAX(customer_id::bigint), 0)
+              FROM leads WHERE customer_id ~ '^[0-9]+$'
+            ) > 0
+            OR (SELECT is_called FROM leads_customer_id_seq)
+          )
+        );
+      `;
+
+      // Applied after the backfill so new inserts cannot collide with it.
+      // FM0000 pads to four digits and keeps growing past 9999 rather than
+      // truncating, which LPAD would do.
+      await sql`
+        ALTER TABLE leads
+        ALTER COLUMN customer_id
+        SET DEFAULT to_char(nextval('leads_customer_id_seq'), 'FM0000');
+      `;
+
+      await sql`
+        CREATE UNIQUE INDEX IF NOT EXISTS leads_customer_id_idx
+        ON leads (customer_id);
+      `;
+    customerNumberingError = null;
+  } catch (error) {
+    customerNumberingError =
+      error instanceof Error ? error.message : 'Unknown error';
+    console.error('Customer numbering migration failed:', error);
+  }
 }
 
 let schemaReady: Promise<void> | null = null;
@@ -134,6 +230,8 @@ export function ensureSchema(): Promise<void> {
         CREATE INDEX IF NOT EXISTS admin_login_attempts_ip_idx
         ON admin_login_attempts (ip, attempted_at DESC);
       `;
+
+      await applyCustomerNumbering();
     })().catch((error) => {
       // Let the next request retry rather than caching a failed migration.
       schemaReady = null;
