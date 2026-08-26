@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Section, Reveal } from '@/components';
 import ContactForm from '@/components/ContactForm';
-import { Phone, Mail, Clock, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -34,10 +34,6 @@ export default function ContactPage() {
             </Reveal>
             <Reveal as="p" delay={180} className="text-xl text-gray-400">
               Ready to talk about your project? Fill out the form below or reach out directly.
-            </Reveal>
-            <Reveal as="p" delay={260} className="text-rose-gold mt-2 flex items-center gap-2">
-              <Clock className="w-5 h-5" />
-              We respond within 15 minutes during business hours.
             </Reveal>
           </div>
         </div>
@@ -81,18 +77,6 @@ export default function ContactPage() {
                   >
                     contact@trueviewmediallc.com
                   </a>
-                </div>
-              </Reveal>
-
-              {/* Response Time */}
-              <Reveal delay={180} direction="right" className="flex items-start gap-4">
-                <div className="w-10 h-10 flex items-center justify-center bg-green-500/20 text-green-400 rounded-lg flex-shrink-0">
-                  <Clock className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="font-medium text-white mb-1">Response Time</p>
-                  <p className="text-green-400 font-medium">Within 15 minutes</p>
-                  <p className="text-gray-500 text-sm">During business hours (Mon-Fri, 9am-6pm CT)</p>
                 </div>
               </Reveal>
 

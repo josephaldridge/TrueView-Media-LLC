@@ -58,11 +58,8 @@ export default function CTABand({
             </a>
           )}
         </Reveal>
-        <Reveal as="p" delay={320} className="mt-4 text-gray-500 text-sm">
-          We respond within 15 minutes during business hours.
-        </Reveal>
         {showEmail && (
-          <Reveal as="p" delay={380} className="mt-2 text-gray-500 text-sm">
+          <Reveal as="p" delay={320} className="mt-4 text-gray-500 text-sm">
             Or email us at{' '}
             <a
               href="mailto:contact@trueviewmediallc.com"

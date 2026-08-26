@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, FormEvent } from 'react';
-import { X, Send, CheckCircle, AlertCircle, Loader2, Phone, Clock, ArrowRight } from 'lucide-react';
+import { X, Send, CheckCircle, AlertCircle, Loader2, Phone, ArrowRight } from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -140,12 +140,9 @@ export default function ExitIntentPopup() {
                 Got it! We&apos;re on it.
               </h3>
               <div className="bg-dark-700/50 rounded-lg p-4 mb-4">
-                <div className="flex items-center justify-center gap-2 text-rose-gold mb-2">
-                  <Clock className="w-4 h-4" />
-                  <span className="font-medium text-sm">What happens next:</span>
-                </div>
                 <p className="text-gray-400 text-sm">
-                  You&apos;ll hear from us within <strong className="text-white">15 minutes</strong> during business hours.
+                  Your request is in. We&apos;ll be in touch to talk through your
+                  project.
                 </p>
               </div>
               <p className="text-gray-500 text-sm mb-4">
@@ -262,11 +259,6 @@ export default function ExitIntentPopup() {
                     </>
                   )}
                 </button>
-
-                <p className="text-xs text-gray-500 text-center flex items-center justify-center gap-1">
-                  <Clock className="w-3 h-3 text-rose-gold" />
-                  We respond within 15 minutes
-                </p>
               </form>
             </>
           )}

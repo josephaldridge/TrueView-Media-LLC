@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import { Send, CheckCircle, AlertCircle, Loader2, Phone, Clock, ArrowRight } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, Loader2, Phone, ArrowRight } from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -110,12 +110,9 @@ export default function ContactForm() {
           Your request is now at the top of our list.
         </p>
         <div className="bg-dark-600/50 rounded-lg p-4 mb-6 max-w-md mx-auto">
-          <div className="flex items-center justify-center gap-2 text-rose-gold mb-2">
-            <Clock className="w-5 h-5" />
-            <span className="font-medium">What happens next:</span>
-          </div>
           <p className="text-gray-400 text-sm">
-            You&apos;ll hear from us within <strong className="text-white">15 minutes</strong> during business hours (Mon-Fri, 9am-6pm CT). If it&apos;s after hours, expect a call first thing in the morning.
+            Your request is in. We&apos;ll be in touch to talk through your
+            project and next steps.
           </p>
         </div>
         <p className="text-gray-500 text-sm mb-6">
@@ -309,10 +306,6 @@ export default function ContactForm() {
             </>
           )}
         </button>
-        <p className="text-sm text-gray-500 flex items-center gap-2">
-          <Clock className="w-4 h-4 text-rose-gold" />
-          We respond within 15 minutes
-        </p>
       </div>
     </form>
   );

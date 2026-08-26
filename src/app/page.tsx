@@ -50,7 +50,7 @@ const processSteps = [
 
 const trustPoints = [
   { icon: Award, text: 'Veteran-Owned' },
-  { icon: Clock, text: 'We respond in minutes, not days' },
+  { icon: Clock, text: '7–14 day turnaround' },
   { icon: Smartphone, text: 'Mobile-first design' },
   { icon: Shield, text: '100% ownership guarantee' },
 ];
@@ -126,9 +126,6 @@ export default function Home() {
                 <Phone className="w-5 h-5 mr-2" />
                 Call Now: 972-339-0754
               </a>
-            </Reveal>
-            <Reveal as="p" delay={500} className="text-sm text-gray-500 mt-4">
-              We respond within 15 minutes during business hours.
             </Reveal>
           </div>
         </div>
