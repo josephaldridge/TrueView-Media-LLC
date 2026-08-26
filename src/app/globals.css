@@ -424,3 +424,182 @@ input, textarea, select {
     letter-spacing: normal;
   }
 }
+
+/* ---- Client preview design system ----
+ *
+ * Previews are the client's brand, not ours, so nothing here uses rose gold.
+ * Every accent is driven by --preview-accent, set per preview from its content
+ * file, which lets one template produce genuinely different-looking sites.
+ */
+.preview-root {
+  --preview-accent: #0f172a;
+  --preview-accent-soft: color-mix(in srgb, var(--preview-accent) 12%, transparent);
+  --preview-accent-line: color-mix(in srgb, var(--preview-accent) 35%, transparent);
+}
+
+/* Frosted surface for cards and panels over imagery or gradients. */
+.preview-glass {
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 18px 40px -24px rgba(0, 0, 0, 0.85);
+}
+
+/* Light-background variant, for glass over pale sections. */
+.preview-glass-light {
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  background-color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 18px 40px -28px rgba(15, 23, 42, 0.45);
+}
+
+.preview-btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms ease, background-color 300ms ease, border-color 300ms ease;
+}
+
+/* Light sweep on hover, same idea as the main site's buttons. */
+.preview-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    110deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.28) 48%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.preview-btn:hover::before {
+  transform: translateX(120%);
+}
+
+.preview-btn-solid {
+  background-color: var(--preview-accent);
+  color: #fff;
+  border: 1px solid var(--preview-accent);
+  box-shadow: 0 12px 30px -12px var(--preview-accent);
+}
+
+.preview-btn-solid:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 44px -14px var(--preview-accent);
+}
+
+.preview-btn-glass {
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.preview-btn-glass:hover {
+  transform: translateY(-2px);
+  background-color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.preview-btn-outline {
+  background-color: transparent;
+  color: var(--preview-accent);
+  border: 1px solid var(--preview-accent-line);
+}
+
+.preview-btn-outline:hover {
+  transform: translateY(-2px);
+  background-color: var(--preview-accent-soft);
+}
+
+/* Soft accent glow used behind hero content. */
+.preview-mesh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.preview-mesh::before,
+.preview-mesh::after {
+  content: '';
+  position: absolute;
+  width: 46rem;
+  height: 46rem;
+  border-radius: 9999px;
+  filter: blur(120px);
+  opacity: 0.5;
+  background: var(--preview-accent);
+}
+
+.preview-mesh::before {
+  top: -18rem;
+  right: -14rem;
+}
+
+.preview-mesh::after {
+  bottom: -22rem;
+  left: -16rem;
+  opacity: 0.3;
+}
+
+/* Cards that lift toward the cursor. */
+.preview-lift {
+  transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 350ms ease, border-color 350ms ease;
+}
+
+.preview-lift:hover {
+  transform: translateY(-4px);
+  border-color: var(--preview-accent-line);
+  box-shadow: 0 26px 50px -30px rgba(15, 23, 42, 0.6);
+}
+
+.preview-accent-text {
+  color: var(--preview-accent);
+}
+
+.preview-accent-bg {
+  background-color: var(--preview-accent);
+}
+
+.preview-gradient-text {
+  background-image: linear-gradient(
+    120deg,
+    var(--preview-accent),
+    color-mix(in srgb, var(--preview-accent) 45%, #ffffff)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preview-btn,
+  .preview-btn::before,
+  .preview-lift {
+    transition: none !important;
+  }
+
+  .preview-btn:hover,
+  .preview-lift:hover {
+    transform: none !important;
+  }
+}

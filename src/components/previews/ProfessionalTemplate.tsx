@@ -1,6 +1,14 @@
 import { ArrowRight, Check, Mail, Phone } from 'lucide-react';
+import Reveal from '@/components/Reveal';
 import type { PreviewContent } from '@/lib/previews/types';
-import { ContactLines, accentOf, ctaLabel, telHref } from './shared';
+import {
+  ContactLines,
+  MapEmbed,
+  StatStrip,
+  accentOf,
+  ctaLabel,
+  telHref,
+} from './shared';
 
 /**
  * Restrained, credibility-first layout for consultants, agencies, clinics and
@@ -26,8 +34,7 @@ export default function ProfessionalTemplate({
             </a>
             <a
               href={`mailto:${content.email ?? ''}`}
-              className="px-4 py-2 rounded text-white font-medium"
-              style={{ backgroundColor: accent }}
+              className="preview-btn preview-btn-solid px-4 py-2 text-sm"
             >
               {ctaLabel(content)}
             </a>
@@ -38,23 +45,30 @@ export default function ProfessionalTemplate({
       <section className="border-b border-slate-200 bg-slate-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-28 grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
           <div className="lg:col-span-3">
-            <p
-              className="text-sm font-semibold uppercase tracking-wider mb-4"
-              style={{ color: accent }}
+            <Reveal
+              as="p"
+              className="preview-accent-text text-sm font-semibold uppercase tracking-wider mb-4"
             >
               {content.tagline}
-            </p>
-            <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-6 leading-tight">
+            </Reveal>
+            <Reveal
+              as="h1"
+              delay={90}
+              className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-6 leading-tight"
+            >
               {content.businessName}
-            </h1>
-            <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
+            </Reveal>
+            <Reveal
+              as="p"
+              delay={180}
+              className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl"
+            >
               {content.intro}
-            </p>
-            <div className="flex flex-wrap gap-4">
+            </Reveal>
+            <Reveal delay={270} className="flex flex-wrap gap-4">
               <a
                 href={telHref(content.phone)}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded text-white font-medium"
-                style={{ backgroundColor: accent }}
+                className="preview-btn preview-btn-solid px-6 py-3"
               >
                 <Phone className="w-4 h-4" />
                 {content.phone}
@@ -62,17 +76,17 @@ export default function ProfessionalTemplate({
               {content.email && (
                 <a
                   href={`mailto:${content.email}`}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded border border-slate-300 font-medium hover:bg-white transition-colors"
+                  className="preview-btn preview-btn-outline px-6 py-3 bg-white"
                 >
                   <Mail className="w-4 h-4" />
                   Email us
                 </a>
               )}
-            </div>
+            </Reveal>
           </div>
 
-          <div className="lg:col-span-2">
-            <div className="bg-white border border-slate-200 rounded-lg p-6 shadow-sm">
+          <Reveal direction="left" delay={150} className="lg:col-span-2">
+            <div className="preview-glass-light rounded-xl p-6">
               <h2 className="font-semibold text-slate-900 mb-4">
                 Get in touch
               </h2>
@@ -81,49 +95,71 @@ export default function ProfessionalTemplate({
                 className="space-y-2 text-sm text-slate-600"
               />
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-24">
-        <h2 className="text-3xl font-semibold tracking-tight text-slate-900 mb-3">
+        <Reveal
+          as="h2"
+          className="text-3xl font-semibold tracking-tight text-slate-900 mb-3"
+        >
           How we help
-        </h2>
-        <div
-          className="w-12 h-1 mb-12 rounded"
-          style={{ backgroundColor: accent }}
-        />
+        </Reveal>
+        <Reveal delay={80} className="preview-accent-bg w-12 h-1 mb-12 rounded" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {content.services.map((service) => (
-            <div key={service.title} className="flex gap-4">
+          {content.services.map((service, i) => (
+            <Reveal
+              key={service.title}
+              delay={i * 90}
+              className="preview-lift flex gap-4 rounded-xl border border-slate-200 bg-white p-5"
+            >
               <div
-                className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
-                style={{ backgroundColor: `${accent}1a`, color: accent }}
+                className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0 preview-accent-text"
+                style={{ backgroundColor: 'var(--preview-accent-soft)' }}
               >
                 <Check className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="font-semibold text-slate-900 mb-2">
-                  {service.title}
-                </h3>
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className="font-semibold text-slate-900 mb-2">
+                    {service.title}
+                  </h3>
+                  {service.price && (
+                    <span className="text-sm font-semibold preview-accent-text whitespace-nowrap">
+                      {service.price}
+                    </span>
+                  )}
+                </div>
                 <p className="text-slate-600 leading-relaxed">
                   {service.description}
                 </p>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
+
+        {content.stats && content.stats.length > 0 && (
+          <Reveal delay={120} className="mt-16">
+            <StatStrip
+              content={content}
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
+              valueClassName="text-3xl font-semibold preview-accent-text"
+              labelClassName="text-xs uppercase tracking-widest text-slate-500 mt-1"
+            />
+          </Reveal>
+        )}
       </section>
 
       {content.about && (
         <section className="border-y border-slate-200 bg-slate-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-4">
+            <Reveal as="h2" className="text-2xl font-semibold text-slate-900 mb-4">
               About the practice
-            </h2>
-            <p className="text-lg text-slate-600 leading-relaxed">
+            </Reveal>
+            <Reveal as="p" delay={90} className="text-lg text-slate-600 leading-relaxed">
               {content.about}
-            </p>
+            </Reveal>
           </div>
         </section>
       )}
@@ -131,18 +167,20 @@ export default function ProfessionalTemplate({
       {content.testimonials && content.testimonials.length > 0 && (
         <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {content.testimonials.map((t) => (
-              <figure
+            {content.testimonials.map((t, i) => (
+              <Reveal
                 key={t.author}
-                className="bg-slate-50 border border-slate-200 rounded-lg p-6"
+                delay={i * 100}
+                className="preview-lift bg-slate-50 border border-slate-200 rounded-xl p-6"
               >
                 <blockquote className="text-slate-700 leading-relaxed mb-4">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
                 <figcaption className="text-sm font-medium text-slate-500">
                   {t.author}
+                  {t.source && <span className="opacity-70"> · {t.source}</span>}
                 </figcaption>
-              </figure>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -166,6 +204,14 @@ export default function ProfessionalTemplate({
           </a>
         </div>
       </section>
+
+      {content.mapQuery && (
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
+          <Reveal direction="scale" className="rounded-xl overflow-hidden border border-slate-200">
+            <MapEmbed query={content.mapQuery} className="w-full h-72 border-0" />
+          </Reveal>
+        </section>
+      )}
 
       <footer className="border-t border-slate-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 text-sm text-slate-500">

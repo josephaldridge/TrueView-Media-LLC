@@ -18,20 +18,33 @@ const preview: PreviewContent = {
   address: '1420 K Avenue, Plano, TX 75074',
   serviceArea: 'Plano, Allen, Richardson & McKinney',
   hours: ['Mon–Fri 7am–7pm', 'Sat 8am–4pm', 'Emergency service 24/7'],
+  license: 'TX Master Plumber Lic. #M-41892',
+  established: '2009',
+  mapQuery: 'Plano, Texas',
+
+  stats: [
+    { value: '15+', label: 'years in business' },
+    { value: '24/7', label: 'emergency callout' },
+    { value: '4.8★', label: 'average rating' },
+    { value: '$0', label: 'call-out fee' },
+  ],
 
   services: [
     {
       title: 'Emergency Repairs',
+      price: 'from $129',
       description:
         'Burst pipes, blocked mains, no hot water. We take emergency calls around the clock and most jobs are fixed on the first visit.',
     },
     {
       title: 'Drain Cleaning',
+      price: 'from $89',
       description:
         'Camera inspection to find the real problem, then hydro-jetting that clears it properly instead of pushing it further down the line.',
     },
     {
       title: 'Water Heaters',
+      price: 'from $850',
       description:
         'Repair, replacement and tankless installs. We size the unit to your household so you are not paying to heat water you never use.',
     },
@@ -50,6 +63,7 @@ const preview: PreviewContent = {
       quote:
         'Called at 9pm with water coming through the kitchen ceiling. Someone was here in under an hour and stayed until it was dry.',
       author: 'Marcus R., Plano',
+      source: 'Google review',
     },
     {
       quote:

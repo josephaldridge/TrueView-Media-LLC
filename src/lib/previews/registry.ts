@@ -11,8 +11,14 @@ import type { PreviewContent } from './types';
 import joesPlumbing from '@previews/joes-plumbing';
 import sampleCafe from '@previews/sample-cafe';
 import sampleDental from '@previews/sample-dental';
+import sampleStudio from '@previews/sample-studio';
 
-const previews: PreviewContent[] = [joesPlumbing, sampleCafe, sampleDental];
+const previews: PreviewContent[] = [
+  joesPlumbing,
+  sampleCafe,
+  sampleDental,
+  sampleStudio,
+];
 
 export const previewRegistry = new Map<string, PreviewContent>(
   previews.map((preview) => [preview.slug, preview])

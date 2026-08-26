@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import HospitalityTemplate from '@/components/previews/HospitalityTemplate';
 import PreviewBadge from '@/components/previews/PreviewBadge';
+import PremiumTemplate from '@/components/previews/PremiumTemplate';
 import ProfessionalTemplate from '@/components/previews/ProfessionalTemplate';
 import TradesTemplate from '@/components/previews/TradesTemplate';
+import { accentOf } from '@/components/previews/shared';
 import { allPreviews, getPreview } from '@/lib/previews/registry';
 
 interface Props {
@@ -39,6 +41,7 @@ const TEMPLATES = {
   trades: TradesTemplate,
   hospitality: HospitalityTemplate,
   professional: ProfessionalTemplate,
+  premium: PremiumTemplate,
 } as const;
 
 export default function PreviewPage({ params }: Props) {
@@ -48,7 +51,14 @@ export default function PreviewPage({ params }: Props) {
   const Template = TEMPLATES[content.template];
 
   return (
-    <div className="preview-root">
+    // The accent drives every button, glow and highlight in the templates, so
+    // one layout can produce genuinely different-looking client sites.
+    <div
+      className="preview-root"
+      style={
+        { '--preview-accent': accentOf(content) } as React.CSSProperties
+      }
+    >
       <Template content={content} />
       <PreviewBadge />
     </div>

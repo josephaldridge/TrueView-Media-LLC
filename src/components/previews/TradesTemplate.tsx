@@ -1,6 +1,14 @@
 import { Clock, MapPin, Phone, ShieldCheck, Wrench } from 'lucide-react';
+import Reveal from '@/components/Reveal';
 import type { PreviewContent } from '@/lib/previews/types';
-import { ContactLines, accentOf, ctaLabel, telHref } from './shared';
+import {
+  ContactLines,
+  MapEmbed,
+  StatStrip,
+  accentOf,
+  ctaLabel,
+  telHref,
+} from './shared';
 
 /**
  * Bold, high-contrast layout for trades: the phone number is the loudest
@@ -42,35 +50,54 @@ export default function TradesTemplate({
           backgroundPosition: 'center',
         }}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-28">
-          <p
-            className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6"
-            style={{ backgroundColor: accent }}
+        <div className="preview-mesh opacity-40" aria-hidden="true" />
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-28">
+          <Reveal
+            as="p"
+            className="preview-accent-bg inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6"
           >
             {content.tagline}
-          </p>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 max-w-3xl">
+          </Reveal>
+          <Reveal
+            as="h1"
+            delay={90}
+            className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 max-w-3xl"
+          >
             {content.businessName}
-          </h1>
-          <p className="text-lg md:text-xl text-slate-200 max-w-2xl mb-8 leading-relaxed">
+          </Reveal>
+          <Reveal
+            as="p"
+            delay={180}
+            className="text-lg md:text-xl text-slate-200 max-w-2xl mb-8 leading-relaxed"
+          >
             {content.intro}
-          </p>
-          <div className="flex flex-wrap gap-4">
+          </Reveal>
+          <Reveal delay={270} className="flex flex-wrap gap-4">
             <a
               href={telHref(content.phone)}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-md text-lg font-bold text-white"
-              style={{ backgroundColor: accent }}
+              className="preview-btn preview-btn-solid px-8 py-4 text-lg font-bold"
             >
               <Phone className="w-5 h-5" />
               Call {content.phone}
             </a>
             <a
               href={`mailto:${content.email ?? ''}`}
-              className="inline-flex items-center px-8 py-4 rounded-md text-lg font-bold border-2 border-white/40 hover:bg-white/10 transition-colors"
+              className="preview-btn preview-btn-glass px-8 py-4 text-lg font-bold"
             >
               {ctaLabel(content)}
             </a>
-          </div>
+          </Reveal>
+
+          {content.stats && content.stats.length > 0 && (
+            <Reveal delay={360} className="mt-14">
+              <StatStrip
+                content={content}
+                className="grid grid-cols-2 md:grid-cols-4 gap-6"
+                valueClassName="text-3xl md:text-4xl font-extrabold text-white"
+                labelClassName="text-xs uppercase tracking-widest text-slate-400 mt-1"
+              />
+            </Reveal>
+          )}
         </div>
       </section>
 
@@ -96,21 +123,32 @@ export default function TradesTemplate({
       </section>
 
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20">
-        <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-10">
+        <Reveal
+          as="h2"
+          className="text-3xl md:text-4xl font-extrabold tracking-tight mb-10"
+        >
           What we do
-        </h2>
+        </Reveal>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {content.services.map((service) => (
-            <div
+          {content.services.map((service, i) => (
+            <Reveal
               key={service.title}
-              className="border-2 border-slate-200 rounded-lg p-6 hover:border-slate-300 transition-colors"
+              delay={i * 90}
+              className="preview-lift border-2 border-slate-200 rounded-xl p-6 bg-white"
             >
-              <Wrench className="w-6 h-6 mb-3" style={{ color: accent }} />
+              <div className="flex items-start justify-between gap-4">
+                <Wrench className="w-6 h-6 mb-3 preview-accent-text" />
+                {service.price && (
+                  <span className="text-sm font-bold preview-accent-text whitespace-nowrap">
+                    {service.price}
+                  </span>
+                )}
+              </div>
               <h3 className="text-xl font-bold mb-2">{service.title}</h3>
               <p className="text-slate-600 leading-relaxed">
                 {service.description}
               </p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -118,12 +156,12 @@ export default function TradesTemplate({
       {content.about && (
         <section className="bg-slate-100">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
-            <h2 className="text-3xl font-extrabold tracking-tight mb-4">
+            <Reveal as="h2" className="text-3xl font-extrabold tracking-tight mb-4">
               About us
-            </h2>
-            <p className="text-lg text-slate-700 leading-relaxed">
+            </Reveal>
+            <Reveal as="p" delay={90} className="text-lg text-slate-700 leading-relaxed">
               {content.about}
-            </p>
+            </Reveal>
           </div>
         </section>
       )}
@@ -131,19 +169,23 @@ export default function TradesTemplate({
       {content.testimonials && content.testimonials.length > 0 && (
         <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {content.testimonials.map((t) => (
-              <blockquote
+            {content.testimonials.map((t, i) => (
+              <Reveal
                 key={t.author}
-                className="border-l-4 pl-6 py-2"
-                style={{ borderColor: accent }}
+                delay={i * 100}
+                direction="right"
+                className="border-l-4 pl-6 py-2 border-l-[color:var(--preview-accent)]"
               >
                 <p className="text-lg text-slate-700 mb-3">
                   &ldquo;{t.quote}&rdquo;
                 </p>
                 <cite className="text-sm font-bold text-slate-500 not-italic">
                   {t.author}
+                  {t.source && (
+                    <span className="font-normal opacity-70"> · {t.source}</span>
+                  )}
                 </cite>
-              </blockquote>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -167,6 +209,20 @@ export default function TradesTemplate({
           </a>
         </div>
       </section>
+
+      {content.mapQuery && (
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
+          <Reveal
+            direction="scale"
+            className="rounded-xl overflow-hidden border-2 border-slate-200"
+          >
+            <MapEmbed
+              query={content.mapQuery}
+              className="w-full h-72 border-0"
+            />
+          </Reveal>
+        </section>
+      )}
 
       <footer className="bg-slate-900 text-slate-300">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
