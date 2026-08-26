@@ -408,3 +408,19 @@ input, textarea, select {
     transition: none !important;
   }
 }
+
+/*
+ * Client previews must not inherit TrueView's brand typography — headings here
+ * belong to the client's design, not ours.
+ *
+ * :where() keeps this at low specificity so a template's own utility classes
+ * still win, while it beats the bare h1..h6 rules in the base layer above.
+ */
+@layer base {
+  .preview-root :where(h1, h2, h3, h4, h5, h6) {
+    color: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    letter-spacing: normal;
+  }
+}

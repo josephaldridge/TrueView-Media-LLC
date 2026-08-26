@@ -127,7 +127,7 @@ export default function ContactPage() {
                 Request a Free Preview
               </h2>
               <p className="text-gray-400 mb-6">
-                No obligation, no pressure. We&apos;ll email you a live link that&apos;s active for 48 hours so you can see for yourself.
+                No obligation, no pressure. We&apos;ll email you a live link to a real preview of your site, so you can see for yourself before deciding anything.
               </p>
               <ContactForm />
             </Reveal>

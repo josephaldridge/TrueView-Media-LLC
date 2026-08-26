@@ -3,7 +3,8 @@ import { MetadataRoute } from 'next';
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://trueviewmediallc.com';
 
-  // Public pages only. The /admin area is deliberately never listed here.
+  // Public pages only. /admin and /preview are deliberately never listed:
+  // client previews should not be indexed under our domain.
   const staticPages = [
     '',
     '/services',

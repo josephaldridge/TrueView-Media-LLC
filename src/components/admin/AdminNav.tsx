@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LogOut, Radar, Users } from 'lucide-react';
+import { LayoutTemplate, LogOut, Radar, Users } from 'lucide-react';
 
 const links = [
   { href: '/admin', label: 'Leads', icon: Users },
   { href: '/admin/prospects', label: 'Find prospects', icon: Radar },
+  { href: '/admin/previews', label: 'Previews', icon: LayoutTemplate },
 ];
 
 export default function AdminNav() {

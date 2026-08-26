@@ -14,6 +14,14 @@ import {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Client previews are public by design — anyone with the link can view —
+  // but must never be indexed.
+  if (pathname.startsWith('/preview')) {
+    const response = NextResponse.next();
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+    return response;
+  }
+
   const token = request.cookies.get(SESSION_COOKIE)?.value;
   const authenticated = await verifySessionToken(token, getSessionSecret());
 
@@ -48,5 +56,9 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   // The login and logout endpoints handle their own access rules.
-  matcher: ['/admin/:path*', '/api/admin/((?!login|logout).*)'],
+  matcher: [
+    '/admin/:path*',
+    '/api/admin/((?!login|logout).*)',
+    '/preview/:path*',
+  ],
 };
