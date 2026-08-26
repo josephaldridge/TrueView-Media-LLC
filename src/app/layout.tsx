@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 import { Header, Footer, ExitIntentPopup, ScrollChevrons } from '@/components';
+import SiteChrome from '@/components/SiteChrome';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -67,11 +68,18 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <ScrollChevrons />
-        <ExitIntentPopup />
+        <SiteChrome
+          header={<Header />}
+          footer={<Footer />}
+          overlays={
+            <>
+              <ScrollChevrons />
+              <ExitIntentPopup />
+            </>
+          }
+        >
+          {children}
+        </SiteChrome>
         <Analytics />
       </body>
     </html>

@@ -8,3 +8,4 @@ export { default as ContactForm } from './ContactForm';
 export { default as ExitIntentPopup } from './ExitIntentPopup';
 export { default as Reveal } from './Reveal';
 export { default as ScrollChevrons } from './ScrollChevrons';
+export { default as SiteChrome } from './SiteChrome';
