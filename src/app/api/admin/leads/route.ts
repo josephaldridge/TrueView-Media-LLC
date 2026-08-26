@@ -92,17 +92,34 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  try {
-    const results = await Promise.all(prepared.map((lead) => insertLead(lead)));
-    const added = results.filter(Boolean).length;
-    return NextResponse.json({
-      added,
-      skipped: prepared.length - added,
-    });
-  } catch {
+  // allSettled rather than all: one bad row must not discard the rest of the
+  // batch, and the response should say what actually happened.
+  const results = await Promise.allSettled(
+    prepared.map((lead) => insertLead(lead))
+  );
+
+  let added = 0;
+  let skipped = 0;
+  let failed = 0;
+
+  results.forEach((result) => {
+    if (result.status === 'rejected') {
+      failed += 1;
+      console.error('Lead insert failed:', result.reason);
+    } else if (result.value) {
+      added += 1;
+    } else {
+      // ON CONFLICT DO NOTHING returned no row: already imported.
+      skipped += 1;
+    }
+  });
+
+  if (failed === prepared.length) {
     return NextResponse.json(
-      { message: 'Could not save leads.' },
+      { message: 'Could not save leads. The database rejected the request.' },
       { status: 503 }
     );
   }
+
+  return NextResponse.json({ added, skipped, failed });
 }

@@ -1,6 +1,8 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Check, Loader2, MapPin, Phone, Search } from 'lucide-react';
 
 interface Prospect {
@@ -25,6 +27,7 @@ const CATEGORIES = [
 ] as const;
 
 export default function ProspectFinder() {
+  const router = useRouter();
   const [area, setArea] = useState('');
   const [category, setCategory] = useState('all');
   const [requirePhone, setRequirePhone] = useState(true);
@@ -123,10 +126,23 @@ export default function ProspectFinder() {
         return;
       }
 
-      setSaveMessage(
-        `Saved ${data.added} lead${data.added === 1 ? '' : 's'}` +
-          (data.skipped ? ` — ${data.skipped} already in your CRM.` : '.')
-      );
+      const parts = [];
+      if (data.added) {
+        parts.push(`Saved ${data.added} lead${data.added === 1 ? '' : 's'}.`);
+      }
+      if (data.skipped) {
+        parts.push(
+          `${data.skipped} ${data.skipped === 1 ? 'was' : 'were'} already in your CRM.`
+        );
+      }
+      if (data.failed) {
+        parts.push(`${data.failed} could not be saved.`);
+      }
+      setSaveMessage(parts.join(' ') || 'Nothing new to save.');
+
+      // The Leads page is a cached RSC payload on the client; without this it
+      // can render the pre-save state when you navigate back to it.
+      router.refresh();
       setResults((prev) =>
         prev
           ? prev.map((p) =>
@@ -216,7 +232,12 @@ export default function ProspectFinder() {
         </p>
       )}
       {saveMessage && (
-        <p className="text-sm text-green-400 mb-4">{saveMessage}</p>
+        <p className="text-sm text-green-400 mb-4">
+          {saveMessage}{' '}
+          <Link href="/admin" className="underline hover:text-green-300">
+            View leads
+          </Link>
+        </p>
       )}
 
       {results && (

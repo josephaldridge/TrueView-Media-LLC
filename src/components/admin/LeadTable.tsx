@@ -1,7 +1,7 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { Loader2, MapPin, Phone, Trash2 } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Loader2, MapPin, Phone, RefreshCw, Trash2 } from 'lucide-react';
 import type { Lead, LeadStatus } from '@/lib/admin/db';
 
 const STATUS_STYLES: Record<LeadStatus, string> = {
@@ -30,6 +30,30 @@ export default function LeadTable({ initialLeads }: Props) {
   const [busyId, setBusyId] = useState<number | null>(null);
   const [error, setError] = useState('');
   const [openNotes, setOpenNotes] = useState<number | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const reload = useCallback(async (showSpinner = true) => {
+    if (showSpinner) setRefreshing(true);
+    try {
+      const response = await fetch('/api/admin/leads?status=all', {
+        cache: 'no-store',
+      });
+      if (!response.ok) return;
+      const data = await response.json();
+      if (Array.isArray(data.leads)) setLeads(data.leads);
+    } catch {
+      // Keep whatever is already on screen.
+    } finally {
+      if (showSpinner) setRefreshing(false);
+    }
+  }, []);
+
+  // The server render can arrive from Next's client-side route cache, so pull
+  // the current list once on mount. This is what guarantees a lead saved on
+  // the prospects page is visible the moment you land here.
+  useEffect(() => {
+    reload(false);
+  }, [reload]);
 
   const visible = useMemo(
     () => (filter === 'all' ? leads : leads.filter((l) => l.status === filter)),
@@ -91,17 +115,35 @@ export default function LeadTable({ initialLeads }: Props) {
     return (
       <div className="text-center py-16">
         <p className="text-gray-400 mb-2">No leads yet.</p>
-        <p className="text-gray-500 text-sm">
+        <p className="text-gray-500 text-sm mb-6">
           Use <span className="text-rose-gold">Find prospects</span> to pull in
           businesses with no website.
         </p>
+        <button
+          type="button"
+          onClick={() => reload()}
+          disabled={refreshing}
+          className="btn-outline text-sm px-4 py-2"
+        >
+          {refreshing ? (
+            <>
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              Checking
+            </>
+          ) : (
+            <>
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Refresh
+            </>
+          )}
+        </button>
       </div>
     );
   }
 
   return (
     <div>
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className="flex flex-wrap items-center gap-2 mb-6">
         {(['all', ...STATUSES] as const).map((value) => (
           <button
             key={value}
@@ -119,6 +161,17 @@ export default function LeadTable({ initialLeads }: Props) {
             </span>
           </button>
         ))}
+        <button
+          type="button"
+          onClick={() => reload()}
+          disabled={refreshing}
+          aria-label="Refresh leads"
+          className="ml-auto text-gray-500 hover:text-white transition-colors p-2"
+        >
+          <RefreshCw
+            className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`}
+          />
+        </button>
       </div>
 
       {error && (
