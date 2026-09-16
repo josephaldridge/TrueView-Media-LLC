@@ -231,6 +231,20 @@ export function ensureSchema(): Promise<void> {
         ON admin_login_attempts (ip, attempted_at DESC);
       `;
 
+      // Submissions from the public preview forms, throttled per address.
+      await sql`
+        CREATE TABLE IF NOT EXISTS preview_submissions (
+          id SERIAL PRIMARY KEY,
+          ip TEXT NOT NULL,
+          slug TEXT NOT NULL,
+          submitted_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        );
+      `;
+      await sql`
+        CREATE INDEX IF NOT EXISTS preview_submissions_ip_idx
+        ON preview_submissions (ip, submitted_at DESC);
+      `;
+
       await applyCustomerNumbering();
     })().catch((error) => {
       // Let the next request retry rather than caching a failed migration.
@@ -338,4 +352,30 @@ export async function existingSourceRefs(refs: string[]): Promise<Set<string>> {
 
   const imported = new Set(rows.map((r) => r.source_ref));
   return new Set(refs.filter((ref) => imported.has(ref)));
+}
+
+/** How many preview form submissions one address may make per hour. */
+const PREVIEW_SUBMISSION_LIMIT = 6;
+
+export async function canSubmitPreviewForm(ip: string): Promise<boolean> {
+  await ensureSchema();
+  const { rows } = await sql<{ count: string }>`
+    SELECT COUNT(*) AS count FROM preview_submissions
+    WHERE ip = ${ip} AND submitted_at > NOW() - INTERVAL '1 hour';
+  `;
+  return Number(rows[0]?.count ?? 0) < PREVIEW_SUBMISSION_LIMIT;
+}
+
+export async function recordPreviewSubmission(
+  ip: string,
+  slug: string
+): Promise<void> {
+  await ensureSchema();
+  await sql`
+    INSERT INTO preview_submissions (ip, slug) VALUES (${ip}, ${slug});
+  `;
+  await sql`
+    DELETE FROM preview_submissions
+    WHERE submitted_at < NOW() - INTERVAL '30 days';
+  `;
 }

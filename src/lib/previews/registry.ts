@@ -9,11 +9,13 @@ import type { PreviewContent } from './types';
  * front of a prospect.
  */
 import joesPlumbing from '@previews/joes-plumbing';
+import majorLeagueDetailing from '@previews/major-league-detailing';
 import sampleCafe from '@previews/sample-cafe';
 import sampleDental from '@previews/sample-dental';
 import sampleStudio from '@previews/sample-studio';
 
 const previews: PreviewContent[] = [
+  majorLeagueDetailing,
   joesPlumbing,
   sampleCafe,
   sampleDental,

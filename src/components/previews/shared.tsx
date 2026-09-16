@@ -6,6 +6,7 @@ export const TEMPLATE_ACCENTS: Record<PreviewTemplate, string> = {
   hospitality: '#a16207',
   professional: '#0f766e',
   premium: '#6366f1',
+  showcase: '#c8102e',
 };
 
 export function accentOf(content: PreviewContent): string {

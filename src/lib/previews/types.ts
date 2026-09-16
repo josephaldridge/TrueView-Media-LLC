@@ -10,7 +10,8 @@ export type PreviewTemplate =
   | 'trades'
   | 'hospitality'
   | 'professional'
-  | 'premium';
+  | 'premium'
+  | 'showcase';
 
 export interface PreviewService {
   title: string;
@@ -36,7 +37,31 @@ export interface PreviewStat {
 export interface PreviewImage {
   /** Path under /public, or an absolute https URL. */
   src: string;
+  /** Describe the actual work shown — this is real SEO and accessibility. */
   alt: string;
+  /** Optional caption shown under the image in gallery layouts. */
+  caption?: string;
+}
+
+export interface PreviewFaq {
+  question: string;
+  answer: string;
+}
+
+/** A single hero-billed offering, e.g. starlight headliners. */
+export interface PreviewFeature {
+  title: string;
+  description: string;
+  image?: PreviewImage;
+  bullets?: string[];
+}
+
+export interface PreviewRating {
+  /** e.g. '5.0' */
+  value: string;
+  count: number;
+  /** Where the rating comes from, e.g. 'Google'. */
+  source?: string;
 }
 
 export interface PreviewContent {
@@ -70,6 +95,30 @@ export interface PreviewContent {
   stats?: PreviewStat[];
   /** Photos of real work, if the business has any worth showing. */
   gallery?: PreviewImage[];
+  /** One offering given its own section — the thing they are known for. */
+  feature?: PreviewFeature;
+  /** Questions real customers ask. Also feeds FAQ structured data. */
+  faqs?: PreviewFaq[];
+  /** Towns and cities served, listed for local SEO. */
+  serviceAreas?: string[];
+  /** Real aggregate rating. Never invent one. */
+  rating?: PreviewRating;
+  /** Options offered in the booking form's service dropdown. */
+  bookingServices?: string[];
+  /**
+   * Capture box shown when the visitor moves to leave the page. Omit it and
+   * no popup is rendered at all.
+   */
+  exitOffer?: {
+    headline: string;
+    subhead: string;
+  };
+
+  // --- SEO ---
+  /** Overrides the browser/search title. Aim for under 60 characters. */
+  metaTitle?: string;
+  /** Overrides the search snippet. Aim for 150-158 characters. */
+  metaDescription?: string;
 
   // --- Look ---
   /** Hex accent colour. Drives buttons, glows and highlights throughout. */

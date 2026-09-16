@@ -44,6 +44,7 @@ or left out. Everything you add makes it land harder.
 | `hospitality` | Restaurants, cafes, bars, salons | Warm and editorial. Serif display type, hours and location lead |
 | `professional` | Consultants, clinics, agencies, offices | Restrained and credibility-first. Contact card in the hero, glass panels |
 | `premium` | Design studios, custom builders, high-end services | Dark and glassmorphic. Mesh accent glow, frosted cards, gradient stat figures, reveals throughout |
+| `showcase` | Detailing, contractors, anyone selling on photos of their work | The full conversion build: sticky nav, hero with live rating, service grid, signature-service feature, gallery, reviews, **booking form**, service areas with map, FAQ, sticky mobile call bar, and an **exit-intent capture box** |
 
 All four use scroll reveals, glass surfaces and hover lift, and all four are
 driven by `accent` — so two clients on the same template do not look alike.
@@ -63,6 +64,13 @@ API key needed).
 
 **Look:** `accent` (hex — drives buttons, glows, highlights), `heroImage`,
 `logo`.
+
+**Showcase extras:** `rating` (real aggregate rating only), `feature` (the one
+signature service, with bullets and its own image), `gallery` with `caption`,
+`faqs`, `serviceAreas`, `bookingServices` (the booking form's dropdown), and
+`exitOffer` (`headline` + `subhead`) — omit `exitOffer` and no popup renders.
+
+**SEO:** `metaTitle` (under 60 characters) and `metaDescription` (150-158).
 
 **Links:** `ctaLabel`, `socials`, `leadId` to tie the preview to a CRM lead.
 
@@ -85,6 +93,25 @@ build instead of 404ing in front of a prospect. Check it at
 `http://localhost:3000/preview/acme-dental`, then push.
 
 Every preview and its link is listed under **Admin → Previews**.
+
+## Forms and SEO
+
+Previews using `showcase` have a working booking form and exit-intent capture
+box. Submissions post to `/api/preview/enquiry` and land in the CRM as leads
+tagged `preview:<slug>`, so when a business owner tries out their own preview
+you get a hot lead rather than a fake success message. The endpoint is
+honeypot-protected and rate limited to six submissions per address per hour.
+
+Every preview emits JSON-LD structured data — `AutoDetailing`/`LocalBusiness`
+with address, phone, hours, service catalogue, real rating and reviews, plus a
+separate `FAQPage` block. Combined with semantic headings, descriptive alt
+text and meta tags, the SEO groundwork ships with the preview.
+
+**One caveat:** while a preview lives under `/preview` it is served `noindex`,
+deliberately, so it cannot compete with the client's real site or get indexed
+under our domain. The structured data and metadata are there so that the day
+they buy and it moves to their own domain, it is ready to index immediately —
+flipping it on is a one-line change at that point.
 
 ## Images
 
