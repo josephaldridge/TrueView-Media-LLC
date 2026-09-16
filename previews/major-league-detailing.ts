@@ -36,6 +36,7 @@ const preview: PreviewContent = {
   ],
 
   logo: `${IMAGES}/logo.png`,
+  logoFull: `${IMAGES}/logo-full.png`,
   heroImage: `${IMAGES}/starlight-headliner.jpg`,
   accent: '#c8102e',
 

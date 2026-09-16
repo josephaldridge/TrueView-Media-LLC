@@ -281,7 +281,7 @@ export default function ShowcaseTemplate({
                   <img
                     src={content.feature.image.src}
                     alt={content.feature.image.alt}
-                    className="w-full h-[28rem] object-cover"
+                    className="w-full aspect-[4/5] lg:aspect-[3/4] object-cover"
                     loading="lazy"
                   />
                 </Reveal>
@@ -321,7 +321,7 @@ export default function ShowcaseTemplate({
                   <img
                     src={image.src}
                     alt={image.alt}
-                    className="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
                   />
                   {image.caption && (
@@ -625,12 +625,12 @@ export default function ShowcaseTemplate({
       <footer className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-14 grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
-            {content.logo ? (
+            {content.logoFull || content.logo ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={content.logo}
+                src={content.logoFull ?? content.logo}
                 alt={content.businessName}
-                className="h-12 w-auto object-contain mb-4"
+                className="h-28 w-auto object-contain mb-4"
               />
             ) : (
               <p className="text-white font-bold text-lg mb-4">

@@ -45,7 +45,7 @@ export default function ShowcaseNav({
             <img
               src={logo}
               alt={businessName}
-              className="h-11 w-auto object-contain"
+              className="h-14 sm:h-16 w-auto object-contain"
             />
           ) : (
             <span className="text-white font-bold tracking-tight truncate">

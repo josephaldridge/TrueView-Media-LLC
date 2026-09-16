@@ -127,6 +127,11 @@ export interface PreviewContent {
   heroImage?: string;
   /** Logo image, shown in the header in place of the business name. */
   logo?: string;
+  /**
+   * Fuller logo variant for the footer, where there is room for a banner-style
+   * mark that would be illegible at nav size.
+   */
+  logoFull?: string;
   /** Set true for templates that support a light and dark treatment. */
   light?: boolean;
 
