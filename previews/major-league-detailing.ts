@@ -195,6 +195,10 @@ const preview: PreviewContent = {
 
   ctaLabel: 'Book Your Detail',
 
+  // Sent 16 Sep 2026 at 10:30 AM Central; the free preview runs 48 hours.
+  // Central Daylight Time is UTC-5 in September.
+  expiresAt: '2026-09-18T10:30:00-05:00',
+
   exitOffer: {
     headline: 'Before you go — get your free quote',
     subhead:

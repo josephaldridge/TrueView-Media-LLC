@@ -149,6 +149,13 @@ export interface PreviewContent {
    */
   mapQuery?: string;
 
+  /**
+   * When the free preview closes, as an ISO 8601 string with an offset,
+   * e.g. '2026-09-18T10:30:00-05:00'. After this the public URL shows an
+   * expiry notice; the keyed owner URL keeps working.
+   */
+  expiresAt?: string;
+
   /** Optional CRM lead id this preview was built for. */
   leadId?: number;
   /**

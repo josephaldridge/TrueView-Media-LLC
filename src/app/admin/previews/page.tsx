@@ -4,6 +4,7 @@ import AdminNav from '@/components/admin/AdminNav';
 import PreviewList from '@/components/admin/PreviewList';
 import { isAdminConfigured } from '@/lib/admin/auth';
 import { isAuthenticated } from '@/lib/admin/guard';
+import { expiryTime, previewUnlockKey } from '@/lib/previews/access';
 import { allPreviews } from '@/lib/previews/registry';
 
 export const dynamic = 'force-dynamic';
@@ -17,13 +18,22 @@ export default async function AdminPreviewsPage() {
   const host = headerList.get('host') ?? 'trueviewmediallc.com';
   const protocol = host.startsWith('localhost') ? 'http' : 'https';
 
-  const previews = allPreviews().map((preview) => ({
-    slug: preview.slug,
-    businessName: preview.businessName,
-    template: preview.template,
-    tagline: preview.tagline,
-    customerId: preview.customerId,
-  }));
+  const previews = await Promise.all(
+    allPreviews().map(async (preview) => {
+      const endsAt = expiryTime(preview);
+      return {
+        slug: preview.slug,
+        businessName: preview.businessName,
+        template: preview.template,
+        tagline: preview.tagline,
+        customerId: preview.customerId,
+        expiresAt: endsAt,
+        expired: endsAt !== null && Date.now() >= endsAt,
+        // Keeps the preview reachable after it closes to the public.
+        unlockKey: endsAt !== null ? await previewUnlockKey(preview.slug) : null,
+      };
+    })
+  );
 
   return (
     <>
