@@ -613,3 +613,114 @@ input, textarea, select {
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
+
+/* ---- Logo ---- */
+/*
+ * The T breathes. Scale and glow move together so it reads as a heartbeat
+ * rather than a blink, and the drop-shadow hugs the letterform because the
+ * asset is keyed to transparency.
+ */
+@keyframes logoPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 5px rgba(184, 124, 92, 0.25));
+  }
+  50% {
+    transform: scale(1.045);
+    filter: drop-shadow(0 0 18px rgba(212, 160, 136, 0.6));
+  }
+}
+
+.logo-t-pulse {
+  animation: logoPulse 3.6s ease-in-out infinite;
+  transform-origin: center bottom;
+  will-change: transform, filter;
+}
+
+.group:hover .logo-t-pulse {
+  animation-duration: 1.8s;
+}
+
+/* ---- Work carousel ---- */
+.carousel-mask {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 48px,
+    #000 calc(100% - 48px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 48px,
+    #000 calc(100% - 48px),
+    transparent 100%
+  );
+}
+
+@media (max-width: 640px) {
+  .carousel-mask {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+/* Cards ease toward the focus state the scroll handler sets. */
+.carousel-card {
+  transform: scale(var(--card-scale, 1));
+  opacity: var(--card-opacity, 1);
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 500ms ease;
+}
+
+/* Light sweep across the browser frame on hover. */
+.carousel-sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.16) 48%,
+    transparent 66%
+  );
+  transform: translateX(-130%);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .carousel-sheen::after {
+  transform: translateX(130%);
+}
+
+/* Accent ring that fades up under the card on hover. */
+.carousel-glow {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 18px 40px -28px rgba(0, 0, 0, 0.9);
+  transition: box-shadow 450ms ease, border-color 450ms ease;
+}
+
+.group:hover .carousel-glow {
+  box-shadow: 0 0 0 1px rgba(184, 124, 92, 0.5),
+    0 0 34px -6px rgba(184, 124, 92, 0.38),
+    0 28px 60px -30px rgba(0, 0, 0, 0.95);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-t-pulse {
+    animation: none !important;
+  }
+
+  .carousel-card {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
+  .carousel-sheen::after {
+    display: none;
+  }
+}

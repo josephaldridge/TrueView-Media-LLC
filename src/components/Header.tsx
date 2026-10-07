@@ -40,14 +40,27 @@ export default function Header() {
             {/* Logo */}
             <Link
               href="/"
-              className="flex items-center"
+              className="group flex flex-col items-center justify-center"
+              aria-label="TrueView Media — home"
             >
+              {/* Split from the single logo so the T can breathe on its own.
+                  Both assets are keyed to transparency, so the pulse glow
+                  follows the letterform rather than a black rectangle. */}
               <Image
-                src="/logo.png"
+                src="/logo-t.png"
+                alt=""
+                aria-hidden="true"
+                width={360}
+                height={379}
+                className="logo-t-pulse h-12 md:h-[68px] w-auto"
+                priority
+              />
+              <Image
+                src="/logo-wordmark.png"
                 alt="TrueView Media"
-                width={220}
-                height={73}
-                className="h-20 md:h-28 w-auto"
+                width={624}
+                height={41}
+                className="h-[7px] md:h-[9px] w-auto mt-2.5 md:mt-3.5"
                 priority
               />
             </Link>
