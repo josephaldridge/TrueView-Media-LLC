@@ -55,7 +55,7 @@ const processSteps = [
 ];
 
 const heroStats = [
-  { value: '$599', label: 'flat, up to 9 pages' },
+  { value: '$899', label: 'flat, up to 9 pages' },
   { value: '2–3', label: 'days to launch' },
   { value: '100%', label: 'you own it' },
   { value: '$49', label: 'per edit request' },
