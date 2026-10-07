@@ -147,18 +147,18 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
             <Reveal delay={0} className="bg-dark-500/50 p-4 rounded-lg border border-white/10">
               <p className="font-medium text-white mb-1">
-                How much does a website cost?
+                How fast can it be live?
               </p>
               <p className="text-sm text-gray-400">
-                One-time flat fee of $899. Ask about our military discount.
+                Most sites launch in 2–3 days, once we have your content.
               </p>
             </Reveal>
             <Reveal delay={80} className="bg-dark-500/50 p-4 rounded-lg border border-white/10">
               <p className="font-medium text-white mb-1">
-                How long does it take?
+                How much does a website cost?
               </p>
               <p className="text-sm text-gray-400">
-                Most projects complete in 2–3 days.
+                One-time flat fee of $899. Ask about our military discount.
               </p>
             </Reveal>
             <Reveal delay={160} className="bg-dark-500/50 p-4 rounded-lg border border-white/10">

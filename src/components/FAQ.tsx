@@ -61,14 +61,14 @@ export default function FAQ({ items }: FAQProps) {
 
 export const homepageFAQs: FAQItem[] = [
   {
-    question: 'How much does a website cost?',
+    question: 'How fast can my site be live?',
     answer:
-      "Most professionally built websites cost $2,500–$5,000 or more. We believe small businesses and entrepreneurs should have access to a fast, professional website without paying agency prices. That's why we offer a one-time flat build fee of $899 for a complete site of up to 9 pages. Ask about our military discount.",
+      'Most sites are designed, built and launched in 2–3 days. Agencies quote two to six weeks for the same scope. We are faster because the process is refined and because we only take on what we can turn around properly — not because anything gets skipped. The clock starts once we have your content: photos, services, and anything you want said in your own words.',
   },
   {
-    question: 'How long does a website take to build?',
+    question: 'How much does a website cost?',
     answer:
-      'Most projects are completed in 2–3 days, depending on scope and how quickly you provide content and feedback. We move fast without cutting corners.',
+      'A complete site of up to 9 pages is a one-time $899. That covers design, copy, the targeted SEO build and launch — no retainers, no monthly fees, no per-page surprises. The same scope from an agency typically runs $2,500–$5,000 and takes weeks longer. Ask about our military discount.',
   },
   {
     question: 'Who owns the domain and hosting?',

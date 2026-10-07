@@ -58,10 +58,13 @@ export default function ServicesPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <Reveal as="h2" className="text-white font-light tracking-wide mb-4">
-              Simple, flat-fee pricing
+              Live in 2–3 days. One flat fee.
             </Reveal>
             <Reveal as="p" delay={120} className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Most professionally built websites cost $2,500–$5,000 or more. We believe small businesses and entrepreneurs should have access to a fast, professional website without paying agency prices.
+              Agencies quote two to six weeks and $2,500–$5,000 for a site this
+              size. We build the same scope in a few days for a single flat fee,
+              because a small business should not wait a month to start getting
+              calls.
             </Reveal>
           </div>
           
