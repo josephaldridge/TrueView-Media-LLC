@@ -63,7 +63,7 @@ export const homepageFAQs: FAQItem[] = [
   {
     question: 'How fast can my site be live?',
     answer:
-      'Most sites are designed, built and launched in 2–3 days. Agencies quote two to six weeks for the same scope. We are faster because the process is refined and because we only take on what we can turn around properly — not because anything gets skipped. The clock starts once we have your content: photos, services, and anything you want said in your own words.',
+      'Most sites are designed, built and launched in 2–3 days — complex builds included. Agencies quote two to six weeks for the same scope. We are faster because the process is refined and the stack is modern, not because anything gets skipped or simplified. The clock starts once we have your content: photos, services, and anything you want said in your own words.',
   },
   {
     question: 'How much does a website cost?',
