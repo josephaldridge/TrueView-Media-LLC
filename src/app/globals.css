@@ -603,3 +603,13 @@ input, textarea, select {
     transform: none !important;
   }
 }
+
+/* Carousel track: scrollable without a visible scrollbar. */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}

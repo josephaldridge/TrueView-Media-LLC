@@ -7,6 +7,7 @@ import { Menu, X, Phone, Mail } from 'lucide-react';
 
 const navigation = [
   { name: 'Home', href: '/' },
+  { name: 'Work', href: '/#work' },
   { name: 'Services', href: '/services' },
   { name: 'Process', href: '/process' },
   { name: 'About', href: '/about' },

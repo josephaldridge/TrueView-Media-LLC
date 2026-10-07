@@ -7,7 +7,9 @@ import {
   FAQ,
   homepageFAQs,
   Reveal,
+  WorkCarousel,
 } from '@/components';
+import { SHOWCASE } from '@/lib/previews/showcase';
 import CTABand from '@/components/CTA';
 import {
   Phone,
@@ -18,6 +20,10 @@ import {
   Star,
   Clock,
   Award,
+  Gauge,
+  Search,
+  MousePointerClick,
+  Code2,
 } from 'lucide-react';
 
 const processSteps = [
@@ -45,6 +51,40 @@ const processSteps = [
     step: 5,
     title: 'Handoff',
     description: 'You receive full access and documentation. Your site, your control.',
+  },
+];
+
+const heroStats = [
+  { value: '$749', label: 'flat, up to 9 pages' },
+  { value: '7–14', label: 'days to launch' },
+  { value: '100%', label: 'you own it' },
+  { value: '$49', label: 'per edit request' },
+];
+
+const buildIncludes = [
+  {
+    icon: Search,
+    title: 'Targeted SEO build',
+    description:
+      'Keyword-mapped pages, schema markup, clean heading structure, XML sitemap and Search Console setup — so you rank for what people in your town actually type.',
+  },
+  {
+    icon: MousePointerClick,
+    title: 'Conversion-first layout',
+    description:
+      'Every page ends in a way to contact you. Click-to-call on mobile, booking forms, and the phone number never more than a thumb away.',
+  },
+  {
+    icon: Gauge,
+    title: 'Built for speed',
+    description:
+      'Statically rendered, image-optimised, scoring green on Core Web Vitals. Fast sites rank higher and lose fewer visitors before the page loads.',
+  },
+  {
+    icon: Code2,
+    title: 'Modern, hand-built code',
+    description:
+      'Next.js and React — the stack behind the sites you already admire. No page-builder bloat, no plugin tax, nothing to break on an update.',
   },
 ];
 
@@ -85,23 +125,30 @@ export default function Home() {
             />
 
             {/* Problem-focused headline */}
-            <Reveal as="p" delay={80} className="text-rose-gold text-lg mb-4 font-medium">
-              Losing customers to an outdated website?
+            <Reveal
+              as="p"
+              delay={80}
+              className="text-rose-gold text-xs uppercase tracking-[0.25em] mb-5 font-medium"
+            >
+              ( Custom websites · built to convert )
             </Reveal>
             <Reveal
               as="h1"
               delay={160}
-              className="text-white font-display font-light tracking-wide mb-6"
+              className="text-white font-display font-light tracking-wide mb-6 text-5xl md:text-6xl lg:text-7xl leading-[1.05]"
             >
-              Your website should be{' '}
-              <span className="text-rose-gold">working for you</span>—not against you.
+              Websites that{' '}
+              <span className="text-rose-gold">book the call</span>
+              —not just look good.
             </Reveal>
             <Reveal
               as="p"
               delay={260}
               className="text-xl text-gray-400 mb-8 max-w-2xl leading-relaxed"
             >
-              Most small business websites are slow, outdated, or confusing. Customers leave. You lose money. We fix that—fast, professional sites that earn trust and get you paid.
+              Hand-built, SEO-engineered sites for small businesses. Fast, mobile-first,
+              and designed around the one action you want a visitor to take. Nine pages,
+              one flat fee, no retainers.
             </Reveal>
 
             {/* Social proof line */}
@@ -127,6 +174,22 @@ export default function Home() {
                 Call Now: 972-339-0754
               </a>
             </Reveal>
+
+            <Reveal
+              delay={500}
+              className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-14 max-w-2xl"
+            >
+              {heroStats.map((stat) => (
+                <div key={stat.label}>
+                  <p className="text-3xl md:text-4xl font-display font-light text-white">
+                    {stat.value}
+                  </p>
+                  <p className="text-[11px] uppercase tracking-widest text-gray-500 mt-1">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </Reveal>
           </div>
         </div>
       </section>
@@ -147,6 +210,92 @@ export default function Home() {
             </Reveal>
           ))}
         </div>
+      </Section>
+
+      {/* Work — demo builds across industries */}
+      <Section background="gray" id="work">
+        <div className="mb-12">
+          <Reveal
+            as="p"
+            className="text-rose-gold text-xs uppercase tracking-[0.25em] mb-4 font-medium"
+          >
+            ( Selected builds )
+          </Reveal>
+          <Reveal
+            as="h2"
+            delay={80}
+            className="text-white font-light tracking-wide mb-4 max-w-3xl"
+          >
+            Every industry has a different buyer. The site should know that.
+          </Reveal>
+          <Reveal as="p" delay={160} className="text-gray-400 max-w-2xl">
+            A plumber needs the phone number in your face. A med spa needs to feel
+            expensive. A law firm needs to feel safe. These are live demo builds
+            showing that range — click any one and the whole site opens.
+          </Reveal>
+        </div>
+
+        <Reveal delay={220}>
+          <WorkCarousel items={SHOWCASE} />
+        </Reveal>
+
+        <Reveal delay={280} className="mt-8">
+          <p className="text-xs text-gray-600 max-w-2xl leading-relaxed">
+            Demo builds for fictional businesses, made to show design range across
+            industries. Your site is designed around your business, not adapted
+            from one of these.
+          </p>
+        </Reveal>
+      </Section>
+
+      {/* What a build includes */}
+      <Section background="white" id="what-you-get">
+        <div className="mb-14">
+          <Reveal
+            as="p"
+            className="text-rose-gold text-xs uppercase tracking-[0.25em] mb-4 font-medium"
+          >
+            ( What you actually get )
+          </Reveal>
+          <Reveal
+            as="h2"
+            delay={80}
+            className="text-white font-light tracking-wide mb-4 max-w-3xl"
+          >
+            The whole enchilada. For one flat fee.
+          </Reveal>
+          <Reveal as="p" delay={160} className="text-gray-400 max-w-2xl">
+            Not a template with your logo dropped in. A site designed, written,
+            built and tuned for how your customers actually find and choose you.
+          </Reveal>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {buildIncludes.map((item, i) => (
+            <Reveal
+              key={item.title}
+              delay={i * 90}
+              className="bg-dark-500/50 backdrop-blur-sm rounded-xl p-7 border border-white/10 hover:border-rose-gold/25 transition-colors duration-300"
+            >
+              <div className="w-11 h-11 flex items-center justify-center bg-rose-gold/10 text-rose-gold rounded-lg mb-5">
+                <item.icon className="w-5 h-5" />
+              </div>
+              <h3 className="text-lg font-light tracking-wide text-white mb-2">
+                {item.title}
+              </h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                {item.description}
+              </p>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={400} className="mt-12 text-center">
+          <Link href="/services" className="btn-primary">
+            See everything included
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        </Reveal>
       </Section>
 
       {/* Testimonials Section - Add real reviews here when available */}

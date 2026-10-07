@@ -8,11 +8,17 @@ import type { PreviewContent } from './types';
  * type-checked — a malformed preview fails the build rather than 404ing in
  * front of a prospect.
  */
+import callowayReedLaw from '@previews/calloway-reed-law';
+import forgeStrength from '@previews/forge-strength';
+import ironsideBarber from '@previews/ironside-barber';
 import joesPlumbing from '@previews/joes-plumbing';
+import lumenAesthetics from '@previews/lumen-aesthetics';
+import northlineHvac from '@previews/northline-hvac';
 import majorLeagueDetailing from '@previews/major-league-detailing';
 import sampleCafe from '@previews/sample-cafe';
 import sampleDental from '@previews/sample-dental';
 import sampleStudio from '@previews/sample-studio';
+import verdantLandscape from '@previews/verdant-landscape';
 
 const previews: PreviewContent[] = [
   majorLeagueDetailing,
@@ -20,6 +26,12 @@ const previews: PreviewContent[] = [
   sampleCafe,
   sampleDental,
   sampleStudio,
+  verdantLandscape,
+  northlineHvac,
+  callowayReedLaw,
+  lumenAesthetics,
+  forgeStrength,
+  ironsideBarber,
 ];
 
 export const previewRegistry = new Map<string, PreviewContent>(

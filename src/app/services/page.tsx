@@ -7,21 +7,21 @@ import { CheckCircle } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    'Professional website design for small businesses and entrepreneurs. One-time flat fee of $1,000. No hidden fees, no surprises.',
+    'Professional website design for small businesses and entrepreneurs. One-time flat fee of $749. No hidden fees, no surprises.',
   openGraph: {
     title: 'Services | TrueView Media LLC',
     description:
-      'Professional website design for small businesses and entrepreneurs. One-time flat fee of $1,000.',
+      'Professional website design for small businesses and entrepreneurs. One-time flat fee of $749.',
   },
 };
 
 const includedFeatures = [
   'Custom design tailored to your brand',
-  '5–10 pages (Home, Services, About, Contact, etc.)',
+  'Up to 9 pages (Home, Services, About, Contact and more)',
   'Mobile-responsive layout',
   'Contact form with email notifications',
-  'Basic on-page SEO setup',
-  'Google Analytics integration',
+  'Targeted SEO build: keyword-mapped pages, schema markup, sitemap',
+  'Google Analytics and Search Console setup',
   'Speed optimization',
   'SSL certificate setup',
   'Domain and hosting configuration',
@@ -47,7 +47,7 @@ export default function ServicesPage() {
               Services
             </Reveal>
             <Reveal as="p" delay={180} className="text-xl text-gray-400">
-              Professional websites for small businesses and entrepreneurs. One flat fee, no surprises.
+              A complete, SEO-engineered website of up to 9 pages. One flat fee, no retainers, no surprises.
             </Reveal>
           </div>
         </div>
@@ -73,9 +73,9 @@ export default function ServicesPage() {
               <p className="text-sm text-rose-gold uppercase tracking-widest mb-2">
                 One-time flat fee
               </p>
-              <p className="text-5xl md:text-6xl font-display font-light text-white mb-4">$1,000</p>
+              <p className="text-5xl md:text-6xl font-display font-light text-white mb-4">$749</p>
               <p className="text-gray-400 text-lg">
-                Paid once. Everything you need to launch a professional website.
+                Paid once. A complete site of up to 9 pages. Paid once, yours forever.
               </p>
             </div>
 
