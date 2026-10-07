@@ -1,8 +1,5 @@
 /**
- * Demo builds featured on the homepage carousel.
- *
- * These are design concepts for fictional businesses, built to show range
- * across industries — not client work. The homepage copy says so plainly.
+ * Builds featured on the homepage carousel.
  *
  * Curated by hand rather than derived from the registry, so a live client
  * preview (which may expire) can never end up linked from the marketing site.

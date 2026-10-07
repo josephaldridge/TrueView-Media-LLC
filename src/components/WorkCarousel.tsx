@@ -6,7 +6,7 @@ import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { ShowcaseEntry } from '@/lib/previews/showcase';
 
 /**
- * Scrolling strip of demo builds, each framed as a browser window.
+ * Scrolling strip of builds, each framed as a browser window.
  *
  * Native scroll with snap points does the heavy lifting, so touch and trackpad
  * gestures work with no JS at all. On top of that, a scroll handler scales and

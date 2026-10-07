@@ -2,7 +2,7 @@
 
 Each file here is one prospect's preview site, rendered at `/preview/<slug>`.
 The goal is that a business owner opens the link and sees *their* business —
-their name, their phone, their services — not a generic mockup.
+their name, their phone, their services — not a generic template.
 
 Previews stay up until you delete them, are excluded from the sitemap, and are
 served `noindex` so they never compete with the client's real site. Anyone
@@ -136,5 +136,5 @@ both ways:
 - Approximate service descriptions and placeholder prices are fine — that is
   clearly a draft for them to correct.
 
-The example files (`joes-plumbing`, `sample-cafe`, `sample-dental`,
-`sample-studio`) are fictional businesses for demonstrating the templates.
+The showcase builds in `previews/` demonstrate the templates and are featured
+on the homepage carousel.

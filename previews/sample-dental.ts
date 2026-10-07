@@ -1,6 +1,6 @@
 import type { PreviewContent } from '@/lib/previews/types';
 
-/** Example of the professional template. Fictional business. */
+/** Showcase build on the professional template. */
 const preview: PreviewContent = {
   slug: 'sample-dental',
   template: 'professional',

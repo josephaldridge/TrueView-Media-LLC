@@ -212,7 +212,7 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Work — demo builds across industries */}
+      {/* Work — builds across industries */}
       <Section background="gray" id="work">
         <div className="mb-12">
           <Reveal
@@ -230,21 +230,13 @@ export default function Home() {
           </Reveal>
           <Reveal as="p" delay={160} className="text-gray-400 max-w-2xl">
             A plumber needs the phone number in your face. A med spa needs to feel
-            expensive. A law firm needs to feel safe. These are live demo builds
-            showing that range — click any one and the whole site opens.
+            expensive. A law firm needs to feel safe. Every build below is a
+            live, working site — click any one and it opens in full.
           </Reveal>
         </div>
 
         <Reveal delay={220}>
           <WorkCarousel items={SHOWCASE} />
-        </Reveal>
-
-        <Reveal delay={280} className="mt-8">
-          <p className="text-xs text-gray-600 max-w-2xl leading-relaxed">
-            Demo builds for fictional businesses, made to show design range across
-            industries. Your site is designed around your business, not adapted
-            from one of these.
-          </p>
         </Reveal>
       </Section>
 

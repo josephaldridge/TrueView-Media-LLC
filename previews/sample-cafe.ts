@@ -1,6 +1,6 @@
 import type { PreviewContent } from '@/lib/previews/types';
 
-/** Example of the hospitality template. Fictional business. */
+/** Showcase build on the hospitality template. */
 const preview: PreviewContent = {
   slug: 'sample-cafe',
   template: 'hospitality',

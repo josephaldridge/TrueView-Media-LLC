@@ -1,6 +1,6 @@
 import type { PreviewContent } from '@/lib/previews/types';
 
-/** Demo build — fictional business, used to show design range. */
+/** Showcase build, used to demonstrate design range. */
 const preview: PreviewContent = {
   slug: 'ironside-barber',
   template: 'hospitality',
