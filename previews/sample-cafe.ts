@@ -49,6 +49,7 @@ const preview: PreviewContent = {
   ],
 
   accent: '#a16207',
+  light: true,
   ctaLabel: 'Book a Table',
 };
 

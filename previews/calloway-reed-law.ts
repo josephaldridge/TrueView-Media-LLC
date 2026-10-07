@@ -3,7 +3,7 @@ import type { PreviewContent } from '@/lib/previews/types';
 /** Showcase build, used to demonstrate design range. */
 const preview: PreviewContent = {
   slug: 'calloway-reed-law',
-  template: 'professional',
+  template: 'sidebar',
   businessName: 'Calloway & Reed',
   tagline: 'Family and estate law · Collin County',
   intro:

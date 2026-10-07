@@ -20,6 +20,8 @@ export default function HospitalityTemplate({
   content: PreviewContent;
 }) {
   const accent = accentOf(content);
+  // Two businesses on this template should not look like the same shop.
+  const light = content.light === true;
 
   return (
     <div className="bg-[#fdfaf6] text-stone-900">
@@ -44,12 +46,20 @@ export default function HospitalityTemplate({
           backgroundImage: content.heroImage
             ? `linear-gradient(rgba(28,25,23,.55), rgba(28,25,23,.65)), url(${content.heroImage})`
             : undefined,
-          backgroundColor: content.heroImage ? undefined : '#1c1917',
+          backgroundColor: content.heroImage
+            ? undefined
+            : light
+              ? '#f5efe6'
+              : '#1c1917',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-28 md:py-40 text-center text-white">
+        <div
+          className={`relative max-w-4xl mx-auto px-4 sm:px-6 py-28 md:py-40 text-center ${
+            light && !content.heroImage ? 'text-stone-900' : 'text-white'
+          }`}
+        >
           <Reveal
             as="p"
             className="uppercase tracking-[0.3em] text-xs mb-6 opacity-80"

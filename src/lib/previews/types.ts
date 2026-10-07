@@ -11,7 +11,11 @@ export type PreviewTemplate =
   | 'hospitality'
   | 'professional'
   | 'premium'
-  | 'showcase';
+  | 'showcase'
+  | 'split'
+  | 'bold'
+  | 'editorial'
+  | 'sidebar';
 
 export interface PreviewService {
   title: string;

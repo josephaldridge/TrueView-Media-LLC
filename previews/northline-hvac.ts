@@ -3,7 +3,7 @@ import type { PreviewContent } from '@/lib/previews/types';
 /** Showcase build, used to demonstrate design range. */
 const preview: PreviewContent = {
   slug: 'northline-hvac',
-  template: 'showcase',
+  template: 'split',
   businessName: 'Northline Heating & Air',
   tagline: '24/7 emergency HVAC · North Texas',
   intro:

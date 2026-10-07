@@ -3,7 +3,7 @@ import type { PreviewContent } from '@/lib/previews/types';
 /** Showcase build, used to demonstrate design range. */
 const preview: PreviewContent = {
   slug: 'lumen-aesthetics',
-  template: 'premium',
+  template: 'editorial',
   businessName: 'Lumen Aesthetics',
   tagline: 'Medical aesthetics · Frisco',
   intro:

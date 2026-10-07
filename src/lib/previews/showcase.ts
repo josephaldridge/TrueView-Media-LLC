@@ -19,21 +19,21 @@ export const SHOWCASE: ShowcaseEntry[] = [
     slug: 'northline-hvac',
     businessName: 'Northline Heating & Air',
     industry: 'HVAC',
-    note: 'Emergency dispatch front and centre, booking form on every screen',
+    note: 'Split-screen hero, emergency dispatch front and centre',
     thumbnail: '/work/northline-hvac.jpg',
   },
   {
     slug: 'verdant-landscape',
     businessName: 'Verdant Lawn & Landscape',
     industry: 'Landscaping',
-    note: 'Route-density messaging and per-service pricing',
+    note: 'Full-bleed colour and oversized type, no stock photography',
     thumbnail: '/work/verdant-landscape.jpg',
   },
   {
     slug: 'lumen-aesthetics',
     businessName: 'Lumen Aesthetics',
     industry: 'Med Spa',
-    note: 'Premium feel without losing the consultation CTA',
+    note: 'Editorial layout — serif masthead, hairline rules, whitespace',
     thumbnail: '/work/lumen-aesthetics.jpg',
   },
   {
@@ -47,7 +47,7 @@ export const SHOWCASE: ShowcaseEntry[] = [
     slug: 'calloway-reed-law',
     businessName: 'Calloway & Reed',
     industry: 'Law Firm',
-    note: 'Credibility-first layout with the contact card above the fold',
+    note: 'Fixed sidebar navigation instead of a top bar',
     thumbnail: '/work/calloway-reed-law.jpg',
   },
   {
@@ -61,7 +61,7 @@ export const SHOWCASE: ShowcaseEntry[] = [
     slug: 'ironside-barber',
     businessName: 'Ironside Barber Co.',
     industry: 'Barbershop',
-    note: 'Editorial styling for a walk-in trade',
+    note: 'Near-black and centred, for a walk-in trade',
     thumbnail: '/work/ironside-barber.jpg',
   },
   {
@@ -82,7 +82,7 @@ export const SHOWCASE: ShowcaseEntry[] = [
     slug: 'sample-cafe',
     businessName: 'The Copper Kettle',
     industry: 'Cafe',
-    note: 'Hours and location lead, because that is what people search',
+    note: 'Light, centred and typographic — hours and location lead',
     thumbnail: '/work/sample-cafe.jpg',
   },
 ];

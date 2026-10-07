@@ -3,7 +3,7 @@ import type { PreviewContent } from '@/lib/previews/types';
 /** Showcase build, used to demonstrate design range. */
 const preview: PreviewContent = {
   slug: 'verdant-landscape',
-  template: 'trades',
+  template: 'bold',
   businessName: 'Verdant Lawn & Landscape',
   tagline: 'Full-service grounds care since 2011',
   intro:

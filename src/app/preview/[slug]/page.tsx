@@ -2,11 +2,15 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import HospitalityTemplate from '@/components/previews/HospitalityTemplate';
 import PreviewBadge from '@/components/previews/PreviewBadge';
+import BoldTemplate from '@/components/previews/BoldTemplate';
+import EditorialTemplate from '@/components/previews/EditorialTemplate';
 import ExitIntentOffer from '@/components/previews/ExitIntentOffer';
 import PreviewCountdown from '@/components/previews/PreviewCountdown';
 import PreviewExpired from '@/components/previews/PreviewExpired';
 import PremiumTemplate from '@/components/previews/PremiumTemplate';
 import ShowcaseTemplate from '@/components/previews/ShowcaseTemplate';
+import SidebarTemplate from '@/components/previews/SidebarTemplate';
+import SplitTemplate from '@/components/previews/SplitTemplate';
 import StructuredData from '@/components/previews/StructuredData';
 import ProfessionalTemplate from '@/components/previews/ProfessionalTemplate';
 import TradesTemplate from '@/components/previews/TradesTemplate';
@@ -70,6 +74,10 @@ const TEMPLATES = {
   professional: ProfessionalTemplate,
   premium: PremiumTemplate,
   showcase: ShowcaseTemplate,
+  split: SplitTemplate,
+  bold: BoldTemplate,
+  editorial: EditorialTemplate,
+  sidebar: SidebarTemplate,
 } as const;
 
 export default async function PreviewPage({ params, searchParams }: Props) {
