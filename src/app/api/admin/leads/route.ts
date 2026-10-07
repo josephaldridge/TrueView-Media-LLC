@@ -72,6 +72,8 @@ export async function POST(request: NextRequest) {
 
     prepared.push({
       business_name: name,
+      contact_name: sanitize(item.contact_name, 120),
+      website: sanitize(item.website, 300),
       category: sanitize(item.category, 100),
       phone: sanitize(item.phone, 50),
       email: sanitize(item.email, 200),

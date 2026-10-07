@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import {
   SESSION_COOKIE,
   getSessionSecret,
-  verifySessionToken,
+  readSession,
 } from '@/lib/admin/auth';
 
 /**
@@ -23,7 +23,8 @@ export async function middleware(request: NextRequest) {
   }
 
   const token = request.cookies.get(SESSION_COOKIE)?.value;
-  const authenticated = await verifySessionToken(token, getSessionSecret());
+  const session = await readSession(token, getSessionSecret());
+  const authenticated = session !== null;
 
   // Keep the whole admin surface out of search results.
   const withNoIndex = (response: NextResponse) => {
@@ -33,15 +34,29 @@ export async function middleware(request: NextRequest) {
 
   if (pathname === '/admin/login') {
     if (authenticated) {
-      return withNoIndex(
-        NextResponse.redirect(new URL('/admin', request.url))
-      );
+      // Sales users have no business on the admin tools.
+      const home = session.role === 'sales' ? '/portal' : '/admin';
+      return withNoIndex(NextResponse.redirect(new URL(home, request.url)));
     }
     return withNoIndex(NextResponse.next());
   }
 
-  if (!authenticated) {
+  // Admin tools are admin-only; the portal is open to both roles.
+  if (
+    authenticated &&
+    session.role !== 'admin' &&
+    (pathname.startsWith('/admin') || pathname.startsWith('/api/admin'))
+  ) {
     if (pathname.startsWith('/api/admin')) {
+      return withNoIndex(
+        NextResponse.json({ message: 'Forbidden' }, { status: 403 })
+      );
+    }
+    return withNoIndex(NextResponse.redirect(new URL('/portal', request.url)));
+  }
+
+  if (!authenticated) {
+    if (pathname.startsWith('/api/admin') || pathname.startsWith('/api/portal')) {
       return withNoIndex(
         NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
       );
@@ -58,7 +73,9 @@ export const config = {
   // The login and logout endpoints handle their own access rules.
   matcher: [
     '/admin/:path*',
+    '/portal/:path*',
     '/api/admin/((?!login|logout).*)',
+    '/api/portal/:path*',
     '/preview/:path*',
   ],
 };

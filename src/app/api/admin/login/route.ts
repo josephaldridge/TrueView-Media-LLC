@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {
   SESSION_COOKIE,
+  authenticate,
   createSessionToken,
-  getAdminPassword,
   getSessionSecret,
   isAdminConfigured,
   sessionCookieOptions,
-  verifyPassword,
 } from '@/lib/admin/auth';
 import {
   isDatabaseConfigured,
@@ -84,28 +83,35 @@ export async function POST(request: NextRequest) {
   }
 
   let password = '';
+  let email = '';
   try {
     const body = await request.json();
     password = typeof body?.password === 'string' ? body.password : '';
+    email = typeof body?.email === 'string' ? body.email : '';
   } catch {
     password = '';
   }
 
-  const valid = await verifyPassword(password, getAdminPassword());
-  await recordLoginAttempt(ip, valid);
+  const role = await authenticate(email, password);
+  await recordLoginAttempt(ip, role !== null);
 
-  if (!valid) {
+  if (!role) {
+    // Deliberately identical whether the email or the password was wrong.
     return NextResponse.json(
       {
-        message: 'Incorrect password.',
+        message: 'Incorrect email or password.',
         remaining: Math.max(0, limit.remaining - 1),
       },
       { status: 401 }
     );
   }
 
-  const token = await createSessionToken(getSessionSecret());
-  const response = NextResponse.json({ success: true });
+  const token = await createSessionToken(getSessionSecret(), role, email);
+  const response = NextResponse.json({
+    success: true,
+    role,
+    redirect: role === 'sales' ? '/portal' : '/admin',
+  });
   response.cookies.set(SESSION_COOKIE, token, sessionCookieOptions());
   return response;
 }

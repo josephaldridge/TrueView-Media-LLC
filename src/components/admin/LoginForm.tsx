@@ -6,6 +6,7 @@ import { Loader2 } from 'lucide-react';
 
 export default function LoginForm() {
   const router = useRouter();
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -19,7 +20,7 @@ export default function LoginForm() {
       const response = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ email, password }),
       });
       const data = await response.json().catch(() => ({}));
 
@@ -29,7 +30,8 @@ export default function LoginForm() {
         return;
       }
 
-      router.replace('/admin');
+      // The server decides where each role lands.
+      router.replace(data.redirect ?? '/admin');
       router.refresh();
     } catch {
       setError('Network error. Try again.');
@@ -40,6 +42,21 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label htmlFor="admin-email" className="label">
+          Email
+        </label>
+        <input
+          id="admin-email"
+          type="email"
+          autoComplete="username"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="input-field"
+          autoFocus
+        />
+      </div>
+
       <div>
         <label htmlFor="admin-password" className="label">
           Password
@@ -52,7 +69,6 @@ export default function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           className="input-field"
           required
-          autoFocus
         />
       </div>
 

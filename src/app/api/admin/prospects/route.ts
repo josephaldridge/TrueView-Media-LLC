@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { isAuthenticated } from '@/lib/admin/guard';
+import { isAdmin } from '@/lib/admin/guard';
 import {
   PROSPECT_CATEGORIES,
   ProspectCategory,
@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
 export async function POST(request: NextRequest) {
-  if (!(await isAuthenticated())) {
+  if (!(await isAdmin())) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
 

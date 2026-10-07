@@ -3,14 +3,14 @@ import { redirect } from 'next/navigation';
 import AdminNav from '@/components/admin/AdminNav';
 import PreviewList from '@/components/admin/PreviewList';
 import { isAdminConfigured } from '@/lib/admin/auth';
-import { isAuthenticated } from '@/lib/admin/guard';
+import { isAdmin } from '@/lib/admin/guard';
 import { expiryTime, previewUnlockKey } from '@/lib/previews/access';
 import { allPreviews } from '@/lib/previews/registry';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminPreviewsPage() {
-  if (!isAdminConfigured() || !(await isAuthenticated())) {
+  if (!isAdminConfigured() || !(await isAdmin())) {
     redirect('/admin/login');
   }
 

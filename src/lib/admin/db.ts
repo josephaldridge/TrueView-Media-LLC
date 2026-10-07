@@ -84,6 +84,33 @@ export interface Lead {
   notes: string | null;
   created_at: string;
   updated_at: string;
+
+  // Sales portal fields
+  contact_name: string | null;
+  website: string | null;
+  assigned_to: string | null;
+  deal_value: number | null;
+  next_action: string | null;
+  next_action_at: string | null;
+}
+
+export interface LeadNote {
+  id: number;
+  lead_id: number;
+  author: string;
+  body: string;
+  created_at: string;
+}
+
+export interface LeadTask {
+  id: number;
+  lead_id: number;
+  workflow: string;
+  step_order: number;
+  label: string;
+  done: boolean;
+  due_at: string | null;
+  created_at: string;
 }
 
 export function isDatabaseConfigured(): boolean {
@@ -109,6 +136,48 @@ async function applyCustomerNumbering(): Promise<void> {
       // Every lead carries a sequential, zero-padded customer id ('0001') so
       // work can be tagged back to the right company. Each step is idempotent,
       // so this is safe to run on every cold start.
+
+      // --- Sales portal -----------------------------------------------------
+      // Added as nullable columns so existing rows stay valid untouched.
+      await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS contact_name TEXT;`;
+      await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS website TEXT;`;
+      await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS assigned_to TEXT;`;
+      await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS deal_value INTEGER;`;
+      await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS next_action TEXT;`;
+      await sql`
+        ALTER TABLE leads ADD COLUMN IF NOT EXISTS next_action_at TIMESTAMPTZ;
+      `;
+
+      await sql`
+        CREATE TABLE IF NOT EXISTS lead_notes (
+          id SERIAL PRIMARY KEY,
+          lead_id INTEGER NOT NULL REFERENCES leads(id) ON DELETE CASCADE,
+          author TEXT NOT NULL,
+          body TEXT NOT NULL,
+          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        );
+      `;
+      await sql`
+        CREATE INDEX IF NOT EXISTS lead_notes_lead_idx
+        ON lead_notes (lead_id, created_at DESC);
+      `;
+
+      await sql`
+        CREATE TABLE IF NOT EXISTS lead_tasks (
+          id SERIAL PRIMARY KEY,
+          lead_id INTEGER NOT NULL REFERENCES leads(id) ON DELETE CASCADE,
+          workflow TEXT NOT NULL,
+          step_order INTEGER NOT NULL DEFAULT 0,
+          label TEXT NOT NULL,
+          done BOOLEAN NOT NULL DEFAULT FALSE,
+          due_at TIMESTAMPTZ,
+          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        );
+      `;
+      await sql`
+        CREATE INDEX IF NOT EXISTS lead_tasks_lead_idx
+        ON lead_tasks (lead_id, step_order);
+      `;
 
       await sql`CREATE SEQUENCE IF NOT EXISTS leads_customer_id_seq;`;
 
@@ -282,6 +351,8 @@ export async function countLeadsByStatus(): Promise<Record<string, number>> {
 
 export interface NewLead {
   business_name: string;
+  contact_name?: string | null;
+  website?: string | null;
   category?: string | null;
   phone?: string | null;
   email?: string | null;
@@ -299,10 +370,11 @@ export async function insertLead(lead: NewLead): Promise<Lead | null> {
   await ensureSchema();
   const { rows } = await sql<Lead>`
     INSERT INTO leads (
-      business_name, category, phone, email, address, city,
-      lat, lon, source, source_ref, notes
+      business_name, contact_name, website, category, phone, email,
+      address, city, lat, lon, source, source_ref, notes
     ) VALUES (
-      ${lead.business_name}, ${lead.category ?? null}, ${lead.phone ?? null},
+      ${lead.business_name}, ${lead.contact_name ?? null},
+      ${lead.website ?? null}, ${lead.category ?? null}, ${lead.phone ?? null},
       ${lead.email ?? null}, ${lead.address ?? null}, ${lead.city ?? null},
       ${lead.lat ?? null}, ${lead.lon ?? null},
       ${lead.source ?? 'manual'}, ${lead.source_ref ?? null}, ${lead.notes ?? null}
@@ -378,4 +450,150 @@ export async function recordPreviewSubmission(
     DELETE FROM preview_submissions
     WHERE submitted_at < NOW() - INTERVAL '30 days';
   `;
+}
+
+// ---------------------------------------------------------------------------
+// Sales portal queries
+// ---------------------------------------------------------------------------
+
+export async function getLead(id: number): Promise<Lead | null> {
+  await ensureSchema();
+  const { rows } = await sql<Lead>`SELECT * FROM leads WHERE id = ${id};`;
+  return rows[0] ?? null;
+}
+
+export interface LeadProfileFields {
+  business_name?: string;
+  contact_name?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  website?: string | null;
+  address?: string | null;
+  city?: string | null;
+  category?: string | null;
+  status?: string;
+  assigned_to?: string | null;
+  deal_value?: number | null;
+  next_action?: string | null;
+  next_action_at?: string | null;
+}
+
+/** Partial update — COALESCE keeps any field the caller omitted. */
+export async function updateLeadProfile(
+  id: number,
+  f: LeadProfileFields
+): Promise<Lead | null> {
+  await ensureSchema();
+  const { rows } = await sql<Lead>`
+    UPDATE leads SET
+      business_name  = COALESCE(${f.business_name ?? null}, business_name),
+      contact_name   = COALESCE(${f.contact_name ?? null}, contact_name),
+      phone          = COALESCE(${f.phone ?? null}, phone),
+      email          = COALESCE(${f.email ?? null}, email),
+      website        = COALESCE(${f.website ?? null}, website),
+      address        = COALESCE(${f.address ?? null}, address),
+      city           = COALESCE(${f.city ?? null}, city),
+      category       = COALESCE(${f.category ?? null}, category),
+      status         = COALESCE(${f.status ?? null}, status),
+      assigned_to    = COALESCE(${f.assigned_to ?? null}, assigned_to),
+      deal_value     = COALESCE(${f.deal_value ?? null}, deal_value),
+      next_action    = COALESCE(${f.next_action ?? null}, next_action),
+      next_action_at = COALESCE(${f.next_action_at ?? null}, next_action_at),
+      updated_at     = NOW()
+    WHERE id = ${id}
+    RETURNING *;
+  `;
+  return rows[0] ?? null;
+}
+
+export async function listNotes(leadId: number): Promise<LeadNote[]> {
+  await ensureSchema();
+  const { rows } = await sql<LeadNote>`
+    SELECT * FROM lead_notes WHERE lead_id = ${leadId}
+    ORDER BY created_at DESC LIMIT 200;
+  `;
+  return rows;
+}
+
+export async function addNote(
+  leadId: number,
+  author: string,
+  body: string
+): Promise<LeadNote | null> {
+  await ensureSchema();
+  const { rows } = await sql<LeadNote>`
+    INSERT INTO lead_notes (lead_id, author, body)
+    VALUES (${leadId}, ${author}, ${body})
+    RETURNING *;
+  `;
+  // A note is activity; surface it on the lead's ordering.
+  await sql`UPDATE leads SET updated_at = NOW() WHERE id = ${leadId};`;
+  return rows[0] ?? null;
+}
+
+export async function deleteNote(id: number): Promise<boolean> {
+  await ensureSchema();
+  const { rowCount } = await sql`DELETE FROM lead_notes WHERE id = ${id};`;
+  return (rowCount ?? 0) > 0;
+}
+
+export async function listTasks(leadId: number): Promise<LeadTask[]> {
+  await ensureSchema();
+  const { rows } = await sql<LeadTask>`
+    SELECT * FROM lead_tasks WHERE lead_id = ${leadId}
+    ORDER BY done ASC, step_order ASC, id ASC;
+  `;
+  return rows;
+}
+
+export async function addTask(
+  leadId: number,
+  workflow: string,
+  label: string,
+  stepOrder: number,
+  dueAt: string | null
+): Promise<LeadTask | null> {
+  await ensureSchema();
+  const { rows } = await sql<LeadTask>`
+    INSERT INTO lead_tasks (lead_id, workflow, label, step_order, due_at)
+    VALUES (${leadId}, ${workflow}, ${label}, ${stepOrder}, ${dueAt})
+    RETURNING *;
+  `;
+  return rows[0] ?? null;
+}
+
+export async function setTaskDone(
+  id: number,
+  done: boolean
+): Promise<LeadTask | null> {
+  await ensureSchema();
+  const { rows } = await sql<LeadTask>`
+    UPDATE lead_tasks SET done = ${done} WHERE id = ${id} RETURNING *;
+  `;
+  return rows[0] ?? null;
+}
+
+export async function deleteTask(id: number): Promise<boolean> {
+  await ensureSchema();
+  const { rowCount } = await sql`DELETE FROM lead_tasks WHERE id = ${id};`;
+  return (rowCount ?? 0) > 0;
+}
+
+export interface PortalTask extends LeadTask {
+  business_name: string;
+  customer_id: string | null;
+}
+
+/** Open tasks across every lead, soonest first — the portal's to-do list. */
+export async function openTasks(limit = 50): Promise<PortalTask[]> {
+  await ensureSchema();
+  const { rows } = await sql<PortalTask>`
+    SELECT t.*, l.business_name, l.customer_id
+    FROM lead_tasks t
+    JOIN leads l ON l.id = t.lead_id
+    WHERE t.done = FALSE
+    ORDER BY t.due_at NULLS LAST, t.step_order ASC
+    LIMIT ${limit};
+  `;
+  return rows;
 }

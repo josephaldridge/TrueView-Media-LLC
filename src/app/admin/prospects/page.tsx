@@ -2,12 +2,12 @@ import { redirect } from 'next/navigation';
 import AdminNav from '@/components/admin/AdminNav';
 import ProspectFinder from '@/components/admin/ProspectFinder';
 import { isAdminConfigured } from '@/lib/admin/auth';
-import { isAuthenticated } from '@/lib/admin/guard';
+import { isAdmin } from '@/lib/admin/guard';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ProspectsPage() {
-  if (!isAdminConfigured() || !(await isAuthenticated())) {
+  if (!isAdminConfigured() || !(await isAdmin())) {
     redirect('/admin/login');
   }
 

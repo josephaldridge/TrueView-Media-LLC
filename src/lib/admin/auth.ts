@@ -1,10 +1,21 @@
 /**
- * Session handling for the admin area.
+ * Session handling for the admin area and the sales portal.
  *
  * Everything here uses Web Crypto only, so the same helpers run in the Edge
  * middleware and in Node route handlers. Tokens are HMAC-SHA256 signed and
- * carry their own expiry.
+ * carry their own expiry and role.
+ *
+ * Credentials live in environment variables, never in the repository — this
+ * repo is public, so a password committed here would be world-readable.
  */
+
+export type Role = 'admin' | 'sales';
+
+export interface Session {
+  role: Role;
+  email: string;
+  exp: number;
+}
 
 export const SESSION_COOKIE = 'tvm_admin_session';
 const SESSION_TTL_SECONDS = 60 * 60 * 8; // 8 hours
@@ -63,12 +74,18 @@ export async function verifyPassword(
   return timingSafeEqual(a, b);
 }
 
-export async function createSessionToken(secret: string): Promise<string> {
+export async function createSessionToken(
+  secret: string,
+  role: Role = 'admin',
+  email = ''
+): Promise<string> {
   const payload = base64UrlEncode(
     encoder.encode(
       JSON.stringify({
         iat: Math.floor(Date.now() / 1000),
         exp: Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS,
+        role,
+        email,
       })
     )
   );
@@ -76,14 +93,18 @@ export async function createSessionToken(secret: string): Promise<string> {
   return `${payload}.${signature}`;
 }
 
-export async function verifySessionToken(
+/**
+ * Verifies the signature and expiry, returning the session it carries.
+ * Null means "not signed by us, or expired" — callers must fail closed.
+ */
+export async function readSession(
   token: string | undefined,
   secret: string
-): Promise<boolean> {
-  if (!token || !secret) return false;
+): Promise<Session | null> {
+  if (!token || !secret) return null;
 
   const [payload, signature] = token.split('.');
-  if (!payload || !signature) return false;
+  if (!payload || !signature) return null;
 
   let expected: Uint8Array;
   let provided: Uint8Array;
@@ -91,18 +112,31 @@ export async function verifySessionToken(
     expected = await sign(payload, secret);
     provided = base64UrlDecode(signature);
   } catch {
-    return false;
+    return null;
   }
 
-  if (!timingSafeEqual(expected, provided)) return false;
+  if (!timingSafeEqual(expected, provided)) return null;
 
-  // Signature is valid, so the payload can be trusted enough to read.
+  // Signature checks out, so the payload can be trusted enough to read.
   try {
-    const decoded = JSON.parse(new TextDecoder().decode(base64UrlDecode(payload)));
-    return typeof decoded.exp === 'number' && decoded.exp > Date.now() / 1000;
+    const decoded = JSON.parse(
+      new TextDecoder().decode(base64UrlDecode(payload))
+    );
+    if (typeof decoded.exp !== 'number' || decoded.exp <= Date.now() / 1000) {
+      return null;
+    }
+    const role: Role = decoded.role === 'sales' ? 'sales' : 'admin';
+    return { role, email: String(decoded.email ?? ''), exp: decoded.exp };
   } catch {
-    return false;
+    return null;
   }
+}
+
+export async function verifySessionToken(
+  token: string | undefined,
+  secret: string
+): Promise<boolean> {
+  return (await readSession(token, secret)) !== null;
 }
 
 export function sessionCookieOptions(maxAge: number = SESSION_TTL_SECONDS) {
@@ -121,6 +155,51 @@ export function getSessionSecret(): string {
 
 export function getAdminPassword(): string {
   return process.env.ADMIN_PASSWORD ?? '';
+}
+
+export function getAdminEmail(): string {
+  return (process.env.ADMIN_EMAIL ?? '').trim().toLowerCase();
+}
+
+export function getSalesEmail(): string {
+  return (process.env.SALES_EMAIL ?? '').trim().toLowerCase();
+}
+
+export function getSalesPassword(): string {
+  return process.env.SALES_PASSWORD ?? '';
+}
+
+/**
+ * Resolves an email and password to a role, in constant time per candidate so
+ * a wrong email and a wrong password are indistinguishable from outside.
+ */
+export async function authenticate(
+  email: string,
+  password: string
+): Promise<Role | null> {
+  const given = email.trim().toLowerCase();
+
+  const candidates: Array<{ email: string; password: string; role: Role }> = [
+    { email: getSalesEmail(), password: getSalesPassword(), role: 'sales' },
+    { email: getAdminEmail(), password: getAdminPassword(), role: 'admin' },
+  ];
+
+  let matched: Role | null = null;
+  for (const candidate of candidates) {
+    if (!candidate.email || !candidate.password) continue;
+    const ok =
+      given === candidate.email &&
+      (await verifyPassword(password, candidate.password));
+    if (ok && !matched) matched = candidate.role;
+  }
+
+  // The admin password alone still works without an email, so the existing
+  // single-field admin login keeps functioning.
+  if (!matched && !given && getAdminPassword()) {
+    if (await verifyPassword(password, getAdminPassword())) matched = 'admin';
+  }
+
+  return matched;
 }
 
 /** True only when both secrets are configured, so we fail closed if not. */

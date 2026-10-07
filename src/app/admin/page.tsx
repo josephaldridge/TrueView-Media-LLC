@@ -3,7 +3,7 @@ import AdminNav from '@/components/admin/AdminNav';
 import LeadTable from '@/components/admin/LeadTable';
 import SetupNotice from '@/components/admin/SetupNotice';
 import { isAdminConfigured } from '@/lib/admin/auth';
-import { isAuthenticated } from '@/lib/admin/guard';
+import { isAdmin } from '@/lib/admin/guard';
 import {
   customerNumberingError,
   isDatabaseConfigured,
@@ -23,7 +23,7 @@ function missingEnvVars(): string[] {
 
 export default async function AdminDashboard() {
   // Enforced here as well as in middleware, which must not be the only gate.
-  if (!isAdminConfigured() || !(await isAuthenticated())) {
+  if (!isAdminConfigured() || !(await isAdmin())) {
     redirect('/admin/login');
   }
 
