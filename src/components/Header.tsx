@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, Phone, Mail } from 'lucide-react';
+import { Menu, X, Phone, Mail, LogIn } from 'lucide-react';
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -99,6 +99,13 @@ export default function Header() {
               <Link href="/contact" className="btn-primary text-sm py-2.5">
                 Request Information
               </Link>
+              <Link
+                href="/admin/login"
+                className="inline-flex items-center gap-1.5 text-xs font-light tracking-wider text-gray-500 hover:text-rose-gold transition-colors uppercase"
+              >
+                <LogIn className="w-3.5 h-3.5" />
+                Login
+              </Link>
             </div>
 
             {/* Mobile menu button */}
@@ -125,7 +132,9 @@ export default function Header() {
         <div
           id="mobile-menu"
           className={`md:hidden overflow-hidden transition-all duration-300 ${
-            mobileMenuOpen ? 'max-h-96 border-t border-white/10' : 'max-h-0'
+            mobileMenuOpen
+              ? 'max-h-[34rem] border-t border-white/10'
+              : 'max-h-0'
           }`}
         >
           <div className="container-custom py-4 space-y-2 bg-dark-600">
@@ -139,13 +148,21 @@ export default function Header() {
                 {item.name}
               </Link>
             ))}
-            <div className="pt-4 border-t border-white/10">
+            <div className="pt-4 border-t border-white/10 space-y-3">
               <Link
                 href="/contact"
                 className="btn-primary w-full text-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Request Information
+              </Link>
+              <Link
+                href="/admin/login"
+                className="flex items-center justify-center gap-2 w-full py-3 text-sm font-light tracking-wider text-gray-500 hover:text-rose-gold uppercase transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <LogIn className="w-4 h-4" />
+                Login
               </Link>
             </div>
           </div>
