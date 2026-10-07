@@ -158,7 +158,7 @@ export default function ContactPage() {
                 How long does it take?
               </p>
               <p className="text-sm text-gray-400">
-                Most projects complete in 7–14 days.
+                Most projects complete in 2–3 days.
               </p>
             </Reveal>
             <Reveal delay={160} className="bg-dark-500/50 p-4 rounded-lg border border-white/10">

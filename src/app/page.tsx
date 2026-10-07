@@ -56,7 +56,7 @@ const processSteps = [
 
 const heroStats = [
   { value: '$599', label: 'flat, up to 9 pages' },
-  { value: '7–14', label: 'days to launch' },
+  { value: '2–3', label: 'days to launch' },
   { value: '100%', label: 'you own it' },
   { value: '$49', label: 'per edit request' },
 ];
@@ -90,7 +90,7 @@ const buildIncludes = [
 
 const trustPoints = [
   { icon: Award, text: 'Veteran-Owned' },
-  { icon: Clock, text: '7–14 day turnaround' },
+  { icon: Clock, text: '2–3 day turnaround' },
   { icon: Smartphone, text: 'Mobile-first design' },
   { icon: Shield, text: '100% ownership guarantee' },
 ];

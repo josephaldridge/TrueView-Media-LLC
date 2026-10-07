@@ -68,7 +68,7 @@ export const homepageFAQs: FAQItem[] = [
   {
     question: 'How long does a website take to build?',
     answer:
-      'Most projects are completed in 7–14 days, depending on scope and how quickly you provide content and feedback. We move fast without cutting corners.',
+      'Most projects are completed in 2–3 days, depending on scope and how quickly you provide content and feedback. We move fast without cutting corners.',
   },
   {
     question: 'Who owns the domain and hosting?',
