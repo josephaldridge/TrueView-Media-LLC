@@ -179,6 +179,24 @@ async function applyCustomerNumbering(): Promise<void> {
         ON lead_tasks (lead_id, step_order);
       `;
 
+      // Demos created from the sales portal. Content is the whole
+      // PreviewContent object, so a demo needs no code change to exist.
+      await sql`
+        CREATE TABLE IF NOT EXISTS client_previews (
+          id SERIAL PRIMARY KEY,
+          slug TEXT UNIQUE NOT NULL,
+          lead_id INTEGER REFERENCES leads(id) ON DELETE CASCADE,
+          content JSONB NOT NULL,
+          created_by TEXT,
+          expires_at TIMESTAMPTZ NOT NULL,
+          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        );
+      `;
+      await sql`
+        CREATE INDEX IF NOT EXISTS client_previews_lead_idx
+        ON client_previews (lead_id);
+      `;
+
       await sql`CREATE SEQUENCE IF NOT EXISTS leads_customer_id_seq;`;
 
       await sql`
@@ -596,4 +614,97 @@ export async function openTasks(limit = 50): Promise<PortalTask[]> {
     LIMIT ${limit};
   `;
   return rows;
+}
+
+// ---------------------------------------------------------------------------
+// Client demos created from the sales portal
+// ---------------------------------------------------------------------------
+
+export interface ClientPreviewRow {
+  id: number;
+  slug: string;
+  lead_id: number | null;
+  content: Record<string, unknown>;
+  created_by: string | null;
+  expires_at: string;
+  created_at: string;
+}
+
+export async function getClientPreview(
+  slug: string
+): Promise<ClientPreviewRow | null> {
+  await ensureSchema();
+  const { rows } = await sql<ClientPreviewRow>`
+    SELECT * FROM client_previews WHERE slug = ${slug};
+  `;
+  return rows[0] ?? null;
+}
+
+export async function getClientPreviewForLead(
+  leadId: number
+): Promise<ClientPreviewRow | null> {
+  await ensureSchema();
+  const { rows } = await sql<ClientPreviewRow>`
+    SELECT * FROM client_previews WHERE lead_id = ${leadId}
+    ORDER BY created_at DESC LIMIT 1;
+  `;
+  return rows[0] ?? null;
+}
+
+/** Creates or replaces the demo for a company. One live demo per company. */
+export async function upsertClientPreview(
+  slug: string,
+  leadId: number,
+  content: Record<string, unknown>,
+  createdBy: string,
+  expiresAt: string
+): Promise<ClientPreviewRow | null> {
+  await ensureSchema();
+  await sql`DELETE FROM client_previews WHERE lead_id = ${leadId};`;
+  const { rows } = await sql<ClientPreviewRow>`
+    INSERT INTO client_previews (slug, lead_id, content, created_by, expires_at)
+    VALUES (
+      ${slug}, ${leadId}, ${JSON.stringify(content)}::jsonb,
+      ${createdBy}, ${expiresAt}
+    )
+    ON CONFLICT (slug) DO UPDATE SET
+      lead_id = EXCLUDED.lead_id,
+      content = EXCLUDED.content,
+      created_by = EXCLUDED.created_by,
+      expires_at = EXCLUDED.expires_at,
+      created_at = NOW()
+    RETURNING *;
+  `;
+  return rows[0] ?? null;
+}
+
+export async function extendClientPreview(
+  leadId: number,
+  hours: number
+): Promise<ClientPreviewRow | null> {
+  await ensureSchema();
+  const { rows } = await sql<ClientPreviewRow>`
+    UPDATE client_previews
+    SET expires_at = GREATEST(expires_at, NOW()) + (${hours} * INTERVAL '1 hour')
+    WHERE lead_id = ${leadId}
+    RETURNING *;
+  `;
+  return rows[0] ?? null;
+}
+
+export async function deleteClientPreview(leadId: number): Promise<boolean> {
+  await ensureSchema();
+  const { rowCount } = await sql`
+    DELETE FROM client_previews WHERE lead_id = ${leadId};
+  `;
+  return (rowCount ?? 0) > 0;
+}
+
+/** Slugs in use, so a generated one never collides. */
+export async function clientPreviewSlugTaken(slug: string): Promise<boolean> {
+  await ensureSchema();
+  const { rows } = await sql<{ count: string }>`
+    SELECT COUNT(*) AS count FROM client_previews WHERE slug = ${slug};
+  `;
+  return Number(rows[0]?.count ?? 0) > 0;
 }

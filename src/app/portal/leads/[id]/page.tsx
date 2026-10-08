@@ -1,8 +1,16 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Globe, Mail, Phone } from 'lucide-react';
+import { headers } from 'next/headers';
+import DemoBuilder from '@/components/portal/DemoBuilder';
 import LeadWorkspace from '@/components/portal/LeadWorkspace';
-import { getLead, listNotes, listTasks } from '@/lib/admin/db';
+import {
+  getClientPreviewForLead,
+  getLead,
+  listNotes,
+  listTasks,
+} from '@/lib/admin/db';
+import { DEMO_HOURS, TEMPLATE_OPTIONS } from '@/lib/portal/demoBuilder';
 import { WORKFLOWS } from '@/lib/portal/workflows';
 
 export const dynamic = 'force-dynamic';
@@ -18,7 +26,15 @@ export default async function LeadPage({
   const lead = await getLead(id);
   if (!lead) notFound();
 
-  const [notes, tasks] = await Promise.all([listNotes(id), listTasks(id)]);
+  const [notes, tasks, demo] = await Promise.all([
+    listNotes(id),
+    listTasks(id),
+    getClientPreviewForLead(id).catch(() => null),
+  ]);
+
+  const headerList = headers();
+  const host = headerList.get('host') ?? 'trueviewmediallc.com';
+  const origin = `${host.startsWith('localhost') ? 'http' : 'https'}://${host}`;
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
@@ -80,6 +96,26 @@ export default async function LeadPage({
             </a>
           )}
         </div>
+      </div>
+
+      <div className="mb-8">
+        <DemoBuilder
+          leadId={lead.id}
+          hasPhone={Boolean(lead.phone)}
+          templates={TEMPLATE_OPTIONS}
+          initialPreview={
+            demo
+              ? {
+                  slug: demo.slug,
+                  expires_at: demo.expires_at,
+                  created_by: demo.created_by,
+                  created_at: demo.created_at,
+                }
+              : null
+          }
+          origin={origin}
+          demoHours={DEMO_HOURS}
+        />
       </div>
 
       <LeadWorkspace

@@ -22,7 +22,7 @@ import {
   keysMatch,
   previewUnlockKey,
 } from '@/lib/previews/access';
-import { getPreview } from '@/lib/previews/registry';
+import { loadPreview } from '@/lib/previews/store';
 
 interface Props {
   params: { slug: string };
@@ -33,8 +33,8 @@ interface Props {
 // pages cannot be served from a build-time snapshot.
 export const dynamic = 'force-dynamic';
 
-export function generateMetadata({ params }: Props): Metadata {
-  const preview = getPreview(params.slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const preview = await loadPreview(params.slug);
   if (!preview) return { title: 'Preview not found' };
 
   const title = preview.metaTitle ?? preview.businessName;
@@ -81,7 +81,7 @@ const TEMPLATES = {
 } as const;
 
 export default async function PreviewPage({ params, searchParams }: Props) {
-  const content = getPreview(params.slug);
+  const content = await loadPreview(params.slug);
   if (!content) notFound();
 
   // The owner keeps access after expiry, either signed in to the admin or
