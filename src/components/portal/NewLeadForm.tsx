@@ -22,8 +22,8 @@ export default function NewLeadForm() {
     setError('');
 
     try {
-      // Reuses the shared leads endpoint, which assigns the customer ID.
-      const response = await fetch('/api/admin/leads', {
+      // Portal endpoint: the admin one is blocked for sales users.
+      const response = await fetch('/api/portal/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ leads: [{ ...data, source: 'portal' }] }),

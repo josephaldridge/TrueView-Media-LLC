@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutGrid, LogOut, Plus, Users } from 'lucide-react';
+import { LayoutGrid, LogOut, Plus, Radar, Users } from 'lucide-react';
 
 const LINKS = [
   { href: '/portal', label: 'Dashboard', icon: LayoutGrid, exact: true },
   { href: '/portal/leads', label: 'Companies', icon: Users, exact: false },
+  { href: '/portal/prospects', label: 'Find prospects', icon: Radar, exact: false },
 ];
 
 export default function PortalNav({

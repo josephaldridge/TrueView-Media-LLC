@@ -157,8 +157,12 @@ export default async function PortalDashboard() {
           {recent.length === 0 ? (
             <p className="text-gray-500 text-sm py-8">
               No companies yet.{' '}
+              <Link href="/portal/prospects" className="text-rose-gold">
+                Find some prospects
+              </Link>{' '}
+              or{' '}
               <Link href="/portal/leads/new" className="text-rose-gold">
-                Add the first one
+                add one by hand
               </Link>
               .
             </p>

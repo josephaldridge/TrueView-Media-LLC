@@ -12,7 +12,7 @@ Two roles, both signing in at `/admin/login` with an email and password:
 | Role | Sees | Signs in with |
 | --- | --- | --- |
 | `admin` | Everything: the portal, plus prospect finder, previews and the lead CRM | `ADMIN_EMAIL` + `ADMIN_PASSWORD` |
-| `sales` | The portal only | `SALES_EMAIL` + `SALES_PASSWORD` |
+| `sales` | The portal: companies, notes, tasks, workflows, prospect finder and the demo builder | `SALES_EMAIL` + `SALES_PASSWORD` |
 
 A sales user who tries to reach `/admin` is redirected to `/portal`, and
 `/api/admin/*` returns 403. The role is carried inside the signed session
@@ -39,6 +39,10 @@ session everywhere at once, rotate `ADMIN_SESSION_SECRET`.
 
 **Dashboard** — pipeline counts by stage, every open task across all companies
 sorted by due date with overdue ones flagged, and recent activity.
+
+**Find prospects** — searches OpenStreetMap for businesses in an area with no
+website on record, and imports the chosen ones straight into the company list.
+Available to both roles.
 
 **Companies** — searchable, filterable list. Search matches company name,
 customer ID, phone or contact name.

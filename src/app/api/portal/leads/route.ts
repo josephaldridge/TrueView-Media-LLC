@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { isAuthenticated, isSameOrigin } from '@/lib/admin/guard';
+import { getSession, isSameOrigin } from '@/lib/admin/guard';
 import {
   countLeadsByStatus,
   insertLead,
@@ -11,8 +11,16 @@ import { prepareLeads } from '@/lib/admin/leadIntake';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+/**
+ * Lead intake for the portal, open to both roles.
+ *
+ * The equivalent /api/admin/leads endpoint is blocked for sales users by
+ * middleware, which is correct for the admin tools but would stop a
+ * salesperson adding a company — hence this one.
+ */
+
 export async function GET(request: NextRequest) {
-  if (!(await isAuthenticated())) {
+  if (!(await getSession())) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
   if (!isDatabaseConfigured()) {
@@ -30,15 +38,13 @@ export async function GET(request: NextRequest) {
     ]);
     return NextResponse.json({ leads, counts });
   } catch {
-    return NextResponse.json(
-      { message: 'Could not load leads.' },
-      { status: 503 }
-    );
+    return NextResponse.json({ message: 'Could not load leads.' }, { status: 503 });
   }
 }
 
 export async function POST(request: NextRequest) {
-  if (!(await isAuthenticated()) || !isSameOrigin()) {
+  const session = await getSession();
+  if (!session || !isSameOrigin()) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
   if (!isDatabaseConfigured()) {
@@ -56,16 +62,14 @@ export async function POST(request: NextRequest) {
   }
 
   const prepared = prepareLeads(body.leads);
-
   if (!prepared.length) {
     return NextResponse.json(
-      { message: 'Nothing to save — a business name is required.' },
+      { message: 'Nothing to save — a company name is required.' },
       { status: 400 }
     );
   }
 
-  // allSettled rather than all: one bad row must not discard the rest of the
-  // batch, and the response should say what actually happened.
+  // allSettled so one bad row never discards the rest of an import.
   const results = await Promise.allSettled(
     prepared.map((lead) => insertLead(lead))
   );
@@ -81,14 +85,13 @@ export async function POST(request: NextRequest) {
     } else if (result.value) {
       added += 1;
     } else {
-      // ON CONFLICT DO NOTHING returned no row: already imported.
       skipped += 1;
     }
   });
 
   if (failed === prepared.length) {
     return NextResponse.json(
-      { message: 'Could not save leads. The database rejected the request.' },
+      { message: 'Could not save. The database rejected the request.' },
       { status: 503 }
     );
   }

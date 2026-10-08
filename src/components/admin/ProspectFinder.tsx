@@ -51,7 +51,7 @@ export default function ProspectFinder() {
     setSelected(new Set());
 
     try {
-      const response = await fetch('/api/admin/prospects', {
+      const response = await fetch('/api/portal/prospects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ area, category, requirePhone }),
@@ -114,7 +114,7 @@ export default function ProspectFinder() {
       }));
 
     try {
-      const response = await fetch('/api/admin/leads', {
+      const response = await fetch('/api/portal/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ leads: payload }),
